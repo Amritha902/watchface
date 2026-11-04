@@ -1,0 +1,14 @@
+SUBMISSION 08 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Bloom
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Bloom turns your step count into a living flower: it grows through the day and its petals open as you move, so progress is something you feel at a glance rather than a number to decode. At 10,000 steps it bursts into full bloom with drifting petals. Always-on redraws the flower as a single grey line beside the time.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/dClIQaiEugnrDNzw5sGRFR
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Bloom preview 1x1.png"  (square 1:1, under 5 MB)

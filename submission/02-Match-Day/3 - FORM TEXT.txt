@@ -1,0 +1,14 @@
+SUBMISSION 02 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Match Day
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Match Day puts a floodlit night match on your wrist: the stadium lights pulse, the crowd twinkles and a live score complication (runs, wickets, overs) reads in a single glance. Condensed Bebas digits stay large and cream-white against the deep navy sky, and in a tense final over the edge of the screen glows red with your heartbeat. The always-on state keeps only the time on true black, and a medallion variant frames the ground in a ringed circle.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/lfHmf0AWEL4PNBgcuxgbG3
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Match Day preview 1x1.png"  (square 1:1, under 5 MB)

@@ -6,16 +6,16 @@ For each entry: **Add Submission** → paste the design name, theme and concept 
 
 | # | Design name | Folder / zip | Figma file |
 |---|---|---|---|
-| 01 | Encore | `01-Encore/` · `01-Encore.zip` | https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD |
-| 02 | Match Day | `02-Match-Day/` · `02-Match-Day.zip` | https://www.figma.com/design/IDcHaADMOicH5pN6GQjgzT |
-| 03 | Petal Season | `03-Petal-Season/` · `03-Petal-Season.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 04 | Orbit 9 | `04-Orbit-9/` · `04-Orbit-9.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 05 | Northern | `05-Northern/` · `05-Northern.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 06 | Glance Deck | `06-Glance-Deck/` · `06-Glance-Deck.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 07 | Next Stop | `07-Next-Stop/` · `07-Next-Stop.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 08 | Bloom | `08-Bloom/` · `08-Bloom.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 09 | Tide | `09-Tide/` · `09-Tide.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
-| 10 | Deep Work | `10-Deep-Work/` · `10-Deep-Work.zip` | create from frames-svg/ (IMPORT-TO-FIGMA.md) |
+| 01 | Encore | `01-Encore/` · `01-Encore.zip` | https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz |
+| 02 | Match Day | `02-Match-Day/` · `02-Match-Day.zip` | https://www.figma.com/design/lfHmf0AWEL4PNBgcuxgbG3 |
+| 03 | Petal Season | `03-Petal-Season/` · `03-Petal-Season.zip` | https://www.figma.com/design/Fs5FBvEttQekJKB9GgLthI |
+| 04 | Orbit 9 | `04-Orbit-9/` · `04-Orbit-9.zip` | https://www.figma.com/design/sNU0yTJZs4gKYxI7J9hLT0 |
+| 05 | Northern | `05-Northern/` · `05-Northern.zip` | https://www.figma.com/design/L7qum1rt9LpCew269Z2qg5 |
+| 06 | Glance Deck | `06-Glance-Deck/` · `06-Glance-Deck.zip` | https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv |
+| 07 | Next Stop | `07-Next-Stop/` · `07-Next-Stop.zip` | https://www.figma.com/design/mxOUdLI0xfxt0DaLOSoTlx |
+| 08 | Bloom | `08-Bloom/` · `08-Bloom.zip` | https://www.figma.com/design/dClIQaiEugnrDNzw5sGRFR |
+| 09 | Tide | `09-Tide/` · `09-Tide.zip` | https://www.figma.com/design/LD0tsXhazvgDAslV8XVofp |
+| 10 | Deep Work | `10-Deep-Work/` · `10-Deep-Work.zip` | https://www.figma.com/design/UjcmdN2PbVrIDmIq1Yy3e8 |
 
 ---
 
@@ -110,6 +110,5 @@ For the Open Innovation theme, Deep Work wraps the time in a focus ring that cou
 ---
 
 ### Before you submit
-- In the Encore file (`B5hYSaEPQLPnF5OnTFh9uD`), **delete the old pages named "Encore" and "Entries · …"** and keep only **"Submission · 368×448"**. The old "Encore" page is an early draft that still shows real show names, which the rules forbid.
-- In the Match Day file, the time text may not have rendered in two frames; delete those frames and drag in `02-Match-Day/frames-svg/` instead (or rebuild the whole file from that folder).
-- All names (shows, characters, places) are fictional; no logos, no brand marks.
+Each folder has `START HERE.txt`. Per entry: open its Figma link, drag in `2 - FIGMA - ... .svg` (all screens on one editable board), set Share to "Anyone with the link · can edit", paste `3 - FORM TEXT.txt`, upload `1 - UPLOAD THIS ... preview 1x1.png`.
+All names (shows, characters, places) are fictional; no logos, no brand marks.

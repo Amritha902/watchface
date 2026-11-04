@@ -1,0 +1,14 @@
+SUBMISSION 09 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Tide
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Tide shows your battery as water: the level falls through the day beneath a light hairline clock, so you can judge remaining charge from across the room. At low tide the water turns warm red and the face asks you to charge soon, with an estimate of hours left. Always-on keeps a single wave line at the current level.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/LD0tsXhazvgDAslV8XVofp
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Tide preview 1x1.png"  (square 1:1, under 5 MB)
