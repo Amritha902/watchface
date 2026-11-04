@@ -8,3 +8,9 @@ fs.mkdirSync('dist', { recursive: true });
 fs.writeFileSync('dist/encore.html', html);
 fs.writeFileSync('dist/index.html', html); // Netlify / static hosting entry point
 console.log('dist/encore.html', (html.length / 1024).toFixed(1) + ' KB');
+
+// Figma-ready vector sources, served next to the demo (used to sync the Figma board)
+if (fs.existsSync('figma')) {
+  fs.mkdirSync('dist/figma', { recursive: true });
+  for (const f of fs.readdirSync('figma')) if (f.endsWith('.svg')) fs.copyFileSync(`figma/${f}`, `dist/figma/${f}`);
+}

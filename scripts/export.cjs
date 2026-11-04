@@ -24,7 +24,7 @@ const shots = [
   ['18-favourite-quiz', 'screen=quiz&face=stranger&secs=0.5'],
   ['19-medallion-stranger', 'face=stranger&edit=put it in a circle&secs=1.3'],
   ['20-medallion-friends', 'face=friends&edit=circle frame&secs=1'],
-  ['21-edited-friends', 'face=friends&play=1&edit=clock on the right, darker, serif, hide the card'],
+  ['21-edited-friends', 'face=friends&play=1&edit=clock on the left, darker, gold'],
   ['22-medallion-tokyo', 'pfx=Neon Tokyo night&edit=put it in a circle, pink'],
 ];
 const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
@@ -37,7 +37,10 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;6
     await page.goto(`${base}?t=10.15&freeze=1&${q}`, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     const svg = (await page.$eval('#screen svg', (n) => n.outerHTML)).replace('<svg ', '<svg width="396" height="484" ');
-    writeFileSync(`figma/${name}.svg`, svg);
+    // Figma-ready copy: native 368×448 (Titan kit size), single font family names
+    const fig = svg.replace('width="396" height="484"', 'width="368" height="448" preserveAspectRatio="none"')
+      .replace(/font-family="([^"]*)"/g, (m, v) => `font-family="${v.split(',')[0].replace(/'/g, '').trim()}"`);
+    writeFileSync(`figma/${name}.svg`, fig);
     await p2.setContent(`<html><head><link href="${FONTS}" rel="stylesheet"><style>html,body{margin:0;background:transparent}svg{display:block}</style></head><body>${svg}</body></html>`, { waitUntil: 'networkidle' });
     await p2.evaluate(() => document.fonts.ready);
     await p2.screenshot({ path: `exports/${name}.png`, omitBackground: true });

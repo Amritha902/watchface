@@ -19,6 +19,10 @@ const claude = has.claude ? new Anthropic() : null;
 
 // ------------------------------------------------------------------ characters
 const BUILT_IN = {
+  'flat 5b': ['Maya', 'Rohan', 'Tara', 'Kabir', 'Zoe', 'Dev'],
+  'hollow lights': ['Wren', 'Jun', 'Ellie', 'Sam', 'Noor', 'Ravi'],
+  'the mint job': ['Vega', 'Rook', 'Saffron', 'Kit', 'Marlow', 'Ines'],
+  'last round': ['Jae', 'Hana', 'Min', 'Ola', 'Teo', 'Aria'],
   'friends': ['Rachel', 'Ross', 'Monica', 'Chandler', 'Joey', 'Phoebe'],
   'stranger things': ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'],
   'money heist': ['The Professor', 'Tokyo', 'Berlin', 'Nairobi', 'Rio', 'Denver'],

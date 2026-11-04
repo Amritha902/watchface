@@ -76,7 +76,7 @@ async function openQuiz() {
   state.quiz = { show: base.show, base, chars: [] }; state.screen = 'quiz';
   let chars = [];
   try { const r = await fetch(`/api/characters?show=${encodeURIComponent(base.show)}`); if (r.ok) chars = (await r.json()).characters; } catch {}
-  if (!chars.length) chars = { friends: ['Rachel', 'Ross', 'Monica', 'Chandler', 'Joey', 'Phoebe'], stranger: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'], heist: ['The Professor', 'Tokyo', 'Berlin', 'Nairobi', 'Rio', 'Denver'], squid: ['Gi-hun', 'Sae-byeok', 'Sang-woo', 'Ali', 'Il-nam', 'The Front Man'] }[state.selected];
+  if (!chars.length) chars = { friends: ['Maya', 'Rohan', 'Tara', 'Kabir', 'Zoe', 'Dev'], stranger: ['Wren', 'Jun', 'Ellie', 'Sam', 'Noor', 'Ravi'], heist: ['Vega', 'Rook', 'Saffron', 'Kit', 'Marlow', 'Ines'], squid: ['Jae', 'Hana', 'Min', 'Ola', 'Teo', 'Aria'] }[state.selected];
   state.quiz.chars = chars.slice(0, 6);
   $('favChips').innerHTML = state.quiz.chars.map((c, i) => `<button class="chip" data-i="${i}">${c}</button>`).join('');
 }
@@ -215,8 +215,8 @@ function renderTaste() {
 
 function renderGalleryThumbs() {
   const items = [
-    [FACES.studio, 'Encore original'], [FACES.friends, 'Inspired by Friends'], [FACES.stranger, 'Inspired by Stranger Things'],
-    [FACES.heist, 'Inspired by Money Heist'], [FACES.squid, 'Inspired by Squid Game'],
+    [FACES.studio, 'Encore original'], [FACES.friends, 'Sitcom · Flat 5B'], [FACES.stranger, '80s supernatural · Hollow Lights'],
+    [FACES.heist, 'Heist · The Mint Job'], [FACES.squid, 'Survival game · Last Round'],
     [faceFromPrompt('Rainy café, cosy'), '“Rainy café, cosy”'], [faceFromPrompt('Neon Tokyo night'), '“Neon Tokyo night”'], [faceFromPrompt('Calm ocean, teal'), '“Calm ocean, teal”'],
   ];
   $('gallery').innerHTML = items.map(([f, sub], i) => {
@@ -262,7 +262,7 @@ function draw() {
 // deep-link states (used by the export script)
 if (params.has('pfx')) state.face = faceFromPrompt(params.get('pfx'));
 if (params.has('edit')) state.face = applyPatch(state.face, refineOffline(state.face, params.get('edit')).patch);
-if (state.screen === 'quiz') { const k = params.get('face') || 'stranger'; state.selected = k; state.quiz = { show: FACES[k].show, base: FACES[k], chars: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'] }; }
+if (state.screen === 'quiz') { const k = params.get('face') || 'stranger'; state.selected = k; state.quiz = { show: FACES[k].show, base: FACES[k], chars: ['Wren', 'Jun', 'Ellie', 'Sam', 'Noor', 'Ravi'] }; }
 if (params.has('play') && state.face.show) state.play = { show: state.face.show, ep: state.face.ep, left: state.face.left, total: 50 };
 if (state.screen === 'gift') { startGift(state.face, params.get('reason') || `Because you're watching ${state.face.show || 'something new'}`); if (params.has('el')) state.gift.start = secs - +params.get('el'); }
 if (state.screen === 'designing') state.designing = { face: faceFromPrompt(state.prompt || 'Rainy café'), start: secs - (+params.get('p') || 0.6) * 5 };
@@ -270,7 +270,7 @@ if (state.screen === 'gallery') state.pos = state.target = +(params.get('pos') |
 
 // ---------------- on-the-wrist renders ----------------
 function renderWrist() {
-  const face = renderHome({ face: FACES.friends, t: 10.15, secs: 2, id: 'wr', play: { show: 'Friends', ep: 'S3 · E7', left: 22, total: 50 }, day: 'WED 4' });
+  const face = renderHome({ face: FACES.friends, t: 10.15, secs: 2, id: 'wr', play: { show: 'Flat 5B', ep: 'S3 · E7', left: 22, total: 50 }, day: 'WED 4' });
   const inner = (x, y, w, h) => face.replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h}" `);
   $('wristShot').innerHTML = `<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg"><defs>
       <linearGradient id="bgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1712"/><stop offset="1" stop-color="#0b0a09"/></linearGradient>

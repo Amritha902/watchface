@@ -155,19 +155,19 @@ export const FACES = {
     timeFont: "'Inter Tight', 'Inter', sans-serif", timeWeight: 700, layout: 'center', wallpaper: studio,
   },
   friends: {
-    id: 'friends', name: 'The Apartment', show: 'Friends', service: 'Netflix', ep: 'S3 · E7', left: 22, accent: '#e9c44c', ink: '#FFF4DC',
+    id: 'friends', name: 'The Apartment', show: 'Flat 5B', genre: 'sitcom', service: 'Netflix', ep: 'S3 · E7', left: 22, accent: '#e9c44c', ink: '#FFF4DC',
     timeFont: "'Gabarito', sans-serif", timeWeight: 800, layout: 'stack', wallpaper: apartment, nudge: 'Coffee break at 4?',
   },
   stranger: {
-    id: 'stranger', name: 'Upside', show: 'Stranger Things', service: 'Netflix', ep: 'S4 · E2', left: 41, accent: '#ff3030', ink: '#ffe9e9',
+    id: 'stranger', name: 'Upside', show: 'Hollow Lights', genre: '80s supernatural', service: 'Netflix', ep: 'S4 · E2', left: 41, accent: '#ff3030', ink: '#ffe9e9',
     timeFont: "'Libre Baskerville', serif", timeWeight: 700, layout: 'glow', wallpaper: upside, nudge: 'Lights on before bed',
   },
   heist: {
-    id: 'heist', name: 'The Vault', show: 'Money Heist', service: 'Netflix', ep: 'S5 · E3', left: 33, accent: '#f3c77a', ink: '#FFE7C2',
+    id: 'heist', name: 'The Vault', show: 'The Mint Job', genre: 'heist thriller', service: 'Prime Video', ep: 'S2 · E3', left: 33, accent: '#f3c77a', ink: '#FFE7C2',
     timeFont: "'Bebas Neue', sans-serif", timeWeight: 400, layout: 'stack', wallpaper: vault, nudge: 'Stick to the plan',
   },
   squid: {
-    id: 'squid', name: 'The Game', show: 'Squid Game', service: 'Netflix', ep: 'S2 · E5', left: 18, accent: '#ff2e88', ink: '#ffffff',
+    id: 'squid', name: 'The Game', show: 'Last Round', genre: 'survival game', service: 'Netflix', ep: 'S1 · E5', left: 18, accent: '#ff2e88', ink: '#ffffff',
     timeFont: "'JetBrains Mono', monospace", timeWeight: 700, layout: 'center', wallpaper: game, nudge: 'Move: 3,000 steps to go',
   },
 };
@@ -184,10 +184,10 @@ const COLORS = { red: '#ff4d4d', blue: '#4da3ff', pink: '#ff6fb5', gold: '#f3c77
 
 export function faceFromPrompt(prompt) {
   const p = prompt.toLowerCase();
-  if (/friends|central perk|ross|rachel|chandler/.test(p)) return { ...FACES.friends, name: 'Your Apartment', fromPrompt: prompt };
-  if (/stranger|upside|hawkins|eleven/.test(p)) return { ...FACES.stranger, fromPrompt: prompt };
-  if (/heist|vault|professor|money/.test(p)) return { ...FACES.heist, fromPrompt: prompt };
-  if (/squid|game/.test(p)) return { ...FACES.squid, fromPrompt: prompt };
+  if (/friends|sitcom|flat|apartment|roommate/.test(p)) return { ...FACES.friends, name: 'Your Apartment', fromPrompt: prompt };
+  if (/stranger|upside|hollow|80s supernatural|fairy lights/.test(p)) return { ...FACES.stranger, fromPrompt: prompt };
+  if (/heist|vault|mint|bank job/.test(p)) return { ...FACES.heist, fromPrompt: prompt };
+  if (/squid|survival|last round|game show/.test(p)) return { ...FACES.squid, fromPrompt: prompt };
   let mood = MOODS.find(([re]) => re.test(p))?.[1];
   let h = 0; for (const ch of p) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   if (!mood) {

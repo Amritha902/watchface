@@ -58,25 +58,25 @@ export function renderHome(o) {
   if (medal) {
     // heart rate sits in the corner opposite the clock
     s += pos === 'left'
-      ? heart(W - 82, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`
-      : heart(48, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="62" y="62" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`;
-    s += `<text x="${ax}" y="72" text-anchor="${anchor}" ${UI} font-size="19" font-weight="600" letter-spacing="1.5" fill="#fff">${day}</text>`;
+      ? heart(W - 92, 58, 1.25 + 0.15 * pulse, '#ff4d5e') + `<text x="${W - 36}" y="66" text-anchor="end" ${UI} font-size="23" font-weight="700" fill="#fff">${hr}</text>`
+      : heart(54, 58, 1.25 + 0.15 * pulse, '#ff4d5e') + `<text x="72" y="66" ${UI} font-size="23" font-weight="700" fill="#fff">${hr}</text>`;
+    s += `<text x="${ax}" y="${pos === 'left' ? 104 : 66}" text-anchor="${anchor}" ${UI} font-size="23" font-weight="700" letter-spacing="1.5" fill="#fff">${day}</text>`;
   } else {
-    s += `<text x="38" y="62" ${UI} font-size="15" font-weight="600" letter-spacing="1.2" fill="${ink}" opacity=".9">${day}</text>`;
-    s += heart(W - 82, 57, 0.62 + 0.18 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
-    s += `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="${ink}">${hr}</text>`;
+    s += `<text x="38" y="66" ${UI} font-size="23" font-weight="700" letter-spacing="1.5" fill="${ink}">${day}</text>`;
+    s += heart(W - 92, 58, 1.25 + 0.15 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
+    s += `<text x="${W - 36}" y="66" text-anchor="end" ${UI} font-size="23" font-weight="700" fill="${ink}">${hr}</text>`;
   }
 
   // time
   const tf = `font-family="${f.timeFont.replace(/"/g, "'")}" font-weight="${aod ? 300 : f.timeWeight}"`;
   if (medal) {
-    s += `<text x="${ax}" y="${150 + 30 * (k - 1)}" text-anchor="${anchor}" ${tf} font-size="${(86 * k).toFixed(0)}" letter-spacing="-2" fill="#fff">${hh}:${mm}</text>`;
+    s += `<text x="${ax}" y="${(pos === 'left' ? 178 : 158) + 30 * (k - 1)}" text-anchor="${anchor}" ${tf} font-size="${(86 * k).toFixed(0)}" letter-spacing="-2" fill="#fff">${hh}:${mm}</text>`;
   } else if (pos) {
     s += `<text x="${ax}" y="${f.layout === 'photo' ? 146 : 280}" text-anchor="${anchor}" ${tf} font-size="${((f.layout === 'photo' ? 92 : 120) * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" ${aod ? '' : `filter="url(#${id}shadow)"`}>${hh}:${mm}</text>`;
   } else if (f.layout === 'stack') {
-    const big = (f.timeFont.includes('Bebas') ? 168 : 132) * Math.min(k, 1.12);
-    s += `<g ${aod ? '' : `filter="url(#${id}shadow)"`}><text x="34" y="${f.timeFont.includes('Bebas') ? 222 : 206}" ${tf} font-size="${big}" letter-spacing="-4" fill="${ink}">${hh.padStart(2, '0')}</text>`;
-    s += `<text x="34" y="${f.timeFont.includes('Bebas') ? 366 : 330}" ${tf} font-size="${big}" letter-spacing="-4" fill="${aod ? ink : f.accent}">${mm}</text></g>`;
+    const big = (f.timeFont.includes('Bebas') ? 150 : 128) * Math.min(k, 1.12);
+    s += `<g ${aod ? '' : `filter="url(#${id}shadow)"`}><text x="34" y="${f.timeFont.includes('Bebas') ? 206 : 202}" ${tf} font-size="${big}" letter-spacing="-4" fill="${ink}">${hh.padStart(2, '0')}</text>`;
+    s += `<text x="34" y="${f.timeFont.includes('Bebas') ? 340 : 322}" ${tf} font-size="${big}" letter-spacing="-4" fill="${aod ? ink : f.accent}">${mm}</text></g>`;
   } else if (f.layout === 'photo' && !aod) {
     s += `<text x="${W / 2}" y="146" text-anchor="middle" ${tf} font-size="${(92 * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" filter="url(#${id}shadow)">${hh}:${mm}</text>`;
   } else if (f.layout === 'glow' && !aod) {
@@ -89,21 +89,20 @@ export function renderHome(o) {
 
   if (!aod && !medal && !f.hideCard) {
     // glass complication card
-    const cy = 384, ch = 72;
-    s += `<rect x="20" y="${cy}" width="${W - 40}" height="${ch}" rx="26" fill="#0b0b10" fill-opacity=".52" stroke="#fff" stroke-opacity=".14"/>`;
+    const cy = 352, ch = 100;
+    s += `<rect x="18" y="${cy}" width="${W - 36}" height="${ch}" rx="30" fill="#0b0b10" fill-opacity=".58" stroke="#fff" stroke-opacity=".14"/>`;
     if (play) {
       const prog = clamp(1 - play.left / play.total, 0, 1);
-      s += `<rect x="34" y="${cy + 14}" width="44" height="44" rx="12" fill="${f.accent}"/>`;
-      s += `<text x="56" y="${cy + 44}" text-anchor="middle" ${UI} font-size="20" font-weight="800" fill="#111">${play.show[0]}</text>`;
-      s += `<text x="92" y="${cy + 31}" ${UI} font-size="15" font-weight="600" fill="#fff">${play.show}</text>`;
-      s += `<text x="92" y="${cy + 50}" ${UI} font-size="12.5" fill="#fff" opacity=".65">${play.ep} · ${play.left} min left</text>`;
-      s += `<rect x="92" y="${cy + 57}" width="210" height="3" rx="1.5" fill="#fff" opacity=".18"/><rect x="92" y="${cy + 57}" width="${(210 * prog).toFixed(1)}" height="3" rx="1.5" fill="${f.accent}"/>`;
-      s += `<circle cx="${W - 54}" cy="${cy + 36}" r="20" fill="#fff"/><path d="M${W - 60} ${cy + 26} L ${W - 44} ${cy + 36} L ${W - 60} ${cy + 46} Z" fill="#111"/>`;
+      s += `<rect x="32" y="${cy + 20}" width="58" height="58" rx="16" fill="${f.accent}"/>`;
+      s += `<text x="61" y="${cy + 59}" text-anchor="middle" ${UI} font-size="28" font-weight="800" fill="#111">${play.show[0]}</text>`;
+      s += `<text x="104" y="${cy + 43}" ${UI} font-size="23" font-weight="700" fill="#fff">${play.show}</text>`;
+      s += `<text x="104" y="${cy + 72}" ${UI} font-size="21" fill="#fff" opacity=".72">${play.ep.replace(' · ', ' ')} · ${play.left}m left</text>`;
+      s += `<rect x="104" y="${cy + 82}" width="196" height="4" rx="2" fill="#fff" opacity=".2"/><rect x="104" y="${cy + 82}" width="${(196 * prog).toFixed(1)}" height="4" rx="2" fill="${f.accent}"/>`;
+      s += `<circle cx="${W - 56}" cy="${cy + 50}" r="24" fill="#fff"/><path d="M${W - 63} ${cy + 38} L ${W - 44} ${cy + 50} L ${W - 63} ${cy + 62} Z" fill="#111"/>`;
     } else {
-      s += `<text x="40" y="${cy + 31}" ${UI} font-size="12" font-weight="600" letter-spacing="1" fill="#fff" opacity=".55">UP NEXT</text>`;
-      s += `<text x="40" y="${cy + 54}" ${UI} font-size="16" font-weight="600" fill="#fff">${f.nudge || 'Wind down at 10:30'}</text>`;
-      s += `<text x="${W - 40}" y="${cy + 54}" text-anchor="end" ${UI} font-size="16" font-weight="700" fill="${f.accent}">6,842</text>`;
-      s += `<text x="${W - 40}" y="${cy + 31}" text-anchor="end" ${UI} font-size="12" font-weight="600" letter-spacing="1" fill="#fff" opacity=".55">STEPS</text>`;
+      s += `<text x="38" y="${cy + 44}" ${UI} font-size="23" font-weight="700" fill="#fff">${f.nudge || 'Wind down at 10:30'}</text>`;
+      s += `<text x="38" y="${cy + 76}" ${UI} font-size="21" font-weight="600" fill="#fff" opacity=".6">Up next</text>`;
+      s += `<text x="${W - 38}" y="${cy + 76}" text-anchor="end" ${UI} font-size="23" font-weight="800" fill="${f.accent}">6,842 steps</text>`;
     }
   }
   if (!aod) s += `<rect x="${W / 2 - 18}" y="${H - 16}" width="36" height="4" rx="2" fill="#fff" opacity=".35"/>`;
@@ -128,17 +127,17 @@ function breatheLayer(id, secs, hr, k, accent) {
     s += `<circle cx="${W / 2}" cy="214" r="${r.toFixed(1)}" fill="none" stroke="${i % 2 ? '#7fd4ff' : '#9d8bff'}" stroke-width="${2 + (3 - i)}" opacity="${(0.75 - i * 0.15).toFixed(2)}"/>`;
   }
   s += `<circle cx="${W / 2}" cy="214" r="${(36 + e * 60).toFixed(1)}" fill="#7fd4ff" opacity=".12" filter="url(#${id}soft)"/>`;
-  s += `<text x="${W / 2}" y="388" text-anchor="middle" ${UI} font-size="26" font-weight="700" fill="#fff">${inhale ? 'Breathe in' : 'Breathe out'}</text>`;
-  s += `<text x="${W / 2}" y="418" text-anchor="middle" ${UI} font-size="14" fill="#fff" opacity=".6">Heart rate spiked to ${hr} bpm</text></g>`;
+  s += `<text x="${W / 2}" y="380" text-anchor="middle" ${UI} font-size="30" font-weight="700" fill="#fff">${inhale ? 'Breathe in' : 'Breathe out'}</text>`;
+  s += `<text x="${W / 2}" y="418" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".7">Heart rate ${hr} bpm</text></g>`;
   return s;
 }
 
 // ------------------------------------------------------------------ GALLERY (swipe)
 // cards: [{face, label}], pos: fractional index (animated); last card may be {create:true}
 export function renderGallery({ cards, pos, secs, t, id = 'g', day }) {
-  const cw = W * 0.7, chh = H * 0.7, cy = 52;
+  const cw = W * 0.64, chh = H * 0.64, cy = 56;
   let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
-  s += `<text x="${W / 2}" y="34" text-anchor="middle" ${UI} font-size="13" font-weight="600" letter-spacing="1.5" fill="#fff" opacity=".55">SWIPE · TAP TO WEAR</text>`;
+  s += `<text x="${W / 2}" y="40" text-anchor="middle" ${UI} font-size="21" font-weight="600" fill="#fff" opacity=".65">Swipe · tap to wear</text>`;
   cards.forEach((c, i) => {
     const d = i - pos;
     if (Math.abs(d) > 1.6) return;
@@ -148,19 +147,19 @@ export function renderGallery({ cards, pos, secs, t, id = 'g', day }) {
       s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${54 * sc}" fill="#121218" stroke="#fff" stroke-opacity=".18" stroke-dasharray="6 6"/>`;
       s += `<circle cx="${x + w / 2}" cy="${y + h / 2 - 22}" r="${34 * sc}" fill="url(#${id}cg)"/>`;
       s += `<path d="M${x + w / 2 - 12} ${y + h / 2 - 22} H ${x + w / 2 + 12} M ${x + w / 2} ${y + h / 2 - 34} V ${y + h / 2 - 10}" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
-      s += `<text x="${x + w / 2}" y="${y + h / 2 + 40}" text-anchor="middle" ${UI} font-size="${17 * sc}" font-weight="700" fill="#fff">Create your own</text>`;
-      s += `<text x="${x + w / 2}" y="${y + h / 2 + 62}" text-anchor="middle" ${UI} font-size="${12.5 * sc}" fill="#fff" opacity=".55">Describe it. We design it.</text>`;
+      s += `<text x="${x + w / 2}" y="${y + h / 2 + 40}" text-anchor="middle" ${UI} font-size="23" font-weight="700" fill="#fff">Create your own</text>`;
+      s += `<text x="${x + w / 2}" y="${y + h / 2 + 68}" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".6">Describe it</text>`;
     } else {
       const inner = renderHome({ face: c.face, t, secs, id: `${id}c${i}`, play: null, day }).replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" `);
       s += inner;
-      if (c.badge) s += `<rect x="${x + w / 2 - 52}" y="${y - 10}" width="104" height="22" rx="11" fill="${c.face.accent}"/><text x="${x + w / 2}" y="${y + 5}" text-anchor="middle" ${UI} font-size="11" font-weight="800" letter-spacing=".6" fill="#111">${c.badge}</text>`;
+      if (c.badge) s += `<rect x="${x + w / 2 - 68}" y="${y - 16}" width="136" height="32" rx="16" fill="${c.face.accent}"/><text x="${x + w / 2}" y="${y + 7}" text-anchor="middle" ${UI} font-size="21" font-weight="800" fill="#111">${c.badge}</text>`;
     }
   });
   const cur = cards[Math.round(clamp(pos, 0, cards.length - 1))];
   const title = cur.create ? 'New face' : cur.face.name;
   const sub = cur.create ? 'From a description' : cur.face.show ? `Inspired by ${cur.face.show}` : cur.face.fromPrompt ? `“${cur.face.fromPrompt}”` : 'Encore original';
-  s += `<text x="${W / 2}" y="${cy + chh + 40}" text-anchor="middle" ${UI} font-size="20" font-weight="700" fill="#fff">${title}</text>`;
-  s += `<text x="${W / 2}" y="${cy + chh + 62}" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".55">${sub.length > 34 ? sub.slice(0, 33) + '…”' : sub}</text>`;
+  s += `<text x="${W / 2}" y="${cy + chh + 36}" text-anchor="middle" ${UI} font-size="23" font-weight="700" fill="#fff">${title}</text>`;
+  s += `<text x="${W / 2}" y="${cy + chh + 62}" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".6">${sub.length > 28 ? sub.slice(0, 27) + '…”' : sub}</text>`;
   cards.forEach((_, i) => {
     const on = Math.round(pos) === i;
     s += `<circle cx="${W / 2 + (i - (cards.length - 1) / 2) * 13}" cy="${H - 26}" r="${on ? 3.6 : 2.6}" fill="#fff" opacity="${on ? 1 : 0.3}"/>`;
@@ -176,14 +175,14 @@ export function renderGift({ face, el, reason, t, secs, id = 'gf', day }) {
   const orb = ease(el / 1.4), burst = ease((el - 1.3) / 0.9), card = ease((el - 1.6) / 0.9), ui = ease((el - 2.4) / 0.6);
   s += `<circle cx="${W / 2}" cy="214" r="${(30 + 30 * orb + 260 * burst).toFixed(1)}" fill="${a}" opacity="${(0.55 * (1 - burst * 0.85)).toFixed(2)}" filter="url(#${id}soft)"/>`;
   if (el < 1.9) {
-    s += `<text x="${W / 2}" y="350" text-anchor="middle" ${UI} font-size="17" font-weight="600" fill="#fff" opacity="${(orb * (1 - burst)).toFixed(2)}">Something new, made for you…</text>`;
+    s += `<text x="${W / 2}" y="350" text-anchor="middle" ${UI} font-size="21" font-weight="600" fill="#fff" opacity="${(orb * (1 - burst)).toFixed(2)}">Something new, made for you…</text>`;
     for (let k = 0; k < 10; k++) { // sparkle ring
       const ang = (k / 10) * Math.PI * 2 + secs * 1.4, r = 70 - 30 * orb;
       s += `<circle cx="${(W / 2 + r * Math.cos(ang)).toFixed(1)}" cy="${(214 + r * Math.sin(ang)).toFixed(1)}" r="2.2" fill="#fff" opacity="${(orb * (1 - burst)).toFixed(2)}"/>`;
     }
   }
   if (card > 0) {
-    const sc = 0.22 + 0.34 * card, w = W * sc, h = H * sc, x = W / 2 - w / 2, y = 212 - h / 2 + 10 * (1 - card);
+    const sc = 0.2 + 0.3 * card, w = W * sc, h = H * sc, x = W / 2 - w / 2, y = 192 - h / 2 + 10 * (1 - card);
     s += `<rect x="${x - 3}" y="${y - 3}" width="${w + 6}" height="${h + 6}" rx="${RX * sc + 3}" fill="none" stroke="${a}" stroke-width="2" opacity="${card.toFixed(2)}"/>`;
     s += renderHome({ face, t, secs, id: id + 'p', day, play: null }).replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" opacity="${card.toFixed(2)}" `);
     // light sweep across the card
@@ -192,10 +191,12 @@ export function renderGift({ face, el, reason, t, secs, id = 'gf', day }) {
   }
   if (ui > 0) {
     s += `<g opacity="${ui.toFixed(2)}">`;
-    s += `<text x="${W / 2}" y="48" text-anchor="middle" ${UI} font-size="12.5" font-weight="700" letter-spacing="2" fill="${a}">MADE FOR YOU</text>`;
-    s += `<text x="${W / 2}" y="376" text-anchor="middle" ${UI} font-size="15" fill="#fff" opacity=".75">${reason}</text>`;
-    s += `<rect x="58" y="396" width="${W - 116}" height="48" rx="24" fill="#fff"/><text x="${W / 2}" y="426" text-anchor="middle" ${UI} font-size="17" font-weight="700" fill="#000">Wear this face</text>`;
-    s += `<text x="${W / 2}" y="468" text-anchor="middle" ${UI} font-size="14" fill="#fff" opacity=".55">Save for later</text></g>`;
+    const [r1, r2] = reason.includes('·') ? [reason, ''] : reason.replace(/^(Because .*?(watching|is your favourite)|From your description)(.*)$/, '$1|$3').split('|');
+    s += `<text x="${W / 2}" y="50" text-anchor="middle" ${UI} font-size="21" font-weight="800" letter-spacing="2" fill="${a}">MADE FOR YOU</text>`;
+    s += `<text x="${W / 2}" y="340" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".75">${r1}</text>`;
+    if (r2) s += `<text x="${W / 2}" y="368" text-anchor="middle" ${UI} font-size="23" font-weight="700" fill="#fff">${r2.trim()}</text>`;
+    s += `<rect x="48" y="384" width="${W - 96}" height="52" rx="26" fill="#fff"/><text x="${W / 2}" y="418" text-anchor="middle" ${UI} font-size="23" font-weight="700" fill="#000">Wear this face</text>`;
+    s += `<text x="${W / 2}" y="466" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".6">Save for later</text></g>`;
   }
   return open(id, s);
 }
@@ -203,8 +204,8 @@ export function renderGift({ face, el, reason, t, secs, id = 'gf', day }) {
 // ------------------------------------------------------------------ CREATE (describe it)
 export function renderCreate({ prompt, secs, id = 'cr', listening = true }) {
   let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
-  s += `<text x="${W / 2}" y="64" text-anchor="middle" ${UI} font-size="22" font-weight="700" fill="#fff">Describe your face</text>`;
-  s += `<text x="${W / 2}" y="90" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".55">Speak, scribble or type on your phone</text>`;
+  s += `<text x="${W / 2}" y="66" text-anchor="middle" ${UI} font-size="27" font-weight="700" fill="#fff">Describe your face</text>`;
+  s += `<text x="${W / 2}" y="96" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".6">Say it, or type on your phone</text>`;
   // listening orb
   for (let i = 0; i < 3; i++) {
     const r = 46 + 10 * Math.sin(secs * 3 + i * 1.3) * (listening ? 1 : 0.2) + i * 8;
@@ -213,11 +214,11 @@ export function renderCreate({ prompt, secs, id = 'cr', listening = true }) {
   s += `<path d="M${W / 2} 192 v 20 M ${W / 2 - 12} 206 a 12 12 0 0 0 24 0 M ${W / 2} 220 v 8" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
   s += `<rect x="${W / 2 - 7}" y="186" width="14" height="26" rx="7" fill="#fff"/>`;
   const text = prompt ? `“${prompt}”` : 'e.g. “a rainy café in Mumbai”';
-  const lines = wrap(text, 26);
+  const lines = wrap(text, 22);
   lines.slice(0, 3).forEach((ln, i) => {
-    s += `<text x="${W / 2}" y="${318 + i * 26}" text-anchor="middle" ${UI} font-size="19" font-weight="${prompt ? 600 : 400}" fill="#fff" opacity="${prompt ? 1 : 0.4}">${ln}</text>`;
+    s += `<text x="${W / 2}" y="${312 + i * 30}" text-anchor="middle" ${UI} font-size="23" font-weight="${prompt ? 600 : 400}" fill="#fff" opacity="${prompt ? 1 : 0.4}">${ln}</text>`;
   });
-  if (prompt) s += `<rect x="58" y="404" width="${W - 116}" height="48" rx="24" fill="#fff"/><text x="${W / 2}" y="434" text-anchor="middle" ${UI} font-size="17" font-weight="700" fill="#000">Design it</text>`;
+  if (prompt) s += `<rect x="48" y="396" width="${W - 96}" height="54" rx="27" fill="#fff"/><text x="${W / 2}" y="431" text-anchor="middle" ${UI} font-size="23" font-weight="700" fill="#000">Design it</text>`;
   return open(id, s, `<radialGradient id="${id}og"><stop offset="0" stop-color="#ff5fa2"/><stop offset=".6" stop-color="#7b5cff"/><stop offset="1" stop-color="#2a1d6b"/></radialGradient>`);
 }
 
@@ -229,8 +230,8 @@ export function renderDesigning({ face, p, step, secs, id = 'ds' }) {
   s += `<g opacity="${ease(p).toFixed(2)}">` + renderHome({ face, t: 10.15, secs, id: id + 'p', play: null }).replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h}" `) + `</g>`;
   const sh = x - 60 + ((secs * 160) % (w + 120));
   s += `<rect x="${sh.toFixed(1)}" y="${y}" width="50" height="${h}" fill="#fff" opacity=".12" transform="skewX(-15)" clip-path="url(#${id}clip)"/>`;
-  s += `<text x="${W / 2}" y="362" text-anchor="middle" ${UI} font-size="13" font-weight="700" letter-spacing="2" fill="${face.accent}">DESIGNING · ${Math.round(p * 100)}%</text>`;
-  s += `<text x="${W / 2}" y="392" text-anchor="middle" ${UI} font-size="16" fill="#fff">${step}</text>`;
+  s += `<text x="${W / 2}" y="362" text-anchor="middle" ${UI} font-size="21" font-weight="800" letter-spacing="1.5" fill="${face.accent}">DESIGNING · ${Math.round(p * 100)}%</text>`;
+  s += `<text x="${W / 2}" y="394" text-anchor="middle" ${UI} font-size="21" fill="#fff">${step}</text>`;
   s += `<rect x="78" y="420" width="${W - 156}" height="4" rx="2" fill="#fff" opacity=".15"/><rect x="78" y="420" width="${((W - 156) * p).toFixed(1)}" height="4" rx="2" fill="${face.accent}"/>`;
   return open(id, s);
 }
@@ -245,18 +246,18 @@ function wrap(text, n) {
 // ------------------------------------------------------------------ FAVOURITE CHARACTER QUIZ
 export function renderQuiz({ show, chars, secs, accent = '#fff', id = 'qz' }) {
   let s = `<rect width="${W}" height="${H}" fill="#000"/><circle cx="${W / 2}" cy="-40" r="220" fill="${accent}" opacity=".18" filter="url(#${id}soft)"/>`;
-  s += `<text x="${W / 2}" y="62" text-anchor="middle" ${UI} font-size="12.5" font-weight="700" letter-spacing="2" fill="${accent}">${show.toUpperCase()}</text>`;
-  s += `<text x="${W / 2}" y="98" text-anchor="middle" ${UI} font-size="24" font-weight="700" fill="#fff">Who's your favourite?</text>`;
+  s += `<text x="${W / 2}" y="62" text-anchor="middle" ${UI} font-size="21" font-weight="800" letter-spacing="1.5" fill="${accent}">${show.toUpperCase()}</text>`;
+  s += `<text x="${W / 2}" y="100" text-anchor="middle" ${UI} font-size="27" font-weight="700" fill="#fff">Who's your favourite?</text>`;
   const list = chars.slice(0, 6);
   if (!list.length) s += `<text x="${W / 2}" y="240" text-anchor="middle" ${UI} font-size="15" fill="#fff" opacity=".6">Looking up the cast…</text>`;
   list.forEach((c, i) => {
-    const x = i % 2 ? W / 2 + 6 : 34, y = 130 + Math.floor(i / 2) * 78, w = W / 2 - 40;
+    const x = i % 2 ? W / 2 + 6 : 24, y = 128 + Math.floor(i / 2) * 82, w = W / 2 - 30;
     const pulse = 0.12 + 0.05 * Math.sin(secs * 2 + i);
-    s += `<rect x="${x}" y="${y}" width="${w}" height="64" rx="22" fill="#fff" fill-opacity="${pulse.toFixed(2)}" stroke="#fff" stroke-opacity=".18"/>`;
-    s += `<circle cx="${x + 30}" cy="${y + 32}" r="16" fill="${accent}"/><text x="${x + 30}" y="${y + 38}" text-anchor="middle" ${UI} font-size="15" font-weight="800" fill="#111">${c[0]}</text>`;
-    s += `<text x="${x + 54}" y="${y + 38}" ${UI} font-size="${c.length > 10 ? 13 : 15}" font-weight="600" fill="#fff">${c.length > 13 ? c.slice(0, 12) + '…' : c}</text>`;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="68" rx="24" fill="#fff" fill-opacity="${pulse.toFixed(2)}" stroke="#fff" stroke-opacity=".18"/>`;
+    s += `<circle cx="${x + 30}" cy="${y + 32}" r="18" fill="${accent}"/><text x="${x + 30}" y="${y + 40}" text-anchor="middle" ${UI} font-size="21" font-weight="800" fill="#111">${c[0]}</text>`;
+    s += `<text x="${x + 54}" y="${y + 38}" ${UI} font-size="23" font-weight="600" fill="#fff">${c.length > 8 ? c.slice(0, 7) + '…' : c}</text>`;
   });
-  s += `<text x="${W / 2}" y="${H - 34}" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".5">We'll design a face around their world</text>`;
+  s += `<text x="${W / 2}" y="${H - 30}" text-anchor="middle" ${UI} font-size="21" fill="#fff" opacity=".6">A face around their world</text>`;
   return open(id, s);
 }
-export const QUIZ_HIT = (sx, sy) => { const r = Math.floor((sy - 130) / 78), c = sx > W / 2 ? 1 : 0; return sy >= 130 && r >= 0 && r < 3 ? r * 2 + c : -1; };
+export const QUIZ_HIT = (sx, sy) => { const r = Math.floor((sy - 128) / 82), c = sx > W / 2 ? 1 : 0; return sy >= 128 && r >= 0 && r < 3 ? r * 2 + c : -1; };
