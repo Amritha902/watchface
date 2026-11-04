@@ -3,264 +3,193 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PRAHAR Watch Face</title>
-<meta name="description" content="PRAHAR — a living 24-hour watch face that tells time in the eight Indian prahars, which stretch with the real sunrise and sunset.">
+<title>Encore Watch Faces</title>
+<meta name="description" content="Encore — watch faces personalised from what you stream, gifted to your wrist, or designed from a sentence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Special+Elite&family=UnifrakturMaguntia&family=IBM+Plex+Mono:wght@300;500&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #07080d; --panel: #10131c; --line: #22283a; --text: #eef0f6; --muted: #9aa3b8;
-    --gold: #FFC857; --pink: #FF9EC4; --violet: #C79BFF;
-  }
+  :root { --bg: #000; --panel: #0e0e12; --line: #1f1f27; --text: #f5f5f7; --muted: #8e8e98; --accent: #8d8dff; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: Outfit, system-ui, sans-serif; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   body { overflow-x: hidden; }
-  a { color: var(--gold); }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  button { font: inherit; }
 
-  header.hero { padding: 40px 0 8px; }
-  .eyebrow { letter-spacing: .3em; font-size: 12px; color: var(--muted); text-transform: uppercase; }
-  h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 200; margin: 6px 0 4px; letter-spacing: -.02em; }
-  h1 b { font-weight: 600; background: linear-gradient(90deg, #FFD166, #FF8C61, #C79BFF, #74CFFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .tag { font-size: clamp(17px, 2.2vw, 22px); color: var(--muted); max-width: 720px; line-height: 1.45; font-weight: 300; }
-  .deva { font-family: 'Noto Sans Devanagari', Outfit, sans-serif; }
+  header.hero { padding: 72px 0 12px; text-align: center; }
+  .eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: clamp(56px, 11vw, 128px); font-weight: 800; letter-spacing: -.045em; margin: 10px 0 0; line-height: .95;
+       background: linear-gradient(180deg, #fff 30%, #9a9aa6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tag { font-size: clamp(20px, 2.6vw, 28px); color: var(--muted); margin: 18px auto 0; max-width: 760px; line-height: 1.35; font-weight: 500; letter-spacing: -.01em; }
+  .tag b { color: var(--text); font-weight: 600; }
 
-  .stage { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; padding: 28px 0 40px; }
-  @media (max-width: 860px) { .stage { grid-template-columns: 1fr; gap: 24px; } }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 48px 0 80px; }
+  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; gap: 32px; } }
+  .stage > .left { position: sticky; top: 24px; }
+  @media (max-width: 900px) { .stage > .left { position: static; } }
 
-  .watch { position: relative; width: min(100%, 470px); aspect-ratio: 1; margin: 0 auto; }
-  .case { position: absolute; inset: 0; border-radius: 50%;
-    background: radial-gradient(circle at 30% 25%, #4a4f5c, #1b1e25 55%, #0b0c10);
-    box-shadow: 0 40px 80px -20px #000, inset 0 2px 3px rgba(255,255,255,.25), inset 0 -3px 6px rgba(0,0,0,.6); }
-  .bezel { position: absolute; inset: 4.5%; border-radius: 50%; background: #000; box-shadow: inset 0 0 0 2px #2a2e38; }
-  .screen { position: absolute; inset: 7%; border-radius: 50%; overflow: hidden; cursor: pointer; }
+  .watch { position: relative; width: min(70vw, 330px); aspect-ratio: 396 / 484; margin: 90px auto 96px; }
+  .watch::before { content: ''; position: absolute; inset: -30% -40%; z-index: -2; border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 45%, transparent), transparent 70%);
+    filter: blur(40px); opacity: .7; transition: background 1s ease; }
+  .band { position: absolute; left: 12%; width: 76%; height: 42%; z-index: -1;
+    background: linear-gradient(90deg, #0b0b0e, #1c1c22 20%, #24242b 50%, #1c1c22 80%, #0b0b0e); }
+  .band.top { bottom: 90%; border-radius: 40px 40px 8px 8px; }
+  .band.bot { top: 90%; border-radius: 8px 8px 40px 40px; }
+  .band::after { content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: repeating-linear-gradient(0deg, transparent 0 22px, rgba(255,255,255,.03) 22px 23px); }
+  .case { position: absolute; inset: -5.5%; border-radius: 27% / 23%; z-index: 0;
+    background: linear-gradient(145deg, #e8e8ec 0%, #9b9ba3 18%, #5a5a62 45%, #2a2a30 60%, #7c7c85 85%, #c9c9cf 100%);
+    box-shadow: 0 60px 90px -30px rgba(0,0,0,.9), inset 0 1px 1px rgba(255,255,255,.7), inset 0 -2px 3px rgba(0,0,0,.5); }
+  .glass { position: absolute; inset: -2.2%; border-radius: 25% / 21%; background: #000; z-index: 1; box-shadow: inset 0 0 0 1.5px #2b2b31; }
+  .screen { position: absolute; inset: 0; border-radius: 23.2% / 19%; overflow: hidden; z-index: 2; cursor: grab; touch-action: pan-y; user-select: none; }
+  .screen:active { cursor: grabbing; }
   .screen svg { width: 100%; height: 100%; display: block; }
-  .crown { position: absolute; right: -3.2%; top: 41%; width: 5%; height: 18%; border-radius: 6px;
-    background: repeating-linear-gradient(0deg, #3a3e48 0 3px, #22252c 3px 6px); box-shadow: 0 2px 6px #000; }
-  .hint { text-align: center; color: var(--muted); font-size: 13px; margin-top: 14px; }
+  .screen::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 32%); }
+  .crown { position: absolute; right: -10.5%; top: 16%; width: 7.5%; height: 15%; border-radius: 6px; z-index: 0; cursor: pointer;
+    background: repeating-linear-gradient(0deg, #c9c9cf 0 2px, #6a6a72 2px 4px); box-shadow: 0 2px 6px #000; }
+  .sidebtn { position: absolute; right: -8%; top: 40%; width: 4%; height: 20%; border-radius: 4px; z-index: 0; background: linear-gradient(90deg, #6a6a72, #c9c9cf); }
+  .watchctl { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .hint { text-align: center; color: var(--muted); font-size: 13px; margin-top: 12px; }
 
-  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
-  .readout { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
-  .readout div { flex: 1 1 120px; }
-  .readout small { display: block; color: var(--muted); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
-  .readout span { font-size: 20px; font-weight: 500; }
-  .seg { display: inline-flex; background: #0a0c12; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
-  .seg button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
-  .seg button.on { background: #23293a; color: var(--text); }
-  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
-  label.ctl { display: block; margin: 14px 0 4px; font-size: 13px; color: var(--muted); }
-  label.ctl b { color: var(--text); font-weight: 500; }
-  input[type=range] { width: 100%; accent-color: var(--gold); }
-  select, .btn { background: #0a0c12; color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; cursor: pointer; }
-  .btn:hover, select:hover { border-color: #3a4260; }
+  .panels { display: grid; gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 24px; }
+  .panel h3 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .panel .step { font-size: 12px; font-weight: 700; color: #000; background: var(--text); border-radius: 999px; width: 22px; height: 22px; display: inline-grid; place-items: center; }
+  .panel p.sub { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 8px 0 16px; }
+  .btn { background: #1b1b22; color: var(--text); border: 1px solid #2a2a33; border-radius: 999px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn:hover { border-color: #45454f; }
+  .btn.white { background: #fff; color: #000; border-color: #fff; }
+  .btn.red { background: #2a0d12; border-color: #5c1a25; color: #ffc2cb; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip { border: 1px solid #2a2a33; background: #121218; color: var(--text); border-radius: 999px; padding: 8px 14px; font-size: 13px; cursor: pointer; }
+  .services { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .svc { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: #121218; border: 1px solid #2a2a33; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); }
+  .svc i { width: 8px; height: 8px; border-radius: 50%; background: #3a3a44; }
+  .svc.on i { background: #33d17a; box-shadow: 0 0 8px #33d17a; }
+  .shows { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  @media (max-width: 520px) { .shows { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .show { aspect-ratio: 2/3; border-radius: 14px; border: 2px solid transparent; cursor: pointer; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end;
+    font-weight: 800; font-size: 14px; color: #fff; text-align: left; letter-spacing: -.01em; position: relative; overflow: hidden; }
+  .show small { font-weight: 500; font-size: 11px; opacity: .75; }
+  .show.on { border-color: #fff; }
+  .show .pl { position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 700; background: rgba(0,0,0,.5); padding: 3px 7px; border-radius: 999px; display: none; }
+  .show.on .pl { display: block; }
+  .taste { font-size: 13px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
+  .taste b { color: var(--text); font-weight: 600; }
+  textarea { width: 100%; min-height: 84px; resize: vertical; background: #121218; color: var(--text); border: 1px solid #2a2a33; border-radius: 16px; padding: 14px; font: inherit; font-size: 16px; }
+  textarea:focus { outline: none; border-color: #5a5a66; }
+  label.ctl { display: flex; justify-content: space-between; margin: 14px 0 6px; font-size: 13px; color: var(--muted); }
+  label.ctl b { color: var(--text); }
+  input[type=range] { width: 100%; accent-color: #ff4d5e; }
 
-  .ringbar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; margin: 10px 0 4px; gap: 2px; }
-  .ringbar i { display: block; height: 100%; }
-  .ringlab { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
-
-  section { padding: 56px 0; border-top: 1px solid var(--line); }
-  h2 { font-weight: 300; font-size: clamp(28px, 4vw, 40px); margin: 0 0 8px; }
-  h2 + p { color: var(--muted); max-width: 760px; line-height: 1.6; margin-top: 0; }
-  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 24px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
-  .card h3 { margin: 0 0 6px; font-weight: 500; font-size: 18px; }
+  section { padding: 96px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -.035em; margin: 0 0 12px; line-height: 1.02; }
+  h2 + p { color: var(--muted); font-size: 20px; max-width: 760px; line-height: 1.45; margin: 0; }
+  .steps4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 40px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 24px; }
+  .card .n { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .1em; }
+  .card h3 { margin: 10px 0 8px; font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
   .card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
-  .num { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #23293a; font-size: 13px; margin-right: 8px; }
-
-  table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
-  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
-  th { color: var(--muted); font-weight: 400; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-  td .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
-  .tablewrap { overflow-x: auto; }
-
-  .thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-top: 24px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; margin-top: 48px; }
   .thumb { text-align: center; }
-  .thumb .face { width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 6px #15171e, 0 0 0 7px #2a2e38, 0 20px 40px -10px #000; }
-  .thumb .face svg { width: 100%; height: 100%; display: block; }
-  .thumb p { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
-  .thumb p b { color: var(--text); font-weight: 500; display: block; }
-
-  .stage > div:first-child { position: sticky; top: 16px; align-self: start; }
-  @media (max-width: 860px) { .stage > div:first-child { position: static; } }
-  .side { display: grid; gap: 16px; }
-  .panel h3 { margin: 0 0 4px; font-weight: 500; font-size: 20px; display: flex; align-items: center; gap: 10px; }
-  .panel h3 .pill { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #111; background: var(--gold); border-radius: 999px; padding: 3px 8px; }
-  .panel .sub { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 12px; }
-  .btn.primary { background: var(--gold); color: #111; border-color: var(--gold); font-weight: 600; }
-  .btn.danger { background: #3a0f17; border-color: #6b1a28; color: #ffd0d6; }
-  .bpm { font-size: 34px; font-weight: 600; color: #FF4D5E; font-variant-numeric: tabular-nums; }
-  .phone { display: flex; gap: 12px; align-items: center; background: #0a0c12; border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 12px; }
-  .phone .np { width: 46px; height: 46px; border-radius: 10px; background: #E50914; display: grid; place-items: center; font-weight: 700; flex: none; }
-  .phone .meta { flex: 1; min-width: 0; }
-  .phone .meta small { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; display: block; }
-  .phone select, .phone input { width: 100%; margin-top: 4px; }
-  input[type=text] { background: #0a0c12; color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; }
-  .chars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
-  .char { background: #0a0c12; border: 1px solid var(--line); border-radius: 14px; padding: 10px; cursor: pointer; text-align: center; color: var(--text); font: inherit; }
-  .char:hover, .char.on { border-color: var(--gold); }
-  .char .face { width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
-  .char .face svg { width: 100%; height: 100%; display: block; }
-  .char b { display: block; margin-top: 8px; font-weight: 500; font-size: 14px; }
-  .char span { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
-  .steps { list-style: none; padding: 0; margin: 12px 0 0; font-size: 14px; color: var(--muted); }
-  .steps li { padding: 3px 0; } .steps li.done { color: #7CE0A3; } .steps li.now { color: var(--text); }
-  .hidden { display: none !important; }
-  footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+  .thumb .f { aspect-ratio: 396/484; border-radius: 23.2% / 19%; overflow: hidden; box-shadow: 0 0 0 6px #1a1a1f, 0 0 0 7px #34343c, 0 30px 50px -20px #000; }
+  .thumb .f svg { width: 100%; height: 100%; display: block; }
+  .thumb b { display: block; margin-top: 18px; font-weight: 700; font-size: 16px; }
+  .thumb span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 28px; }
+  footer { padding: 48px 0 72px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); text-align: center; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Watch Face Design Challenge 2026 · Open Innovation</div>
-    <h1><b>PRAHAR</b> <span class="deva" style="font-weight:300">प्रहर</span></h1>
-    <p class="tag">A living 24-hour watch face that tells time the way India once felt it. Eight <em>prahars</em> that stretch and shrink with the real sunrise and sunset, so your wrist follows the sky, the seasons and your body clock. It beats with your heart, and it can dress itself up as the show you're binging.</p>
+    <h1>Encore.</h1>
+    <p class="tag">A watch face that knows what you love. It <b>notices what you're watching</b>, <b>gifts you a face</b> made for it, and <b>designs one from a sentence</b>.</p>
   </header>
 
   <div class="stage">
-    <div>
-      <div class="watch">
-        <div class="case"></div><div class="bezel"></div>
-        <div class="screen" id="screen" title="Tap to switch English / हिंदी"></div>
-        <div class="crown"></div>
+    <div class="left">
+      <div class="watch" id="watch">
+        <div class="band top"></div><div class="band bot"></div>
+        <div class="case"></div><div class="glass"></div>
+        <div class="crown" id="crown" title="Digital crown: back to the face"></div><div class="sidebtn"></div>
+        <div class="screen" id="screen"></div>
       </div>
-      <p class="hint">Tap the face to switch English ⇄ हिंदी · drag the sliders to travel through time</p>
+      <div class="watchctl">
+        <button class="btn" id="swipeBtn">⟵ Swipe for faces</button>
+        <button class="btn" id="homeBtn">Crown · Home</button>
+        <button class="btn" id="aodBtn">Always-on</button>
+      </div>
+      <p class="hint">Drag the screen sideways to swipe · tap a card to wear it</p>
     </div>
 
-    <div class="side">
-    <div class="panel">
-      <div class="readout">
-        <div><small>Now in</small><span id="rPrahar">–</span></div>
-        <div><small>Sunrise</small><span id="rSr">–</span></div>
-        <div><small>Sunset</small><span id="rSs">–</span></div>
-        <div><small>Daylight</small><span id="rDay">–</span></div>
+    <div class="panels">
+      <div class="panel">
+        <h3><span class="step">1</span> Watch something</h3>
+        <p class="sub">Encore's phone app sees what's playing on your streaming apps and builds a private taste profile on the phone. When a new favourite shows up, your watch gets a gift.</p>
+        <div class="services" id="services">
+          <button class="svc on"><i></i>Netflix</button>
+          <button class="svc on"><i></i>Prime Video</button>
+          <button class="svc"><i></i>JioHotstar</button>
+        </div>
+        <div class="shows" id="shows"></div>
+        <div class="row"><button class="btn white" id="playBtn">▶ Press play</button><span id="playState" style="color:var(--muted);font-size:13px"></span></div>
+        <div class="taste" id="taste"></div>
       </div>
 
-      <div class="row">
-        <div class="seg" id="modeSeg">
-          <button data-mode="live" class="on">Live</button>
-          <button data-mode="day">Play a day</button>
-          <button data-mode="year">Play a year</button>
-          <button data-mode="manual">Manual</button>
+      <div class="panel">
+        <h3><span class="step">2</span> Or just describe it</h3>
+        <p class="sub">Swipe to the last card on the watch, or type here. Encore turns a sentence into a full face: wallpaper, type and palette.</p>
+        <textarea id="prompt" placeholder="A rainy café in Mumbai, warm and cosy…"></textarea>
+        <div class="row" style="margin-top:10px" id="chips">
+          <button class="chip">Rainy café, cosy</button><button class="chip">Neon Tokyo night</button>
+          <button class="chip">Calm ocean, teal</button><button class="chip">Retro 80s sunset</button><button class="chip">Misty forest hike</button>
         </div>
-      </div>
-      <div class="row">
-        <div class="seg" id="dispSeg">
-          <button data-aod="0" class="on">Active</button>
-          <button data-aod="1">Always-on</button>
-        </div>
-        <div class="seg" id="langSeg">
-          <button data-lang="en" class="on">EN</button>
-          <button data-lang="hi" class="deva">हिं</button>
-        </div>
-        <select id="city" aria-label="City"></select>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="designBtn">Design it</button></div>
       </div>
 
-      <label class="ctl" for="time">Time of day <b id="timeLbl"></b></label>
-      <input type="range" id="time" min="0" max="1439" step="1">
-      <label class="ctl" for="doy">Date <b id="doyLbl"></b></label>
-      <input type="range" id="doy" min="1" max="365" step="1">
-
-      <label class="ctl">Today's eight prahars (length changes with the season)</label>
-      <div class="ringbar" id="ringbar"></div>
-      <div class="ringlab"><span>Sunrise</span><span>Sunset</span><span>Next sunrise</span></div>
-    </div>
-
-    <div class="panel" id="heartPanel">
-      <h3>Heart sync <span class="pill">New</span></h3>
-      <p class="sub">The face beats with you. Above 95 bpm the edge glows red on every beat and the whole screen throbs from bright to dim. A live ECG trace replaces the stats. If your heart rate spikes, a breathing ring takes over to guide you back down: 4 seconds in, 6 seconds out.</p>
-      <div class="row" style="justify-content:space-between">
-        <div><div class="bpm"><span id="bpm">72</span> <small style="font-size:14px;color:var(--muted)">bpm</small></div></div>
-        <div class="row" style="margin:0">
-          <button class="btn danger" id="spikeBtn">Simulate a spike</button>
-          <button class="btn" id="hrAuto">Auto</button>
-        </div>
+      <div class="panel">
+        <h3><span class="step">3</span> It beats with you</h3>
+        <p class="sub">Whatever face you wear, the heart rate pulses live. When your heart races, the screen edge glows red on every beat. After a sudden spike, a breathing guide takes over.</p>
+        <div class="row"><button class="btn red" id="spikeBtn">Simulate a spike</button><button class="btn" id="hrAuto">Auto</button></div>
+        <label class="ctl" for="hr"><span>Heart rate</span><b id="hrLbl">72 bpm</b></label>
+        <input type="range" id="hr" min="50" max="180" value="72">
       </div>
-      <label class="ctl" for="hr">Heart rate <b id="hrLbl">auto</b></label>
-      <input type="range" id="hr" min="45" max="185" step="1" value="72">
-    </div>
-
-    <div class="panel" id="bingePanel">
-      <h3>Binge Match <span class="pill">New</span></h3>
-      <p class="sub">Your phone already knows what you're watching. When a new series starts, the watch offers a face inspired by it. Pick a character and it designs one for you, built on the same prahar engine.</p>
-      <div class="phone">
-        <div class="np">▶</div>
-        <div class="meta"><small>Now playing on your phone</small>
-          <select id="showSel" aria-label="Show">
-            <option value="dark">Dark · S1 E4</option>
-            <option value="deathnote">Death Note · Ep 7</option>
-            <option value="other">Something else…</option>
-          </select>
-          <input type="text" id="showOther" class="hidden" placeholder="Type any show title">
-        </div>
-      </div>
-      <div class="row">
-        <button class="btn primary" id="detectBtn">Detect &amp; suggest a face</button>
-        <button class="btn" id="classicBtn">Back to classic PRAHAR</button>
-      </div>
-      <div id="pickArea" class="hidden">
-        <p class="sub" style="margin:12px 0 0">Who's your character?</p>
-        <div class="chars" id="chars"></div>
-      </div>
-      <ul class="steps hidden" id="steps"></ul>
-    </div>
     </div>
   </div>
 </div>
 
 <section><div class="wrap">
-  <h2>The idea</h2>
-  <p>Every smartwatch gives us the time to the second. Hardly any tell us <em>what kind of time it is</em>. Indian tradition split the day into eight <em>prahars</em> of about three hours: four for daylight, four for night, each measured from the actual sunrise. PRAHAR brings that idea onto the wrist. Your day becomes eight glanceable chapters tied to the real sky, and each chapter carries a quiet nudge drawn from modern circadian science.</p>
-  <div class="grid3">
-    <div class="card"><h3>Beyond the dial</h3><p>There are no hands and no 12-hour circle. The sun (or the moon, in its real phase) travels a 24-hour ring: noon at the top, midnight at the bottom, sunrise on the left, sunset on the right.</p></div>
-    <div class="card"><h3>A dial that breathes</h3><p>The prahars are computed from your real sunrise and sunset. In Oslo in June, the daylight chapters stretch to almost 5 hours. In December they shrink to 90 minutes. No two days look exactly alike.</p></div>
-    <div class="card"><h3>Heritage × wellness</h3><p>Each prahar pairs a traditional name with a nudge: Brahma muhurta for breathing, Madhyahna for deep focus, Pradosha for unplugging. It's a wellness coach that never sends a notification.</p></div>
+  <h2>From binge to wrist.</h2>
+  <p>No menus, no hunting through face galleries. Encore pays attention, then makes something just for you.</p>
+  <div class="steps4">
+    <div class="card"><div class="n">01 · NOTICE</div><h3>Knows what's playing</h3><p>On Android, the phone app reads what's playing on Netflix, Prime Video and other apps through the system's media controls. It only does this with your permission, and it all stays on the phone.</p></div>
+    <div class="card"><div class="n">02 · LEARN</div><h3>Builds your taste</h3><p>The shows you finish, rewatch or binge build a private taste profile. Encore waits for a real favourite instead of reacting to every trailer.</p></div>
+    <div class="card"><div class="n">03 · GIFT</div><h3>A face, made for you</h3><p>You glance down and see “Made for you · Because you're watching Friends.” One tap and you're wearing it, with your show's progress built in.</p></div>
+    <div class="card"><div class="n">04 · CREATE</div><h3>Or describe anything</h3><p>“Rainy café”, “neon Tokyo”, “calm ocean”. Say it and Encore composes the wallpaper, typography and colour for you.</p></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <h2>Anatomy of the face</h2>
-  <p>Built for a 466 × 466 round AMOLED panel. All the information sits inside three rings, and you can read it in under a second.</p>
-  <div class="grid3">
-    <div class="card"><h3><span class="num">1</span>Prahar ring</h3><p>Eight coloured arcs, one per prahar. The current one fills up as it passes, so you can see how much of this chapter is left.</p></div>
-    <div class="card"><h3><span class="num">2</span>Sun / Moon hand</h3><p>The single "hand" is the sun by day. By night it becomes the moon, drawn in tonight's real phase.</p></div>
-    <div class="card"><h3><span class="num">3</span>Sky background</h3><p>The gradient follows the real sky: indigo pre-dawn, rose dawn, blue noon, golden hour, then stars come out at night.</p></div>
-    <div class="card"><h3><span class="num">4</span>Sunrise, sunset &amp; Brahma muhurta</h3><p>Gold dots mark today's sunrise and sunset. A pink arc marks Brahma muhurta, the 48-minute window that ends 48 minutes before sunrise.</p></div>
-    <div class="card"><h3><span class="num">5</span>Time + prahar + nudge</h3><p>Large digital time, the prahar name in English and Devanagari, a contextual nudge chip, and a countdown to the next prahar.</p></div>
-    <div class="card"><h3><span class="num">6</span>Health complications</h3><p>Heart rate, steps and battery, kept quiet at the bottom. The always-on mode drops to thin outlines on true black to protect battery and avoid burn-in.</p></div>
+  <h2>The collection.</h2>
+  <p>Each face is a full scene, not a background image: the lights flicker, the vault turns, steam rises from the mug. They're all made of vectors, so they stay sharp and light on the battery.</p>
+  <div class="gallery" id="gallery"></div>
+  <p class="note">All artwork here is original. It evokes each show's world without using logos, stills or likenesses. In production, official artwork would come through studio licensing, a natural partnership for Titan.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Built to ship.</h2>
+  <div class="steps4">
+    <div class="card"><h3>Private by design</h3><p>Viewing data never leaves the phone. The watch only receives finished faces. Every connection is opt-in and can be revoked.</p></div>
+    <div class="card"><h3>Honest about platforms</h3><p>Android's media controls and notification access make automatic detection possible. iOS doesn't allow it, so iPhone users connect by picking shows or importing their viewing history.</p></div>
+    <div class="card"><h3>Always-on aware</h3><p>The always-on view drops the wallpaper to true black and keeps only thin type, which saves battery and avoids burn-in.</p></div>
+    <div class="card"><h3>Generator, not a gallery</h3><p>Faces are built from parts (motif, palette, type, layout) instead of image files. A face can be made in seconds on the phone, and new shows only need new motifs.</p></div>
   </div>
 </div></section>
 
-<section><div class="wrap">
-  <h2>Five moments, one face</h2>
-  <p>The same design rendered live at different times in <span id="thumbCity"></span>. Everything below is generated by the face engine, not drawn by hand.</p>
-  <div class="thumbs" id="thumbs"></div>
-</div></section>
-
-<section><div class="wrap">
-  <h2>Binge Match editions</h2>
-  <p>The same prahar engine, wearing six skins generated from two shows. All motifs are original geometry (time loops, rain, an apple, sugar cubes). In production, official character art would arrive through a licensed partnership with the studio.</p>
-  <div class="thumbs" id="editions"></div>
-</div></section>
-
-<section><div class="wrap">
-  <h2>The eight prahars today</h2>
-  <p>Computed for <span id="tblCity"></span> on <span id="tblDate"></span>. Change the city or date above to see them stretch.</p>
-  <div class="tablewrap"><table id="tbl"></table></div>
-</div></section>
-
-<section><div class="wrap">
-  <h2>Why it can ship</h2>
-  <div class="grid3">
-    <div class="card"><h3>Offline &amp; light</h3><p>Sunrise and sunset use the NOAA solar approximation: a few lines of math, no network and no GPS polling. Location is taken once from the paired phone.</p></div>
-    <div class="card"><h3>Platform-ready</h3><p>The face is pure vector (arcs, text, gradients) and maps directly onto Watch Face Format / Watch Face Studio and onto Titan's own smart-watch face pipelines.</p></div>
-    <div class="card"><h3>Binge Match, privately</h3><p>The companion app reads the phone's "now playing" media session on the device, with opt-in only. A show lookup (title → mood, palette, characters) feeds a generator that builds the skin in about 10 minutes. Nothing about your viewing leaves the phone without consent.</p></div>
-    <div class="card"><h3>Bilingual by design</h3><p>English and हिंदी ship from day one, and the prahar names can be localised to Tamil, Bengali, Marathi and more for Titan's pan-India audience.</p></div>
-  </div>
-</div></section>
-
-<footer><div class="wrap">PRAHAR · an Open Innovation entry for the Titan Watch Face Design Challenge 2026. Prototype runs fully in the browser.</div></footer>
-
+<footer>Encore · an Open Innovation entry for the Watch Face Design Challenge 2026 · Interactive prototype</footer>
 <script type="module" src="src/app.js"></script>
 </body>
 </html>

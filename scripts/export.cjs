@@ -1,57 +1,46 @@
-// Renders submission PNGs of the PRAHAR face + a full showcase screenshot.
+// Renders submission PNGs (+ Figma-ready SVGs) of every Encore screen.
 // Usage: python3 -m http.server 8123 &  then  node scripts/export.cjs [baseUrl]
 const { chromium } = require('playwright');
-const { mkdirSync } = require('node:fs');
-
-(async () => {
-
+const { mkdirSync, writeFileSync } = require('node:fs');
 const base = process.argv[2] || 'http://localhost:8123/';
-mkdirSync('exports', { recursive: true });
-
 const shots = [
-  // name, query
-  ['01-usha-brahma-muhurta', 't=5.25&doy=308'],
-  ['02-purvahna-morning', 't=8.1&doy=308'],
-  ['03-madhyahna-focus', 't=11.3&doy=308'],
-  ['04-sayahna-golden-hour', 't=17.1&doy=308'],
-  ['05-pradosha-dusk', 't=18.6&doy=308'],
-  ['06-nishitha-night', 't=22.4&doy=308'],
-  ['07-always-on', 't=22.4&doy=308&aod=1'],
-  ['08-hindi', 't=11.3&doy=308&lang=hi'],
-  ['09-oslo-midsummer', 't=21.9&doy=172&city=oslo'],
-  ['10-oslo-midwinter', 't=14.6&doy=355&city=oslo'],
-  ['11-heart-racing', 't=11.3&doy=308&hr=138&secs=0.02'],
-  ['12-heart-spike-breathe', 't=11.3&doy=308&spike=1&secs=3.1'],
-  ['13-binge-dark-jonas', 't=13.2&doy=308&theme=dark.jonas'],
-  ['14-binge-dark-martha', 't=20.5&doy=308&theme=dark.martha'],
-  ['15-binge-dark-adam', 't=9.4&doy=308&theme=dark.adam'],
-  ['16-binge-deathnote-light', 't=22.4&doy=308&theme=deathnote.light'],
-  ['17-binge-deathnote-l', 't=11.3&doy=308&theme=deathnote.l'],
-  ['18-binge-deathnote-ryuk', 't=16.2&doy=308&theme=deathnote.ryuk'],
+  ['01-studio', 'face=studio'],
+  ['02-friends', 'face=friends&play=1'],
+  ['03-stranger', 'face=stranger&play=1&secs=1.3'],
+  ['04-money-heist', 'face=heist&play=1'],
+  ['05-squid-game', 'face=squid&play=1'],
+  ['06-gift-reveal', 'face=friends&screen=gift&el=3.2&secs=3.2'],
+  ['07-gift-unwrapping', 'face=friends&screen=gift&el=1.9&secs=1.9'],
+  ['08-gallery', 'face=friends&screen=gallery&pos=1'],
+  ['09-gallery-create', 'screen=gallery&pos=5'],
+  ['10-describe', 'screen=create&prompt=A rainy café in Mumbai, warm and cosy&secs=0.4'],
+  ['11-designing', 'screen=designing&prompt=Neon Tokyo night&p=0.7&secs=0.9'],
+  ['12-prompt-cafe', 'pfx=Rainy café, cosy'],
+  ['13-prompt-tokyo', 'pfx=Neon Tokyo night'],
+  ['14-prompt-ocean', 'pfx=Calm ocean, teal'],
+  ['15-heart-racing', 'face=friends&play=1&hr=140&secs=0.02'],
+  ['16-heart-breathe', 'face=friends&spike=1&secs=2.6'],
+  ['17-always-on', 'face=friends&aod=1'],
 ];
-
-const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2 });
-
-for (const [name, q] of shots) {
-  await page.goto(`${base}?${q}&freeze=1`, { waitUntil: 'networkidle' });
+const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
+(async () => {
+  mkdirSync('exports', { recursive: true }); mkdirSync('figma', { recursive: true });
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2 });
+  const p2 = await browser.newPage({ viewport: { width: 396, height: 484 }, deviceScaleFactor: 2 });
+  for (const [name, q] of shots) {
+    await page.goto(`${base}?t=10.15&freeze=1&${q}`, { waitUntil: 'networkidle' });
+    await page.evaluate(() => document.fonts.ready);
+    const svg = (await page.$eval('#screen svg', (n) => n.outerHTML)).replace('<svg ', '<svg width="396" height="484" ');
+    writeFileSync(`figma/${name}.svg`, svg);
+    await p2.setContent(`<html><head><link href="${FONTS}" rel="stylesheet"><style>html,body{margin:0;background:transparent}svg{display:block}</style></head><body>${svg}</body></html>`, { waitUntil: 'networkidle' });
+    await p2.evaluate(() => document.fonts.ready);
+    await p2.screenshot({ path: `exports/${name}.png`, omitBackground: true });
+    console.log(name);
+  }
+  await page.goto(`${base}?t=10.15&freeze=1&face=friends&play=1`, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(150);
-  const svg = await page.$('#screen svg');
-  // Render the raw face at native 466px (x2) with a clean circular crop
-  const markup = await svg.evaluate((n) => n.outerHTML);
-  const p2 = await browser.newPage({ viewport: { width: 466, height: 466 }, deviceScaleFactor: 2 });
-  await p2.setContent(`<html><head><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Special+Elite&family=UnifrakturMaguntia&family=IBM+Plex+Mono:wght@300;500&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet"><style>html,body{margin:0;background:transparent}svg{width:466px;height:466px;display:block}</style></head><body>${markup}</body></html>`, { waitUntil: 'networkidle' });
-  await p2.evaluate(() => document.fonts.ready);
-  await p2.screenshot({ path: `exports/face-${name}.png`, omitBackground: true });
-  await p2.close();
-  console.log('face', name);
-}
-
-await page.goto(`${base}?t=11.3&doy=308&freeze=1`, { waitUntil: 'networkidle' });
-await page.evaluate(() => document.fonts.ready);
-await page.screenshot({ path: 'exports/showcase-hero.png' });
-await page.screenshot({ path: 'exports/showcase-full.png', fullPage: true });
-await browser.close();
-console.log('done');
+  await page.screenshot({ path: 'exports/showcase-hero.png' });
+  await page.screenshot({ path: 'exports/showcase-full.png', fullPage: true });
+  await browser.close();
 })();
