@@ -51,6 +51,8 @@ export function renderHome(o) {
     const big = f.timeFont.includes('Bebas') ? 168 : 132;
     s += `<g ${aod ? '' : `filter="url(#${id}shadow)"`}><text x="34" y="${f.timeFont.includes('Bebas') ? 222 : 206}" ${tf} font-size="${big}" letter-spacing="-4" fill="${ink}">${hh.padStart(2, '0')}</text>`;
     s += `<text x="34" y="${f.timeFont.includes('Bebas') ? 366 : 330}" ${tf} font-size="${big}" letter-spacing="-4" fill="${aod ? ink : f.accent}">${mm}</text></g>`;
+  } else if (f.layout === 'photo' && !aod) {
+    s += `<text x="${W / 2}" y="146" text-anchor="middle" ${tf} font-size="92" letter-spacing="-3" fill="${ink}" filter="url(#${id}shadow)">${hh}:${mm}</text>`;
   } else if (f.layout === 'glow' && !aod) {
     s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="${f.accent}" opacity=".8" filter="url(#${id}soft)">${hh}:${mm}</text>`;
     s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="#120202" stroke="${f.accent}" stroke-width="2.2">${hh}:${mm}</text>`;

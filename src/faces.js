@@ -207,3 +207,20 @@ export function faceFromPrompt(prompt) {
     },
   };
 }
+
+// ---------------------------------------------------------------- your photo → face
+// Any image the user picks (stays on the device) becomes the wallpaper, wrapped in a show's
+// styling. The prototype never ships or commits third-party photos.
+export function faceFromPhoto(dataUrl, base = FACES.friends, focus = 'xMidYMid') {
+  return {
+    ...base, id: 'photo-' + dataUrl.length, name: base.show ? `${base.show} · Your photo` : 'Your photo',
+    layout: 'photo', photo: dataUrl,
+    wallpaper: ({ id }) => `<defs><linearGradient id="${id}ps" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#000" stop-opacity=".7"/><stop offset=".32" stop-color="#000" stop-opacity="0"/>
+        <stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+      <rect width="${W}" height="${H}" fill="${base.accent}"/>
+      <image href="${dataUrl}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="${focus} slice"/>
+      <rect width="${W}" height="${H}" fill="url(#${id}ps)"/>
+      <rect x="3" y="3" width="${W - 6}" height="${H - 6}" rx="89" fill="none" stroke="${base.accent}" stroke-width="6" opacity=".9"/>`,
+  };
+}

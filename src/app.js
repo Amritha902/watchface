@@ -1,4 +1,4 @@
-import { FACES, faceFromPrompt, W, H } from './faces.js';
+import { FACES, faceFromPrompt, faceFromPhoto, W, H } from './faces.js';
 import { renderHome, renderGallery, renderGift, renderCreate, renderDesigning } from './watch.js';
 
 const $ = (id) => document.getElementById(id);
@@ -116,6 +116,16 @@ $('playBtn').onclick = pressPlay;
 $('designBtn').onclick = design;
 $('prompt').addEventListener('input', () => { state.prompt = $('prompt').value; if (state.screen === 'home' || state.screen === 'gallery') state.screen = 'create'; });
 $('chips').onclick = (e) => { const b = e.target.closest('.chip'); if (!b) return; $('prompt').value = b.textContent; state.prompt = b.textContent; state.screen = 'create'; };
+$('photo').onchange = (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    const base = FACES[state.selected];
+    startGift(faceFromPhoto(r.result, base), `Made from your photo · ${base.show} style`);
+    state.play = { show: base.show, ep: base.ep, left: base.left, total: 50 };
+  };
+  r.readAsDataURL(file);
+};
 $('spikeBtn').onclick = () => { state.spikeAt = secs; state.screen = 'home'; };
 $('hrAuto').onclick = () => { state.hrManual = null; state.spikeAt = null; };
 $('hr').oninput = (e) => { state.hrManual = +e.target.value; state.spikeAt = null; };
