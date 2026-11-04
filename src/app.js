@@ -29,7 +29,7 @@ const nowT = () => { if (fixedT !== null) return fixedT; const d = new Date(); r
 const dayLabel = () => (params.has('t') ? 'WED 4' : new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }).toUpperCase().replace(',', ''));
 
 // ---------------- heart ----------------
-function heart() {
+function heartState() {
   const base = state.hrManual ?? 68 + Math.round(4 * Math.sin(secs * 0.3));
   if (state.spikeAt === null) return { hr: base, spike: 0 };
   if (state.spikeAt === -100) return { hr: 148, spike: 1 };
@@ -223,7 +223,7 @@ function renderGalleryThumbs() {
 
 // ---------------- loop ----------------
 function draw() {
-  const t = nowT(), day = dayLabel(), { hr, spike } = heart();
+  const t = nowT(), day = dayLabel(), { hr, spike } = heartState();
   let svg;
   if (state.screen === 'gallery') {
     state.pos += (state.target - state.pos) * 0.25;

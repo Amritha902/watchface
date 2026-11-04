@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encore Watch Faces</title>
+<meta name="description" content="Encore — watch faces personalised from what you stream, gifted to your wrist, or designed from a sentence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #000; --panel: #0e0e12; --line: #1f1f27; --text: #f5f5f7; --muted: #8e8e98; --accent: #8d8dff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { overflow-x: hidden; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  button { font: inherit; }
+
+  header.hero { padding: 72px 0 12px; text-align: center; }
+  .eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: clamp(56px, 11vw, 128px); font-weight: 800; letter-spacing: -.045em; margin: 10px 0 0; line-height: .95;
+       background: linear-gradient(180deg, #fff 30%, #9a9aa6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tag { font-size: clamp(20px, 2.6vw, 28px); color: var(--muted); margin: 18px auto 0; max-width: 760px; line-height: 1.35; font-weight: 500; letter-spacing: -.01em; }
+  .tag b { color: var(--text); font-weight: 600; }
+
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 48px 0 80px; }
+  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; gap: 32px; } }
+  .stage > .left { position: sticky; top: 24px; }
+  @media (max-width: 900px) { .stage > .left { position: static; } }
+
+  .watch { position: relative; width: min(70vw, 330px); aspect-ratio: 396 / 484; margin: 90px auto 96px; }
+  .watch::before { content: ''; position: absolute; inset: -30% -40%; z-index: -2; border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 45%, transparent), transparent 70%);
+    filter: blur(40px); opacity: .7; transition: background 1s ease; }
+  .band { position: absolute; left: 12%; width: 76%; height: 42%; z-index: -1;
+    background: linear-gradient(90deg, #0b0b0e, #1c1c22 20%, #24242b 50%, #1c1c22 80%, #0b0b0e); }
+  .band.top { bottom: 90%; border-radius: 40px 40px 8px 8px; }
+  .band.bot { top: 90%; border-radius: 8px 8px 40px 40px; }
+  .band::after { content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: repeating-linear-gradient(0deg, transparent 0 22px, rgba(255,255,255,.03) 22px 23px); }
+  .case { position: absolute; inset: -5.5%; border-radius: 27% / 23%; z-index: 0;
+    background: linear-gradient(145deg, #e8e8ec 0%, #9b9ba3 18%, #5a5a62 45%, #2a2a30 60%, #7c7c85 85%, #c9c9cf 100%);
+    box-shadow: 0 60px 90px -30px rgba(0,0,0,.9), inset 0 1px 1px rgba(255,255,255,.7), inset 0 -2px 3px rgba(0,0,0,.5); }
+  .glass { position: absolute; inset: -2.2%; border-radius: 25% / 21%; background: #000; z-index: 1; box-shadow: inset 0 0 0 1.5px #2b2b31; }
+  .screen { position: absolute; inset: 0; border-radius: 23.2% / 19%; overflow: hidden; z-index: 2; cursor: grab; touch-action: pan-y; user-select: none; }
+  .screen:active { cursor: grabbing; }
+  .screen svg { width: 100%; height: 100%; display: block; }
+  .screen::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 32%); }
+  .crown { position: absolute; right: -10.5%; top: 16%; width: 7.5%; height: 15%; border-radius: 6px; z-index: 0; cursor: pointer;
+    background: repeating-linear-gradient(0deg, #c9c9cf 0 2px, #6a6a72 2px 4px); box-shadow: 0 2px 6px #000; }
+  .sidebtn { position: absolute; right: -8%; top: 40%; width: 4%; height: 20%; border-radius: 4px; z-index: 0; background: linear-gradient(90deg, #6a6a72, #c9c9cf); }
+  .watchctl { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .hint { text-align: center; color: var(--muted); font-size: 13px; margin-top: 12px; }
+
+  .panels { display: grid; gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 24px; }
+  .panel h3 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .panel .step { font-size: 12px; font-weight: 700; color: #000; background: var(--text); border-radius: 999px; width: 22px; height: 22px; display: inline-grid; place-items: center; }
+  .panel p.sub { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 8px 0 16px; }
+  .btn { background: #1b1b22; color: var(--text); border: 1px solid #2a2a33; border-radius: 999px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn:hover { border-color: #45454f; }
+  .btn.white { background: #fff; color: #000; border-color: #fff; }
+  .btn.red { background: #2a0d12; border-color: #5c1a25; color: #ffc2cb; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip { border: 1px solid #2a2a33; background: #121218; color: var(--text); border-radius: 999px; padding: 8px 14px; font-size: 13px; cursor: pointer; }
+  .services { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .svc { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: #121218; border: 1px solid #2a2a33; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); }
+  .svc i { width: 8px; height: 8px; border-radius: 50%; background: #3a3a44; }
+  .svc.on i { background: #33d17a; box-shadow: 0 0 8px #33d17a; }
+  .shows { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  @media (max-width: 520px) { .shows { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .show { aspect-ratio: 2/3; border-radius: 14px; border: 2px solid transparent; cursor: pointer; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end;
+    font-weight: 800; font-size: 14px; color: #fff; text-align: left; letter-spacing: -.01em; position: relative; overflow: hidden; }
+  .show small { font-weight: 500; font-size: 11px; opacity: .75; }
+  .show.on { border-color: #fff; }
+  .show .pl { position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 700; background: rgba(0,0,0,.5); padding: 3px 7px; border-radius: 999px; display: none; }
+  .show.on .pl { display: block; }
+  .taste { font-size: 13px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
+  .taste b { color: var(--text); font-weight: 600; }
+  textarea { width: 100%; min-height: 84px; resize: vertical; background: #121218; color: var(--text); border: 1px solid #2a2a33; border-radius: 16px; padding: 14px; font: inherit; font-size: 16px; }
+  textarea:focus { outline: none; border-color: #5a5a66; }
+  label.ctl { display: flex; justify-content: space-between; margin: 14px 0 6px; font-size: 13px; color: var(--muted); }
+  label.ctl b { color: var(--text); }
+  input[type=range] { width: 100%; accent-color: #ff4d5e; }
+
+  section { padding: 96px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -.035em; margin: 0 0 12px; line-height: 1.02; }
+  h2 + p { color: var(--muted); font-size: 20px; max-width: 760px; line-height: 1.45; margin: 0; }
+  .steps4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 40px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 24px; }
+  .card .n { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .1em; }
+  .card h3 { margin: 10px 0 8px; font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+  .card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; margin-top: 48px; }
+  .thumb { text-align: center; }
+  .thumb .f { aspect-ratio: 396/484; border-radius: 23.2% / 19%; overflow: hidden; box-shadow: 0 0 0 6px #1a1a1f, 0 0 0 7px #34343c, 0 30px 50px -20px #000; }
+  .thumb .f svg { width: 100%; height: 100%; display: block; }
+  .thumb b { display: block; margin-top: 18px; font-weight: 700; font-size: 16px; }
+  .thumb span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 28px; }
+  footer { padding: 48px 0 72px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Watch Face Design Challenge 2026 · Open Innovation</div>
+    <h1>Encore.</h1>
+    <p class="tag">A watch face that knows what you love. It <b>notices what you're watching</b>, <b>gifts you a face</b> made for it, and <b>designs one from a sentence</b>.</p>
+  </header>
+
+  <div class="stage">
+    <div class="left">
+      <div class="watch" id="watch">
+        <div class="band top"></div><div class="band bot"></div>
+        <div class="case"></div><div class="glass"></div>
+        <div class="crown" id="crown" title="Digital crown: back to the face"></div><div class="sidebtn"></div>
+        <div class="screen" id="screen"></div>
+      </div>
+      <div class="watchctl">
+        <button class="btn" id="swipeBtn">⟵ Swipe for faces</button>
+        <button class="btn" id="homeBtn">Crown · Home</button>
+        <button class="btn" id="aodBtn">Always-on</button>
+      </div>
+      <p class="hint">Drag the screen sideways to swipe · tap a card to wear it</p>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <h3><span class="step">1</span> Watch something</h3>
+        <p class="sub">Encore's phone app sees what's playing on your streaming apps and builds a private taste profile on the phone. When a new favourite shows up, your watch gets a gift.</p>
+        <div class="services" id="services">
+          <button class="svc on"><i></i>Netflix</button>
+          <button class="svc on"><i></i>Prime Video</button>
+          <button class="svc"><i></i>JioHotstar</button>
+        </div>
+        <div class="shows" id="shows"></div>
+        <div class="row"><button class="btn white" id="playBtn">▶ Press play</button><span id="playState" style="color:var(--muted);font-size:13px"></span></div>
+        <div class="taste" id="taste"></div>
+        <div class="row" style="margin-top:14px"><button class="btn" id="favBtn">★ Pick a favourite character</button><span id="aiState" style="color:var(--muted);font-size:13px"></span></div>
+        <div class="row" style="margin-top:10px" id="favChips"></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step">2</span> Or just describe it</h3>
+        <p class="sub">Swipe to the last card on the watch, or type here. Encore turns a sentence into a full face: wallpaper, type and palette.</p>
+        <textarea id="prompt" placeholder="A rainy café in Mumbai, warm and cosy…"></textarea>
+        <div class="row" style="margin-top:10px" id="chips">
+          <button class="chip">Rainy café, cosy</button><button class="chip">Neon Tokyo night</button>
+          <button class="chip">Calm ocean, teal</button><button class="chip">Retro 80s sunset</button><button class="chip">Misty forest hike</button>
+        </div>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="designBtn">Design it</button>
+          <label class="btn" for="photo" style="cursor:pointer">Use your own photo</label>
+          <input type="file" id="photo" accept="image/*" hidden></div>
+        <p class="sub" style="margin:10px 0 0;font-size:13px">Your photo stays on your device and gets the selected show's styling: type, colour and the episode card.</p>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step">3</span> Make it yours</h3>
+        <p class="sub">Not quite right? Tell it what to change on the face you're wearing. Claude turns your words into exact edits, and repaints the artwork when you ask for something new.</p>
+        <textarea id="refine" placeholder="Put it in a circle, clock top right, a bit darker…" style="min-height:64px"></textarea>
+        <div class="row" style="margin-top:10px" id="refineChips">
+          <button class="chip">Put it in a circle</button><button class="chip">Clock on the left</button><button class="chip">Make it darker</button>
+          <button class="chip">Gold accent</button><button class="chip">Serif font</button><button class="chip">Bigger time</button><button class="chip">Hide the card</button>
+        </div>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="refineBtn">Apply</button><button class="btn" id="undoBtn">Undo</button><span id="refineState" style="color:var(--muted);font-size:13px"></span></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step">4</span> It beats with you</h3>
+        <p class="sub">Whatever face you wear, the heart rate pulses live. When your heart races, the screen edge glows red on every beat. After a sudden spike, a breathing guide takes over.</p>
+        <div class="row"><button class="btn red" id="spikeBtn">Simulate a spike</button><button class="btn" id="hrAuto">Auto</button></div>
+        <label class="ctl" for="hr"><span>Heart rate</span><b id="hrLbl">72 bpm</b></label>
+        <input type="range" id="hr" min="50" max="180" value="72">
+      </div>
+    </div>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <h2>From binge to wrist.</h2>
+  <p>No menus, no hunting through face galleries. Encore pays attention, then makes something just for you.</p>
+  <div class="steps4">
+    <div class="card"><div class="n">01 · NOTICE</div><h3>Knows what's playing</h3><p>On Android, the phone app reads what's playing on Netflix, Prime Video and other apps through the system's media controls. It only does this with your permission, and it all stays on the phone.</p></div>
+    <div class="card"><div class="n">02 · LEARN</div><h3>Builds your taste</h3><p>The shows you finish, rewatch or binge build a private taste profile. Encore waits for a real favourite instead of reacting to every trailer.</p></div>
+    <div class="card"><div class="n">03 · GIFT</div><h3>A face, made for you</h3><p>You glance down and see “Made for you · Because you're watching Friends.” One tap and you're wearing it, with your show's progress built in.</p></div>
+    <div class="card"><div class="n">04 · CREATE</div><h3>Or describe anything</h3><p>“Rainy café”, “neon Tokyo”, “calm ocean”. Say it and Encore composes the wallpaper, typography and colour for you.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>The collection.</h2>
+  <p>Each face is a full scene, not a background image: the lights flicker, the vault turns, steam rises from the mug. They're all made of vectors, so they stay sharp and light on the battery.</p>
+  <div class="gallery" id="gallery"></div>
+  <p class="note">All artwork here is original. It evokes each show's world without using logos, stills or likenesses. In production, official artwork would come through studio licensing, a natural partnership for Titan.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Built to ship.</h2>
+  <div class="steps4">
+    <div class="card"><h3>Private by design</h3><p>Viewing data never leaves the phone. The watch only receives finished faces. Every connection is opt-in and can be revoked.</p></div>
+    <div class="card"><h3>Honest about platforms</h3><p>Android's media controls and notification access make automatic detection possible. iOS doesn't allow it, so iPhone users connect by picking shows or importing their viewing history.</p></div>
+    <div class="card"><h3>Always-on aware</h3><p>The always-on view drops the wallpaper to true black and keeps only thin type, which saves battery and avoids burn-in.</p></div>
+    <div class="card"><h3>Generator, not a gallery</h3><p>Faces are built from parts (motif, palette, type, layout) instead of image files. A face can be made in seconds on the phone, and new shows only need new motifs.</p></div>
+  </div>
+</div></section>
+
+<footer>Encore · an Open Innovation entry for the Watch Face Design Challenge 2026 · Interactive prototype</footer>
+<script type="module">
+// ENCORE — face library. Every wallpaper is original vector art that evokes a show's
+// world (a purple apartment door, fairy lights, a vault, neon shapes) without using
+// official logos, artwork or likenesses. Official art would come via studio licensing.
+
+const W = 396, H = 484;
+const rad = (d) => (d * Math.PI) / 180;
+
+const blurDef = (id, sd) => `<filter id="${id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="${sd}"/></filter>`;
+
+// ---------------------------------------------------------------- wallpapers
+function studio({ id, secs, palette = ['#5b5bff', '#ff4fa3', '#20d3c2'], bg = '#000' }) {
+  const [a, b, c] = palette;
+  const x1 = 110 + 40 * Math.sin(secs * 0.25), y1 = 150 + 30 * Math.cos(secs * 0.2);
+  const x2 = 300 + 35 * Math.cos(secs * 0.22), y2 = 360 + 30 * Math.sin(secs * 0.27);
+  const x3 = 250 + 50 * Math.sin(secs * 0.17 + 1), y3 = 220 + 40 * Math.cos(secs * 0.31);
+  return `<defs>${blurDef(id + 'bl', 58)}</defs><rect width="${W}" height="${H}" fill="${bg}"/>
+    <g filter="url(#${id}bl)"><circle cx="${x1}" cy="${y1}" r="150" fill="${a}" opacity=".75"/>
+    <circle cx="${x2}" cy="${y2}" r="160" fill="${b}" opacity=".6"/><circle cx="${x3}" cy="${y3}" r="90" fill="${c}" opacity=".45"/></g>
+    <rect width="${W}" height="${H}" fill="#000" opacity=".18"/>`;
+}
+
+function apartment({ id, secs }) {
+  let stripes = '';
+  for (let x = 0; x < W; x += 18) stripes += `<rect x="${x}" width="8" height="${H}" fill="#fff" opacity=".035"/>`;
+  const steam = [0, 1, 2].map((k) => {
+    const o = (Math.sin(secs * 1.4 + k * 2) + 1) / 2;
+    return `<path d="M${52 + k * 10} 352 C ${46 + k * 10} 340, ${60 + k * 10} 332, ${52 + k * 10} 318" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="${(0.15 + 0.35 * o).toFixed(2)}"/>`;
+  }).join('');
+  return `<defs>
+      <linearGradient id="${id}w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7446ad"/><stop offset="1" stop-color="#3a1d62"/></linearGradient>
+      <linearGradient id="${id}d" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5f2f93"/><stop offset="1" stop-color="#4a2276"/></linearGradient>
+      <radialGradient id="${id}lamp" cx=".15" cy=".1" r=".7"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".55"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+      <linearGradient id="${id}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e98547"/><stop offset="1" stop-color="#a94c1f"/></linearGradient>
+      ${blurDef(id + 'sh', 10)}
+    </defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}w)"/>${stripes}
+    <rect width="${W}" height="${H}" fill="url(#${id}lamp)"/>
+    <rect x="232" y="104" width="138" height="340" fill="#000" opacity=".35" filter="url(#${id}sh)"/>
+    <rect x="236" y="92" width="134" height="350" rx="3" fill="#e9c44c"/>
+    <rect x="248" y="104" width="110" height="338" fill="url(#${id}d)"/>
+    <rect x="260" y="120" width="86" height="120" rx="3" fill="none" stroke="#3d1a66" stroke-width="3" opacity=".7"/>
+    <rect x="260" y="256" width="86" height="160" rx="3" fill="none" stroke="#3d1a66" stroke-width="3" opacity=".7"/>
+    <ellipse cx="303" cy="178" rx="22" ry="28" fill="none" stroke="#e9c44c" stroke-width="6"/>
+    <ellipse cx="303" cy="178" rx="13" ry="18" fill="#3a1d62" stroke="#c99f2e" stroke-width="2"/>
+    <circle cx="346" cy="300" r="6" fill="#e9c44c"/><circle cx="344" cy="298" r="2" fill="#fff7d0"/>
+    <path d="M-20 420 C -20 386 6 372 40 372 L 210 372 C 244 372 262 388 262 420 L 262 ${H} L -20 ${H} Z" fill="url(#${id}c)"/>
+    <path d="M-20 404 C -20 380 0 362 24 362 C 48 362 58 380 58 404 L 58 ${H} L -20 ${H} Z" fill="#c76530"/>
+    <line x1="120" y1="380" x2="120" y2="${H}" stroke="#8f3e17" stroke-width="2" opacity=".6"/>
+    <g transform="translate(36 352)"><rect x="0" y="0" width="34" height="30" rx="6" fill="#f6efe2"/>
+      <path d="M34 8 C 46 8 46 24 34 24" stroke="#f6efe2" stroke-width="5" fill="none"/></g>
+    ${steam}`;
+}
+
+function upside({ id, secs }) {
+  const cols = ['#ff3b3b', '#ffd23b', '#3bff8a', '#3bb5ff', '#ff5bd2', '#ff8a3b', '#3bffe6', '#ffd23b', '#ff3b3b'];
+  const pts = cols.map((_, i) => { const x = -6 + i * 51; return [x, 78 + 14 * Math.sin(i * 1.3) + (i % 2 ? 10 : 0)]; });
+  let wire = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1], [x, y] = pts[i]; wire += ` Q ${(x0 + x) / 2} ${Math.max(y0, y) + 16} ${x} ${y}`; }
+  let bulbs = '';
+  pts.forEach(([x, y], i) => {
+    let f = 0.55 + 0.45 * Math.sin(secs * 2.6 + i * 1.9);
+    if (Math.floor(secs * 3 + i * 7) % 23 === 0) f = 0.08; // occasional flicker-out
+    bulbs += `<circle cx="${x}" cy="${y + 10}" r="16" fill="${cols[i]}" opacity="${(f * 0.7).toFixed(2)}" filter="url(#${id}g)"/>`;
+    bulbs += `<ellipse cx="${x}" cy="${y + 10}" rx="5" ry="7" fill="${cols[i]}" opacity="${(0.4 + 0.6 * f).toFixed(2)}"/>`;
+  });
+  let trees = `M0 ${H}`;
+  for (let x = 0; x <= W + 30; x += 30) { const h = 70 + ((x * 37) % 60); trees += ` L ${x - 15} ${H - 40} L ${x} ${H - 40 - h} L ${x + 15} ${H - 40}`; }
+  trees += ` L ${W} ${H} Z`;
+  let ash = '';
+  for (let i = 0; i < 10; i++) {
+    const y = H - ((secs * 10 + i * 53) % (H + 20)), x = (i * 41 + 20 * Math.sin(secs * 0.6 + i)) % W;
+    ash += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${1 + (i % 3) * 0.6}" fill="#ffd0d0" opacity=".28"/>`;
+  }
+  return `<defs>${blurDef(id + 'g', 9)}
+      <radialGradient id="${id}r" cx=".5" cy="1" r=".9"><stop offset="0" stop-color="#ff1d1d" stop-opacity=".75"/><stop offset=".55" stop-color="#5a0505" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="#050307"/><rect width="${W}" height="${H}" fill="url(#${id}r)"/>
+    ${ash}<path d="${trees}" fill="#020102"/>
+    <path d="${wire}" stroke="#1b1b1b" stroke-width="2" fill="none"/>${bulbs}`;
+}
+
+function vault({ id, secs }) {
+  const cx = 318, cy = 300, rot = (secs * 7) % 360;
+  let bolts = '';
+  for (let k = 0; k < 24; k++) { const a = rad(k * 15); bolts += `<circle cx="${(cx + 176 * Math.cos(a)).toFixed(1)}" cy="${(cy + 176 * Math.sin(a)).toFixed(1)}" r="5" fill="#f3c77a" opacity=".55"/>`; }
+  let spokes = '';
+  for (let k = 0; k < 3; k++) spokes += `<rect x="${cx - 100}" y="${cy - 6}" width="200" height="12" rx="6" fill="#f3c77a" opacity=".8" transform="rotate(${rot + k * 60} ${cx} ${cy})"/>`;
+  return `<defs><radialGradient id="${id}bg" cx=".3" cy=".3" r="1"><stop offset="0" stop-color="#b3141d"/><stop offset=".6" stop-color="#5a070c"/><stop offset="1" stop-color="#1c0204"/></radialGradient>
+      <radialGradient id="${id}m" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#3b0a0d"/><stop offset="1" stop-color="#140203"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}bg)"/>
+    <circle cx="${cx}" cy="${cy}" r="214" fill="url(#${id}m)" stroke="#f3c77a" stroke-opacity=".35" stroke-width="3"/>
+    <circle cx="${cx}" cy="${cy}" r="196" fill="none" stroke="#f3c77a" stroke-opacity=".18" stroke-width="10"/>
+    ${bolts}<circle cx="${cx}" cy="${cy}" r="140" fill="none" stroke="#f3c77a" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 9"/>
+    ${spokes}<circle cx="${cx}" cy="${cy}" r="34" fill="#2a0306" stroke="#f3c77a" stroke-width="4"/>
+    <rect width="${W}" height="${H}" fill="#000" opacity=".12"/>`;
+}
+
+function game({ id, secs }) {
+  const lit = Math.floor(secs * 1.1) % 3;
+  const st = (k) => `stroke="#ff2e88" stroke-width="5" fill="none" opacity="${k === lit ? 1 : 0.35}"`;
+  const shapes = (extra) => `<g ${extra}><circle cx="122" cy="116" r="26" ${st(0)}/>
+      <path d="M198 88 L 228 140 L 168 140 Z" ${st(1)} stroke-linejoin="round"/>
+      <rect x="248" y="91" width="50" height="50" rx="2" ${st(2)}/></g>`;
+  let grid = '';
+  for (let i = 0; i <= 12; i++) { const x = -200 + i * 66; grid += `<line x1="${W / 2}" y1="300" x2="${x}" y2="${H}" stroke="#14c2a8" stroke-width="1" opacity=".3"/>`; }
+  for (let j = 0; j < 7; j++) { const y = 300 + (j * j * 4.6) + ((secs * 6) % 10) * (j / 7); grid += `<line x1="0" y1="${y.toFixed(1)}" x2="${W}" y2="${y.toFixed(1)}" stroke="#14c2a8" stroke-width="1" opacity="${(0.08 + j * 0.04).toFixed(2)}"/>`; }
+  return `<defs>${blurDef(id + 'g', 8)}
+      <radialGradient id="${id}p" cx=".5" cy=".18" r=".7"><stop offset="0" stop-color="#ff2e88" stop-opacity=".35"/><stop offset="1" stop-color="#ff2e88" stop-opacity="0"/></radialGradient>
+      <linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14c2a8" stop-opacity="0"/><stop offset="1" stop-color="#0c6e61" stop-opacity=".55"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="#0c0910"/><rect width="${W}" height="${H}" fill="url(#${id}p)"/>
+    <rect y="300" width="${W}" height="${H - 300}" fill="url(#${id}f)"/>${grid}
+    ${shapes(`filter="url(#${id}g)"`)}${shapes('')}`;
+}
+
+// motifs for prompt-generated faces
+const MOTIFS = {
+  waves: ({ secs, pal }) => [0, 1, 2].map((k) => {
+    let d = `M0 ${H}`;
+    for (let x = 0; x <= W; x += 12) d += ` L ${x} ${(330 + k * 38 + 12 * Math.sin(x / 40 + secs * (0.6 + k * 0.2) + k)).toFixed(1)}`;
+    return `<path d="${d} L ${W} ${H} Z" fill="${pal[2]}" opacity="${0.18 + k * 0.16}"/>`;
+  }).join(''),
+  skyline: ({ secs, pal }) => {
+    let o = ''; let x = 0, i = 0;
+    while (x < W) {
+      const w = 34 + ((i * 53) % 30), h = 110 + ((i * 97) % 170);
+      o += `<rect x="${x}" y="${H - h}" width="${w - 3}" height="${h}" fill="#05030c" opacity=".92"/>`;
+      for (let wy = H - h + 12; wy < H - 10; wy += 16) for (let wx = x + 6; wx < x + w - 10; wx += 10)
+        if (((wx * 7 + wy * 13 + i) % 5) === 0) o += `<rect x="${wx}" y="${wy}" width="4" height="6" fill="${pal[2]}" opacity="${(0.4 + 0.5 * ((Math.sin(secs + wx + wy) + 1) / 2)).toFixed(2)}"/>`;
+      x += w; i++;
+    }
+    return o;
+  },
+  trees: ({ pal }) => {
+    let o = '';
+    for (let k = 0; k < 2; k++) { let d = `M0 ${H}`; for (let x = -10; x <= W + 30; x += 26) { const h = 90 + ((x * (31 + k * 9)) % 80) + k * 40; d += ` L ${x - 13} ${H - 30 + k * 10} L ${x} ${H - 30 - h + k * 60} L ${x + 13} ${H - 30 + k * 10}`; } o += `<path d="${d} L ${W} ${H} Z" fill="${k ? '#02100a' : pal[1]}" opacity="${k ? 0.95 : 0.6}"/>`; }
+    return o;
+  },
+  sun: ({ pal }) => {
+    let o = `<circle cx="${W / 2}" cy="360" r="120" fill="${pal[2]}"/>`;
+    for (let k = 0; k < 6; k++) o += `<rect x="0" y="${330 + k * 18}" width="${W}" height="${4 + k * 1.6}" fill="${pal[0]}"/>`;
+    return o + `<rect y="380" width="${W}" height="${H - 380}" fill="${pal[0]}" opacity=".85"/>`;
+  },
+  cups: ({ secs, pal }) => {
+    const steam = [0, 1, 2].map((k) => `<path d="M${168 + k * 16} 330 C ${160 + k * 16} 310, ${180 + k * 16} 296, ${168 + k * 16} 276" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity="${(0.15 + 0.3 * ((Math.sin(secs * 1.3 + k * 2) + 1) / 2)).toFixed(2)}"/>`).join('');
+    let rain = '';
+    for (let i = 0; i < 26; i++) { const x = (i * 37) % W, y = ((secs * 140 + i * 71) % (H + 40)) - 20; rain += `<line x1="${x}" y1="${y.toFixed(0)}" x2="${x - 4}" y2="${(y + 16).toFixed(0)}" stroke="#fff" stroke-width="1" opacity=".18"/>`; }
+    return rain + `<g transform="translate(110 0)"><rect x="140" y="336" width="88" height="80" rx="16" fill="${pal[2]}"/><path d="M228 352 C 262 352 262 396 228 396" stroke="${pal[2]}" stroke-width="10" fill="none"/>
+      <ellipse cx="184" cy="420" rx="70" ry="10" fill="#000" opacity=".3"/>${steam}</g>`;
+  },
+};
+
+// ---------------------------------------------------------------- face catalogue
+const FACES = {
+  studio: {
+    id: 'studio', name: 'Studio', show: null, accent: '#8d8dff', ink: '#ffffff',
+    timeFont: "'Inter Tight', 'Inter', sans-serif", timeWeight: 700, layout: 'center', wallpaper: studio,
+  },
+  friends: {
+    id: 'friends', name: 'The Apartment', show: 'Friends', service: 'Netflix', ep: 'S3 · E7', left: 22, accent: '#e9c44c', ink: '#FFF4DC',
+    timeFont: "'Gabarito', sans-serif", timeWeight: 800, layout: 'stack', wallpaper: apartment, nudge: 'Coffee break at 4?',
+  },
+  stranger: {
+    id: 'stranger', name: 'Upside', show: 'Stranger Things', service: 'Netflix', ep: 'S4 · E2', left: 41, accent: '#ff3030', ink: '#ffe9e9',
+    timeFont: "'Libre Baskerville', serif", timeWeight: 700, layout: 'glow', wallpaper: upside, nudge: 'Lights on before bed',
+  },
+  heist: {
+    id: 'heist', name: 'The Vault', show: 'Money Heist', service: 'Netflix', ep: 'S5 · E3', left: 33, accent: '#f3c77a', ink: '#FFE7C2',
+    timeFont: "'Bebas Neue', sans-serif", timeWeight: 400, layout: 'stack', wallpaper: vault, nudge: 'Stick to the plan',
+  },
+  squid: {
+    id: 'squid', name: 'The Game', show: 'Squid Game', service: 'Netflix', ep: 'S2 · E5', left: 18, accent: '#ff2e88', ink: '#ffffff',
+    timeFont: "'JetBrains Mono', monospace", timeWeight: 700, layout: 'center', wallpaper: game, nudge: 'Move: 3,000 steps to go',
+  },
+};
+
+// ---------------------------------------------------------------- prompt → face
+const MOODS = [
+  [/coffee|caf[eé]|cos[yz]|rain|book/, { motif: 'cups', pal: ['#1d120c', '#5c3a26', '#f2c89b'], font: "'Gabarito', sans-serif", w: 800, layout: 'stack' }],
+  [/neon|tokyo|city|night|cyber|seoul|mumbai/, { motif: 'skyline', pal: ['#0a0620', '#3a0f6b', '#ff4fd8'], font: "'Inter Tight', sans-serif", w: 800, layout: 'center' }],
+  [/ocean|beach|sea|wave|surf|goa|calm/, { motif: 'waves', pal: ['#021a30', '#0b5f93', '#7fe3ff'], font: "'Inter Tight', sans-serif", w: 300, layout: 'center' }],
+  [/forest|nature|mountain|green|tree|hike/, { motif: 'trees', pal: ['#06140c', '#1f5c35', '#9dffb0'], font: "'Libre Baskerville', serif", w: 700, layout: 'stack' }],
+  [/sunset|retro|80s|synth|vapor|summer/, { motif: 'sun', pal: ['#1a0633', '#ff5e7e', '#ffc65e'], font: "'Bebas Neue', sans-serif", w: 400, layout: 'center' }],
+];
+const COLORS = { red: '#ff4d4d', blue: '#4da3ff', pink: '#ff6fb5', gold: '#f3c77a', purple: '#a77bff', green: '#4dffa0', orange: '#ff9a3c', teal: '#2fe0c8' };
+
+function faceFromPrompt(prompt) {
+  const p = prompt.toLowerCase();
+  if (/friends|central perk|ross|rachel|chandler/.test(p)) return { ...FACES.friends, name: 'Your Apartment', fromPrompt: prompt };
+  if (/stranger|upside|hawkins|eleven/.test(p)) return { ...FACES.stranger, fromPrompt: prompt };
+  if (/heist|vault|professor|money/.test(p)) return { ...FACES.heist, fromPrompt: prompt };
+  if (/squid|game/.test(p)) return { ...FACES.squid, fromPrompt: prompt };
+  let mood = MOODS.find(([re]) => re.test(p))?.[1];
+  let h = 0; for (const ch of p) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  if (!mood) {
+    const hue = h % 360, c = (l, s = 70) => `hsl(${hue} ${s}% ${l}%)`;
+    mood = { motif: null, pal: [c(4, 40), c(30), c(65, 90)], font: "'Inter Tight', sans-serif", w: 700, layout: 'center' };
+  }
+  const pal = [...mood.pal];
+  const colour = Object.keys(COLORS).find((k) => p.includes(k));
+  if (colour) pal[2] = COLORS[colour];
+  const name = prompt.trim().split(/\s+/).slice(0, 3).map((w) => w[0].toUpperCase() + w.slice(1)).join(' ') || 'Yours';
+  return {
+    id: 'custom-' + h, name, show: null, accent: pal[2], ink: '#ffffff', fromPrompt: prompt,
+    timeFont: mood.font, timeWeight: mood.w, layout: mood.layout,
+    wallpaper: ({ id, secs }) => {
+      const base = `<defs><linearGradient id="${id}cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#${id}cg)"/>`;
+      return mood.motif ? base + MOTIFS[mood.motif]({ secs, pal }) : studio({ id, secs, palette: [pal[1], pal[2], pal[1]], bg: pal[0] });
+    },
+  };
+}
+
+// ---------------------------------------------------------------- your photo → face
+// Any image the user picks (stays on the device) becomes the wallpaper, wrapped in a show's
+// styling. The prototype never ships or commits third-party photos.
+function faceFromPhoto(dataUrl, base = FACES.friends, focus = 'xMidYMid') {
+  // (frame / clockPos / dim are applied by the renderer, so they work on every face)
+  return {
+    ...base, id: 'photo-' + dataUrl.length, name: base.show ? `${base.show} · Your photo` : 'Your photo',
+    layout: 'photo', photo: dataUrl,
+    wallpaper: ({ id }) => `<defs><linearGradient id="${id}ps" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#000" stop-opacity=".7"/><stop offset=".32" stop-color="#000" stop-opacity="0"/>
+        <stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+      <rect width="${W}" height="${H}" fill="${base.accent}"/>
+      <image href="${dataUrl}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="${focus} slice"/>
+      <rect width="${W}" height="${H}" fill="url(#${id}ps)"/>
+      <rect x="3" y="3" width="${W - 6}" height="${H - 6}" rx="89" fill="none" stroke="${base.accent}" stroke-width="6" opacity=".9"/>`,
+  };
+}
+
+// ---------------------------------------------------------------- favourite character → face
+// style: the card from /api/style (Claude). image: optional AI wallpaper (data: URL).
+const WEIGHT = { 'Inter Tight': 800, Gabarito: 800, 'Libre Baskerville': 700, 'Bebas Neue': 400, 'JetBrains Mono': 700 };
+function faceFromStyle(style, base, character, image = null) {
+  const [bg, mid, accent] = style.palette;
+  const look = { ...base, accent, ink: style.ink, nudge: style.nudge, timeFont: `'${style.timeFont}', sans-serif`, timeWeight: WEIGHT[style.timeFont] || 700 };
+  if (image) return { ...faceFromPhoto(image, look), id: 'char-' + character, name: style.name, character, style };
+  const gen = faceFromPrompt(`${style.motifs.join(' ')} ${style.mood}`);
+  return { ...gen, ...look, layout: gen.layout, id: 'char-' + character, name: style.name, character, style,
+    wallpaper: ({ id, secs }) => studio({ id, secs, palette: [mid, accent, mid], bg }) };
+}
+
+// offline fallback when no Claude key: the show's own scene, re-tinted per character
+const CHAR_TINT = ['#ff6fb5', '#4da3ff', '#ffb547', '#7cf29a', '#c77bff', '#ff6b4d', '#2fe0c8', '#f3c77a'];
+function faceForCharacterOffline(base, character, i) {
+  return { ...base, id: 'char-' + character, name: `${character}'s ${base.name.replace(/^The /, '')}`, character, accent: CHAR_TINT[i % CHAR_TINT.length] };
+}
+
+// ---------------------------------------------------------------- refine: "make it darker", "put it in a circle"…
+// A face's editable settings. Claude (via /api/refine) or the offline rules below produce a patch.
+const EDITABLE = ['accent', 'ink', 'timeFont', 'frame', 'clockPos', 'timeScale', 'dim', 'hideCard'];
+const settingsOf = (f) => ({
+  accent: f.accent, ink: f.ink, timeFont: (f.timeFont.match(/'([^']+)'/) || [, 'Inter Tight'])[1],
+  frame: f.frame || 'full', clockPos: f.clockPos || 'auto', timeScale: f.timeScale || 1, dim: f.dim || 0, hideCard: !!f.hideCard,
+});
+function applyPatch(face, patch) {
+  const f = { ...face };
+  for (const k of EDITABLE) if (patch[k] !== undefined && patch[k] !== null) f[k] = patch[k];
+  if (patch.timeFont) { f.timeFont = `'${patch.timeFont}', sans-serif`; f.timeWeight = WEIGHT[patch.timeFont] || 700; }
+  f.timeScale = Math.min(1.5, Math.max(0.6, +f.timeScale || 1));
+  f.dim = Math.min(0.7, Math.max(-0.3, +f.dim || 0));
+  f.id = face.id.replace(/~\d+$/, '') + '~' + Date.now() % 100000;
+  return f;
+}
+const FONT_WORDS = [[/serif|classic|elegant/, 'Libre Baskerville'], [/mono|code|typewriter|retro computer/, 'JetBrains Mono'], [/condensed|tall|poster|bold/, 'Bebas Neue'], [/round|friendly|chunky|playful/, 'Gabarito'], [/minimal|clean|modern|apple/, 'Inter Tight']];
+function refineOffline(face, text) {
+  const t = text.toLowerCase(), cur = settingsOf(face), patch = {}, done = [];
+  if (/circle|medallion|round frame|badge|porthole/.test(t)) { patch.frame = 'medallion'; done.push('framed in a medallion'); }
+  else if (/full ?(screen|bleed)|edge to edge|no circle|remove (the )?circle/.test(t)) { patch.frame = 'full'; done.push('full-screen artwork'); }
+  for (const pos of ['left', 'right', 'center']) if (new RegExp(`(clock|time).*${pos}|${pos}.*(clock|time)`).test(t.replace('centre', 'center'))) { patch.clockPos = pos; done.push(`clock ${pos}`); }
+  if (/bigger|larger|huge|giant/.test(t)) { patch.timeScale = cur.timeScale * 1.18; done.push('bigger time'); }
+  if (/smaller|tiny|subtle/.test(t)) { patch.timeScale = cur.timeScale / 1.18; done.push('smaller time'); }
+  if (/darker|moodier|night|dim/.test(t)) { patch.dim = cur.dim + 0.18; done.push('darker'); }
+  if (/brighter|lighter|sunny/.test(t)) { patch.dim = cur.dim - 0.15; done.push('brighter'); }
+  const col = Object.keys(COLORS).find((k) => t.includes(k)); if (col) { patch.accent = COLORS[col]; done.push(`${col} accent`); }
+  const font = FONT_WORDS.find(([re]) => re.test(t)); if (font) { patch.timeFont = font[1]; done.push(`${font[1]} type`); }
+  if (/hide (the )?card|no card|cleaner|declutter/.test(t)) { patch.hideCard = true; done.push('card hidden'); }
+  if (/show (the )?card|add (the )?card/.test(t)) { patch.hideCard = false; done.push('card shown'); }
+  return { patch, summary: done.length ? done.join(' · ') : "Didn't catch that. Try “circle frame”, “clock left”, “darker”, “gold”, “serif”." };
+}
+
+;
+// ENCORE — watch screen renderer (396 × 484, rounded-rect OLED). Pure SVG strings.
+
+
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x, 0, 1); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const UI = `font-family="Inter, 'Inter Tight', system-ui, sans-serif"`;
+const RX = 92;
+
+const fmt12 = (t) => {
+  const m = Math.floor((((t % 24) + 24) % 24) * 60 + 1e-6);
+  const h = Math.floor(m / 60) % 12 || 12;
+  return [String(h), String(m % 60).padStart(2, '0')];
+};
+
+const gauss = (u, m, w) => Math.exp(-(((u - m) / w) ** 2));
+function beatPulse(secs, hr) {
+  const ph = ((secs * hr) / 60) % 1;
+  return clamp(Math.max(Math.exp(-ph * 9), ph > 0.17 ? 0.6 * Math.exp(-(ph - 0.17) * 9) : 0), 0, 1);
+}
+const heart = (x, y, k, fill) => `<path transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})" fill="${fill}" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
+
+const open = (id, inner, extraDefs = '') => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs>
+  <clipPath id="${id}clip"><rect width="${W}" height="${H}" rx="${RX}"/></clipPath>
+  <filter id="${id}soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="${id}shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity=".45"/></filter>
+  ${extraDefs}</defs><g clip-path="url(#${id}clip)">${inner}</g></svg>`;
+
+// ------------------------------------------------------------------ HOME FACE
+/**
+ * o = { face, t, secs, id, hr, spike (0..1), play: {show, ep, left, total} | null, day: 'WED 4' }
+ */
+function renderHome(o) {
+  const { face: f, t, secs = 0, id = 'h', hr = 72, spike = 0, play = null, day = '', aod = false } = o;
+  const [hh, mm] = fmt12(t);
+  const pulse = beatPulse(secs, hr);
+  const stress = clamp((hr - 95) / 50, 0, 1);
+  const ink = aod ? '#a8a8a8' : f.ink;
+  const medal = f.frame === 'medallion' && !aod;
+  let s;
+  if (aod) s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  else if (medal) {
+    // ray burst + the face's own artwork inside a ringed circle (works for scenes, photos and AI art)
+    s = `<rect width="${W}" height="${H}" fill="#050507"/>`;
+    for (let k = 0; k < 36; k++) { const a = (k * 10 + secs * 2) * Math.PI / 180, b = a + Math.PI / 54; s += `<path d="M198 318 L ${(198 + 600 * Math.cos(a)).toFixed(1)} ${(318 + 600 * Math.sin(a)).toFixed(1)} L ${(198 + 600 * Math.cos(b)).toFixed(1)} ${(318 + 600 * Math.sin(b)).toFixed(1)} Z" fill="${f.accent}" opacity=".07"/>`; }
+    s += `<circle cx="198" cy="318" r="150" fill="${f.accent}" opacity=".25" filter="url(#${id}soft)"/>`;
+    s += `<defs><clipPath id="${id}med"><circle cx="198" cy="318" r="128"/></clipPath></defs><g clip-path="url(#${id}med)"><g transform="translate(67.3 158.3) scale(0.66)">${f.wallpaper({ id: id + 'w', secs })}</g></g>`;
+    s += `<circle cx="198" cy="318" r="131" fill="none" stroke="#fff" stroke-width="7"/>`;
+  } else s = f.wallpaper({ id, secs });
+  if (!aod && f.dim) s += `<rect width="${W}" height="${H}" fill="${f.dim > 0 ? '#000' : '#fff'}" opacity="${Math.abs(f.dim).toFixed(2)}"/>`;
+
+  // scrim behind type for legibility (premium: soft vignette, not a box)
+  if (!aod) s += `<rect width="${W}" height="${H}" fill="url(#${id}vig)"/>`;
+
+  // status row
+  const pos = f.clockPos && f.clockPos !== 'auto' ? f.clockPos : medal ? 'right' : null;
+  const ax = pos === 'left' ? 34 : pos === 'right' ? W - 34 : W / 2, anchor = pos === 'left' ? 'start' : pos === 'right' ? 'end' : 'middle';
+  const k = f.timeScale || 1;
+  if (medal) {
+    s += heart(48, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="62" y="62" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`;
+    s += `<text x="${ax}" y="72" text-anchor="${anchor}" ${UI} font-size="19" font-weight="600" letter-spacing="1.5" fill="#fff">${day}</text>`;
+  } else {
+    s += `<text x="38" y="62" ${UI} font-size="15" font-weight="600" letter-spacing="1.2" fill="${ink}" opacity=".9">${day}</text>`;
+    s += heart(W - 82, 57, 0.62 + 0.18 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
+    s += `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="${ink}">${hr}</text>`;
+  }
+
+  // time
+  const tf = `font-family="${f.timeFont.replace(/"/g, "'")}" font-weight="${aod ? 300 : f.timeWeight}"`;
+  if (medal) {
+    s += `<text x="${ax}" y="${150 + 30 * (k - 1)}" text-anchor="${anchor}" ${tf} font-size="${(86 * k).toFixed(0)}" letter-spacing="-2" fill="#fff">${hh}:${mm}</text>`;
+  } else if (pos) {
+    s += `<text x="${ax}" y="${f.layout === 'photo' ? 146 : 280}" text-anchor="${anchor}" ${tf} font-size="${((f.layout === 'photo' ? 92 : 120) * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" ${aod ? '' : `filter="url(#${id}shadow)"`}>${hh}:${mm}</text>`;
+  } else if (f.layout === 'stack') {
+    const big = (f.timeFont.includes('Bebas') ? 168 : 132) * Math.min(k, 1.12);
+    s += `<g ${aod ? '' : `filter="url(#${id}shadow)"`}><text x="34" y="${f.timeFont.includes('Bebas') ? 222 : 206}" ${tf} font-size="${big}" letter-spacing="-4" fill="${ink}">${hh.padStart(2, '0')}</text>`;
+    s += `<text x="34" y="${f.timeFont.includes('Bebas') ? 366 : 330}" ${tf} font-size="${big}" letter-spacing="-4" fill="${aod ? ink : f.accent}">${mm}</text></g>`;
+  } else if (f.layout === 'photo' && !aod) {
+    s += `<text x="${W / 2}" y="146" text-anchor="middle" ${tf} font-size="${(92 * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" filter="url(#${id}shadow)">${hh}:${mm}</text>`;
+  } else if (f.layout === 'glow' && !aod) {
+    s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="${f.accent}" opacity=".8" filter="url(#${id}soft)">${hh}:${mm}</text>`;
+    s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="#120202" stroke="${f.accent}" stroke-width="2.2">${hh}:${mm}</text>`;
+  } else {
+    const size = (f.timeFont.includes('Mono') ? 104 : 138) * Math.min(k, 1.1);
+    s += `<text x="${W / 2}" y="${f.timeFont.includes('Mono') ? 270 : 280}" text-anchor="middle" ${tf} font-size="${size}" letter-spacing="${f.timeFont.includes('Mono') ? -6 : -6}" fill="${ink}" ${aod ? '' : `filter="url(#${id}shadow)"`}>${hh}:${mm}</text>`;
+  }
+
+  if (!aod && !medal && !f.hideCard) {
+    // glass complication card
+    const cy = 384, ch = 72;
+    s += `<rect x="20" y="${cy}" width="${W - 40}" height="${ch}" rx="26" fill="#0b0b10" fill-opacity=".52" stroke="#fff" stroke-opacity=".14"/>`;
+    if (play) {
+      const prog = clamp(1 - play.left / play.total, 0, 1);
+      s += `<rect x="34" y="${cy + 14}" width="44" height="44" rx="12" fill="${f.accent}"/>`;
+      s += `<text x="56" y="${cy + 44}" text-anchor="middle" ${UI} font-size="20" font-weight="800" fill="#111">${play.show[0]}</text>`;
+      s += `<text x="92" y="${cy + 31}" ${UI} font-size="15" font-weight="600" fill="#fff">${play.show}</text>`;
+      s += `<text x="92" y="${cy + 50}" ${UI} font-size="12.5" fill="#fff" opacity=".65">${play.ep} · ${play.left} min left</text>`;
+      s += `<rect x="92" y="${cy + 57}" width="210" height="3" rx="1.5" fill="#fff" opacity=".18"/><rect x="92" y="${cy + 57}" width="${(210 * prog).toFixed(1)}" height="3" rx="1.5" fill="${f.accent}"/>`;
+      s += `<circle cx="${W - 54}" cy="${cy + 36}" r="20" fill="#fff"/><path d="M${W - 60} ${cy + 26} L ${W - 44} ${cy + 36} L ${W - 60} ${cy + 46} Z" fill="#111"/>`;
+    } else {
+      s += `<text x="40" y="${cy + 31}" ${UI} font-size="12" font-weight="600" letter-spacing="1" fill="#fff" opacity=".55">UP NEXT</text>`;
+      s += `<text x="40" y="${cy + 54}" ${UI} font-size="16" font-weight="600" fill="#fff">${f.nudge || 'Wind down at 10:30'}</text>`;
+      s += `<text x="${W - 40}" y="${cy + 54}" text-anchor="end" ${UI} font-size="16" font-weight="700" fill="${f.accent}">6,842</text>`;
+      s += `<text x="${W - 40}" y="${cy + 31}" text-anchor="end" ${UI} font-size="12" font-weight="600" letter-spacing="1" fill="#fff" opacity=".55">STEPS</text>`;
+    }
+  }
+  if (!aod) s += `<rect x="${W / 2 - 18}" y="${H - 16}" width="36" height="4" rx="2" fill="#fff" opacity=".35"/>`;
+
+  // heart sync: racing → red edge glow on every beat; spike → breathe overlay
+  if (stress > 0 && !aod) {
+    s += `<rect x="6" y="6" width="${W - 12}" height="${H - 12}" rx="${RX - 6}" fill="none" stroke="#ff2a45" stroke-width="18" opacity="${(stress * (0.25 + 0.75 * pulse)).toFixed(3)}" filter="url(#${id}soft)"/>`;
+    s += `<rect width="${W}" height="${H}" fill="#000" opacity="${(stress * 0.3 * (1 - pulse)).toFixed(3)}"/>`;
+  }
+  if (spike > 0 && !aod) s += breatheLayer(id, secs, hr, spike, f.accent);
+
+  const vig = `<radialGradient id="${id}vig" cx=".5" cy=".45" r=".75"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>`;
+  return open(id, s, vig);
+}
+
+function breatheLayer(id, secs, hr, k, accent) {
+  const cyc = secs % 10, inhale = cyc < 4;
+  const e = inhale ? (1 - Math.cos((Math.PI * cyc) / 4)) / 2 : (1 + Math.cos((Math.PI * (cyc - 4)) / 6)) / 2;
+  let s = `<rect width="${W}" height="${H}" fill="#04050a" opacity="${(0.86 * k).toFixed(2)}"/><g opacity="${k.toFixed(2)}">`;
+  for (let i = 0; i < 4; i++) {
+    const r = 40 + e * 70 + i * (12 + e * 18);
+    s += `<circle cx="${W / 2}" cy="214" r="${r.toFixed(1)}" fill="none" stroke="${i % 2 ? '#7fd4ff' : '#9d8bff'}" stroke-width="${2 + (3 - i)}" opacity="${(0.75 - i * 0.15).toFixed(2)}"/>`;
+  }
+  s += `<circle cx="${W / 2}" cy="214" r="${(36 + e * 60).toFixed(1)}" fill="#7fd4ff" opacity=".12" filter="url(#${id}soft)"/>`;
+  s += `<text x="${W / 2}" y="388" text-anchor="middle" ${UI} font-size="26" font-weight="700" fill="#fff">${inhale ? 'Breathe in' : 'Breathe out'}</text>`;
+  s += `<text x="${W / 2}" y="418" text-anchor="middle" ${UI} font-size="14" fill="#fff" opacity=".6">Heart rate spiked to ${hr} bpm</text></g>`;
+  return s;
+}
+
+// ------------------------------------------------------------------ GALLERY (swipe)
+// cards: [{face, label}], pos: fractional index (animated); last card may be {create:true}
+function renderGallery({ cards, pos, secs, t, id = 'g', day }) {
+  const cw = W * 0.7, chh = H * 0.7, cy = 52;
+  let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  s += `<text x="${W / 2}" y="34" text-anchor="middle" ${UI} font-size="13" font-weight="600" letter-spacing="1.5" fill="#fff" opacity=".55">SWIPE · TAP TO WEAR</text>`;
+  cards.forEach((c, i) => {
+    const d = i - pos;
+    if (Math.abs(d) > 1.6) return;
+    const sc = 1 - Math.min(Math.abs(d), 1) * 0.12;
+    const w = cw * sc, h = chh * sc, x = W / 2 + d * (cw + 18) - w / 2, y = cy + (chh - h) / 2;
+    if (c.create) {
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${54 * sc}" fill="#121218" stroke="#fff" stroke-opacity=".18" stroke-dasharray="6 6"/>`;
+      s += `<circle cx="${x + w / 2}" cy="${y + h / 2 - 22}" r="${34 * sc}" fill="url(#${id}cg)"/>`;
+      s += `<path d="M${x + w / 2 - 12} ${y + h / 2 - 22} H ${x + w / 2 + 12} M ${x + w / 2} ${y + h / 2 - 34} V ${y + h / 2 - 10}" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
+      s += `<text x="${x + w / 2}" y="${y + h / 2 + 40}" text-anchor="middle" ${UI} font-size="${17 * sc}" font-weight="700" fill="#fff">Create your own</text>`;
+      s += `<text x="${x + w / 2}" y="${y + h / 2 + 62}" text-anchor="middle" ${UI} font-size="${12.5 * sc}" fill="#fff" opacity=".55">Describe it. We design it.</text>`;
+    } else {
+      const inner = renderHome({ face: c.face, t, secs, id: `${id}c${i}`, play: null, day }).replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" `);
+      s += inner;
+      if (c.badge) s += `<rect x="${x + w / 2 - 52}" y="${y - 10}" width="104" height="22" rx="11" fill="${c.face.accent}"/><text x="${x + w / 2}" y="${y + 5}" text-anchor="middle" ${UI} font-size="11" font-weight="800" letter-spacing=".6" fill="#111">${c.badge}</text>`;
+    }
+  });
+  const cur = cards[Math.round(clamp(pos, 0, cards.length - 1))];
+  const title = cur.create ? 'New face' : cur.face.name;
+  const sub = cur.create ? 'From a description' : cur.face.show ? `Inspired by ${cur.face.show}` : cur.face.fromPrompt ? `“${cur.face.fromPrompt}”` : 'Encore original';
+  s += `<text x="${W / 2}" y="${cy + chh + 40}" text-anchor="middle" ${UI} font-size="20" font-weight="700" fill="#fff">${title}</text>`;
+  s += `<text x="${W / 2}" y="${cy + chh + 62}" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".55">${sub.length > 34 ? sub.slice(0, 33) + '…”' : sub}</text>`;
+  cards.forEach((_, i) => {
+    const on = Math.round(pos) === i;
+    s += `<circle cx="${W / 2 + (i - (cards.length - 1) / 2) * 13}" cy="${H - 26}" r="${on ? 3.6 : 2.6}" fill="#fff" opacity="${on ? 1 : 0.3}"/>`;
+  });
+  return open(id, s, `<linearGradient id="${id}cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset="1" stop-color="#ff5fa2"/></linearGradient>`);
+}
+
+// ------------------------------------------------------------------ GIFT REVEAL
+function renderGift({ face, el, reason, t, secs, id = 'gf', day }) {
+  let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  const a = face.accent;
+  // phase A: orb gathers (0–1.4 s)
+  const orb = ease(el / 1.4), burst = ease((el - 1.3) / 0.9), card = ease((el - 1.6) / 0.9), ui = ease((el - 2.4) / 0.6);
+  s += `<circle cx="${W / 2}" cy="214" r="${(30 + 30 * orb + 260 * burst).toFixed(1)}" fill="${a}" opacity="${(0.55 * (1 - burst * 0.85)).toFixed(2)}" filter="url(#${id}soft)"/>`;
+  if (el < 1.9) {
+    s += `<text x="${W / 2}" y="350" text-anchor="middle" ${UI} font-size="17" font-weight="600" fill="#fff" opacity="${(orb * (1 - burst)).toFixed(2)}">Something new, made for you…</text>`;
+    for (let k = 0; k < 10; k++) { // sparkle ring
+      const ang = (k / 10) * Math.PI * 2 + secs * 1.4, r = 70 - 30 * orb;
+      s += `<circle cx="${(W / 2 + r * Math.cos(ang)).toFixed(1)}" cy="${(214 + r * Math.sin(ang)).toFixed(1)}" r="2.2" fill="#fff" opacity="${(orb * (1 - burst)).toFixed(2)}"/>`;
+    }
+  }
+  if (card > 0) {
+    const sc = 0.22 + 0.34 * card, w = W * sc, h = H * sc, x = W / 2 - w / 2, y = 212 - h / 2 + 10 * (1 - card);
+    s += `<rect x="${x - 3}" y="${y - 3}" width="${w + 6}" height="${h + 6}" rx="${RX * sc + 3}" fill="none" stroke="${a}" stroke-width="2" opacity="${card.toFixed(2)}"/>`;
+    s += renderHome({ face, t, secs, id: id + 'p', day, play: null }).replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" opacity="${card.toFixed(2)}" `);
+    // light sweep across the card
+    const sx = x - 80 + (w + 160) * ease((el - 2.0) / 0.8);
+    if (el > 2.0 && el < 2.9) s += `<rect x="${sx.toFixed(1)}" y="${y}" width="40" height="${h}" fill="#fff" opacity=".22" transform="skewX(-18)"/>`;
+  }
+  if (ui > 0) {
+    s += `<g opacity="${ui.toFixed(2)}">`;
+    s += `<text x="${W / 2}" y="48" text-anchor="middle" ${UI} font-size="12.5" font-weight="700" letter-spacing="2" fill="${a}">MADE FOR YOU</text>`;
+    s += `<text x="${W / 2}" y="376" text-anchor="middle" ${UI} font-size="15" fill="#fff" opacity=".75">${reason}</text>`;
+    s += `<rect x="58" y="396" width="${W - 116}" height="48" rx="24" fill="#fff"/><text x="${W / 2}" y="426" text-anchor="middle" ${UI} font-size="17" font-weight="700" fill="#000">Wear this face</text>`;
+    s += `<text x="${W / 2}" y="468" text-anchor="middle" ${UI} font-size="14" fill="#fff" opacity=".55">Save for later</text></g>`;
+  }
+  return open(id, s);
+}
+
+// ------------------------------------------------------------------ CREATE (describe it)
+function renderCreate({ prompt, secs, id = 'cr', listening = true }) {
+  let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  s += `<text x="${W / 2}" y="64" text-anchor="middle" ${UI} font-size="22" font-weight="700" fill="#fff">Describe your face</text>`;
+  s += `<text x="${W / 2}" y="90" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".55">Speak, scribble or type on your phone</text>`;
+  // listening orb
+  for (let i = 0; i < 3; i++) {
+    const r = 46 + 10 * Math.sin(secs * 3 + i * 1.3) * (listening ? 1 : 0.2) + i * 8;
+    s += `<circle cx="${W / 2}" cy="210" r="${r.toFixed(1)}" fill="url(#${id}og)" opacity="${(0.55 - i * 0.15).toFixed(2)}"/>`;
+  }
+  s += `<path d="M${W / 2} 192 v 20 M ${W / 2 - 12} 206 a 12 12 0 0 0 24 0 M ${W / 2} 220 v 8" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+  s += `<rect x="${W / 2 - 7}" y="186" width="14" height="26" rx="7" fill="#fff"/>`;
+  const text = prompt ? `“${prompt}”` : 'e.g. “a rainy café in Mumbai”';
+  const lines = wrap(text, 26);
+  lines.slice(0, 3).forEach((ln, i) => {
+    s += `<text x="${W / 2}" y="${318 + i * 26}" text-anchor="middle" ${UI} font-size="19" font-weight="${prompt ? 600 : 400}" fill="#fff" opacity="${prompt ? 1 : 0.4}">${ln}</text>`;
+  });
+  if (prompt) s += `<rect x="58" y="404" width="${W - 116}" height="48" rx="24" fill="#fff"/><text x="${W / 2}" y="434" text-anchor="middle" ${UI} font-size="17" font-weight="700" fill="#000">Design it</text>`;
+  return open(id, s, `<radialGradient id="${id}og"><stop offset="0" stop-color="#ff5fa2"/><stop offset=".6" stop-color="#7b5cff"/><stop offset="1" stop-color="#2a1d6b"/></radialGradient>`);
+}
+
+function renderDesigning({ face, p, step, secs, id = 'ds' }) {
+  let s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  // the face materialises inside a shimmering frame
+  const sc = 0.56, w = W * sc, h = H * sc, x = W / 2 - w / 2, y = 60;
+  s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${RX * sc}" fill="#15151c"/>`;
+  s += `<g opacity="${ease(p).toFixed(2)}">` + renderHome({ face, t: 10.15, secs, id: id + 'p', play: null }).replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h}" `) + `</g>`;
+  const sh = x - 60 + ((secs * 160) % (w + 120));
+  s += `<rect x="${sh.toFixed(1)}" y="${y}" width="50" height="${h}" fill="#fff" opacity=".12" transform="skewX(-15)" clip-path="url(#${id}clip)"/>`;
+  s += `<text x="${W / 2}" y="362" text-anchor="middle" ${UI} font-size="13" font-weight="700" letter-spacing="2" fill="${face.accent}">DESIGNING · ${Math.round(p * 100)}%</text>`;
+  s += `<text x="${W / 2}" y="392" text-anchor="middle" ${UI} font-size="16" fill="#fff">${step}</text>`;
+  s += `<rect x="78" y="420" width="${W - 156}" height="4" rx="2" fill="#fff" opacity=".15"/><rect x="78" y="420" width="${((W - 156) * p).toFixed(1)}" height="4" rx="2" fill="${face.accent}"/>`;
+  return open(id, s);
+}
+
+function wrap(text, n) {
+  const out = []; let line = '';
+  for (const w of text.split(' ')) { if ((line + ' ' + w).trim().length > n) { out.push(line.trim()); line = w; } else line += ' ' + w; }
+  if (line.trim()) out.push(line.trim());
+  return out;
+}
+
+// ------------------------------------------------------------------ FAVOURITE CHARACTER QUIZ
+function renderQuiz({ show, chars, secs, accent = '#fff', id = 'qz' }) {
+  let s = `<rect width="${W}" height="${H}" fill="#000"/><circle cx="${W / 2}" cy="-40" r="220" fill="${accent}" opacity=".18" filter="url(#${id}soft)"/>`;
+  s += `<text x="${W / 2}" y="62" text-anchor="middle" ${UI} font-size="12.5" font-weight="700" letter-spacing="2" fill="${accent}">${show.toUpperCase()}</text>`;
+  s += `<text x="${W / 2}" y="98" text-anchor="middle" ${UI} font-size="24" font-weight="700" fill="#fff">Who's your favourite?</text>`;
+  const list = chars.slice(0, 6);
+  if (!list.length) s += `<text x="${W / 2}" y="240" text-anchor="middle" ${UI} font-size="15" fill="#fff" opacity=".6">Looking up the cast…</text>`;
+  list.forEach((c, i) => {
+    const x = i % 2 ? W / 2 + 6 : 34, y = 130 + Math.floor(i / 2) * 78, w = W / 2 - 40;
+    const pulse = 0.12 + 0.05 * Math.sin(secs * 2 + i);
+    s += `<rect x="${x}" y="${y}" width="${w}" height="64" rx="22" fill="#fff" fill-opacity="${pulse.toFixed(2)}" stroke="#fff" stroke-opacity=".18"/>`;
+    s += `<circle cx="${x + 30}" cy="${y + 32}" r="16" fill="${accent}"/><text x="${x + 30}" y="${y + 38}" text-anchor="middle" ${UI} font-size="15" font-weight="800" fill="#111">${c[0]}</text>`;
+    s += `<text x="${x + 54}" y="${y + 38}" ${UI} font-size="${c.length > 10 ? 13 : 15}" font-weight="600" fill="#fff">${c.length > 13 ? c.slice(0, 12) + '…' : c}</text>`;
+  });
+  s += `<text x="${W / 2}" y="${H - 34}" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".5">We'll design a face around their world</text>`;
+  return open(id, s);
+}
+const QUIZ_HIT = (sx, sy) => { const r = Math.floor((sy - 130) / 78), c = sx > W / 2 ? 1 : 0; return sy >= 130 && r >= 0 && r < 3 ? r * 2 + c : -1; };
+
+;
+
+
+
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+
+const SHOWS = ['friends', 'stranger', 'heist', 'squid'];
+const POSTER = {
+  friends: 'linear-gradient(160deg,#7446ad,#e9c44c)', stranger: 'linear-gradient(160deg,#050307,#ff1d1d)',
+  heist: 'linear-gradient(160deg,#b3141d,#1c0204)', squid: 'linear-gradient(160deg,#0c9e8a,#ff2e88)',
+};
+
+const state = {
+  quiz: null,
+  screen: params.get('screen') || 'home',
+  face: FACES[params.get('face')] || FACES.studio,
+  owned: [FACES.studio],
+  pos: 0, target: 0,
+  play: null, selected: 'friends',
+  gift: null, prompt: params.get('prompt') || '',
+  designing: null, aod: params.get('aod') === '1',
+  hrManual: params.has('hr') ? +params.get('hr') : null, spikeAt: params.has('spike') ? -100 : null,
+  taste: { friends: 14, stranger: 6, heist: 3, squid: 2 },
+};
+let secs = params.has('secs') ? +params.get('secs') : 0;
+const fixedT = params.has('t') ? +params.get('t') : null;
+
+const nowT = () => { if (fixedT !== null) return fixedT; const d = new Date(); return d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600; };
+const dayLabel = () => (params.has('t') ? 'WED 4' : new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }).toUpperCase().replace(',', ''));
+
+// ---------------- heart ----------------
+function heartState() {
+  const base = state.hrManual ?? 68 + Math.round(4 * Math.sin(secs * 0.3));
+  if (state.spikeAt === null) return { hr: base, spike: 0 };
+  if (state.spikeAt === -100) return { hr: 148, spike: 1 };
+  const e = secs - state.spikeAt, peak = 150;
+  if (e < 1.5) return { hr: Math.round(base + (peak - base) * e / 1.5), spike: 0 };
+  if (e < 16) return { hr: Math.round(peak - (e - 1.5) * 1.3), spike: Math.min(1, (e - 1.5) / 0.6) };
+  if (e < 22) { const f = (e - 16) / 6; return { hr: Math.round(peak - 19 + (base - peak + 19) * f), spike: 1 - f }; }
+  state.spikeAt = null; return { hr: base, spike: 0 };
+}
+
+// ---------------- gallery cards ----------------
+function cards() {
+  const list = [...state.owned];
+  for (const k of ['studio', ...SHOWS]) if (!list.some((f) => f.id === FACES[k].id)) list.push(FACES[k]);
+  return [...list.map((f) => ({ face: f, badge: f.gifted ? 'FOR YOU' : null })), { create: true }];
+}
+
+// ---------------- flows ----------------
+function wear(face) {
+  if (!state.owned.some((f) => f.id === face.id)) state.owned.unshift(face);
+  state.face = face; state.screen = 'home';
+}
+function startGift(face, reason) { state.gift = { face: { ...face, gifted: true }, reason, start: secs }; state.screen = 'gift'; }
+function pressPlay() {
+  const k = state.selected, f = FACES[k];
+  state.play = { show: f.show, ep: f.ep, left: f.left, total: 50 };
+  state.taste[k] = (state.taste[k] || 0) + 1;
+  $('playState').textContent = `Playing ${f.show} on ${f.service}…`;
+  renderTaste();
+  setTimeout(() => {
+    $('playState').textContent = 'Detected → a face is on its way to your watch';
+    if (state.face.id !== f.id) startGift(f, `Because you're watching ${f.show}`);
+  }, 1300);
+}
+// ---------------- favourite character → AI face ----------------
+const CHAR_STEPS = ['Looking up the cast…', 'Reading their world with Claude…', 'Painting the wallpaper…', 'Setting type and colour…', 'Checking always-on & battery…'];
+let api = { claude: false, replicate: false, tmdb: false };
+fetch('/api/health').then((r) => (r.ok ? r.json() : api)).then((h) => { api = h; aiLabel(); }).catch(() => aiLabel());
+function aiLabel() {
+  $('aiState').textContent = api.claude ? `AI on: Claude${api.replicate ? ' + Flux' : ''}${api.tmdb ? ' + TMDB' : ''}` : 'AI offline: using the built-in generator';
+}
+async function openQuiz() {
+  const base = FACES[state.selected];
+  state.quiz = { show: base.show, base, chars: [] }; state.screen = 'quiz';
+  let chars = [];
+  try { const r = await fetch(`/api/characters?show=${encodeURIComponent(base.show)}`); if (r.ok) chars = (await r.json()).characters; } catch {}
+  if (!chars.length) chars = { friends: ['Rachel', 'Ross', 'Monica', 'Chandler', 'Joey', 'Phoebe'], stranger: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'], heist: ['The Professor', 'Tokyo', 'Berlin', 'Nairobi', 'Rio', 'Denver'], squid: ['Gi-hun', 'Sae-byeok', 'Sang-woo', 'Ali', 'Il-nam', 'The Front Man'] }[state.selected];
+  state.quiz.chars = chars.slice(0, 6);
+  $('favChips').innerHTML = state.quiz.chars.map((c, i) => `<button class="chip" data-i="${i}">${c}</button>`).join('');
+}
+async function designCharacter(i) {
+  const { base, chars, show } = state.quiz, character = chars[i];
+  const job = { face: { ...base, accent: faceForCharacterOffline(base, character, i).accent }, start: secs, done: null, steps: CHAR_STEPS, slow: true };
+  state.designing = job; state.screen = 'designing';
+  let face;
+  try {
+    const r = await fetch('/api/style', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ show, character }) });
+    if (!r.ok) throw new Error((await r.json()).error);
+    const style = await r.json();
+    job.face = faceFromStyle(style, base, character);
+    let image = null;
+    try {
+      const w = await fetch('/api/wallpaper', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imagePrompt: style.imagePrompt }) });
+      if (w.ok) image = (await w.json()).image;
+    } catch {}
+    face = faceFromStyle(style, base, character, image);
+    $('aiState').textContent = `Claude style: “${style.mood}”`;
+  } catch (e) {
+    face = faceForCharacterOffline(base, character, i);
+    if (api.claude) $('aiState').textContent = `AI unavailable (${e.message}); using the built-in generator`;
+  }
+  job.face = face; job.done = secs;
+}
+$('favBtn').onclick = openQuiz;
+
+// ---------------- refine the worn face ----------------
+const history = [];
+async function refineFace(text) {
+  text = text.trim(); if (!text) return;
+  const face = state.face;
+  $('refineState').textContent = 'Working…';
+  let patch, summary, image = null;
+  try {
+    if (!api.claude) throw new Error('offline');
+    const r = await fetch('/api/refine', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ settings: settingsOf(face), instruction: text, imagePrompt: face.style?.imagePrompt || '' }) });
+    if (!r.ok) throw new Error((await r.json()).error);
+    const out = await r.json();
+    ({ summary } = out); patch = out;
+    if (out.regenerateImage && out.imagePrompt && api.replicate) {
+      $('refineState').textContent = 'Repainting the artwork…';
+      const w = await fetch('/api/wallpaper', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imagePrompt: out.imagePrompt }) });
+      if (w.ok) image = (await w.json()).image;
+    }
+  } catch { ({ patch, summary } = refineOffline(face, text)); }
+  history.push(face);
+  let next = applyPatch(face, patch);
+  if (image) next = { ...applyPatch(faceFromPhoto(image, next), patch), name: face.name, style: { ...(face.style || {}), imagePrompt: patch.imagePrompt } };
+  const i = state.owned.findIndex((f) => f.id === face.id); if (i >= 0) state.owned[i] = next;
+  state.face = next; state.screen = 'home'; state.flash = secs;
+  $('refineState').textContent = `✓ ${summary}`;
+}
+$('refineBtn').onclick = () => refineFace($('refine').value);
+$('refineChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) { $('refine').value = b.textContent; refineFace(b.textContent); } };
+$('undoBtn').onclick = () => { if (history.length) { state.face = history.pop(); state.screen = 'home'; $('refineState').textContent = 'Undone'; } };
+$('favChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) designCharacter(+b.dataset.i); };
+
+const STEPS = ['Reading your description…', 'Choosing a palette…', 'Composing the wallpaper…', 'Setting the type…', 'Checking always-on & battery…'];
+function design() {
+  const p = $('prompt').value.trim() || state.prompt;
+  if (!p) { state.screen = 'create'; return; }
+  state.prompt = p;
+  state.designing = { face: faceFromPrompt(p), start: secs };
+  state.screen = 'designing';
+}
+
+// ---------------- input on the watch ----------------
+const screenEl = $('screen');
+let drag = null;
+const toSvg = (e) => { const r = screenEl.getBoundingClientRect(); return [((e.clientX - r.left) / r.width) * W, ((e.clientY - r.top) / r.height) * H]; };
+screenEl.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, start: state.pos, moved: false, at: toSvg(e) }; screenEl.setPointerCapture(e.pointerId); });
+screenEl.addEventListener('pointermove', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (Math.abs(dx) > 6) drag.moved = true;
+  if (state.screen === 'gallery') { const w = screenEl.getBoundingClientRect().width * 0.75; state.target = state.pos = Math.max(0, Math.min(cards().length - 1, drag.start - dx / w)); }
+});
+screenEl.addEventListener('pointerup', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, [drag0x, sy] = drag.at;
+  const moved = drag.moved; drag = null;
+  if (state.screen === 'home' && moved && dx < -30) { openGallery(); return; }
+  if (state.screen === 'gallery') {
+    state.target = Math.round(state.pos);
+    if (!moved && sy > 50 && sy < 400) {
+      const c = cards()[state.target];
+      if (c.create) state.screen = 'create'; else wear(c.face);
+    }
+    return;
+  }
+  if (moved) return;
+  if (state.screen === 'gift' && secs - state.gift.start > 2.4) {
+    if (sy > 390 && sy < 450) wear(state.gift.face);
+    else if (sy >= 450) { if (!state.owned.some((f) => f.id === state.gift.face.id)) state.owned.push(state.gift.face); state.screen = 'home'; }
+  } else if (state.screen === 'create' && state.prompt && sy > 398) design();
+  else if (state.screen === 'quiz') { const k = QUIZ_HIT(drag0x, sy); if (k >= 0 && k < state.quiz.chars.length) designCharacter(k); }
+});
+function openGallery() { state.screen = 'gallery'; const i = cards().findIndex((c) => c.face && c.face.id === state.face.id); state.pos = state.target = Math.max(0, i); }
+
+$('swipeBtn').onclick = () => (state.screen === 'gallery' ? (state.target = Math.min(cards().length - 1, Math.round(state.target) + 1)) : openGallery());
+$('homeBtn').onclick = $('crown').onclick = () => { state.screen = 'home'; };
+$('aodBtn').onclick = () => { state.aod = !state.aod; $('aodBtn').classList.toggle('white', state.aod); state.screen = 'home'; };
+
+// ---------------- page panels ----------------
+$('shows').innerHTML = SHOWS.map((k) => `<button class="show${k === state.selected ? ' on' : ''}" data-k="${k}" style="background:${POSTER[k]}"><span class="pl">SELECTED</span>${FACES[k].show}<small>${FACES[k].service} · ${FACES[k].ep}</small></button>`).join('');
+$('shows').onclick = (e) => { const b = e.target.closest('.show'); if (!b) return; state.selected = b.dataset.k; document.querySelectorAll('.show').forEach((x) => x.classList.toggle('on', x === b)); };
+$('services').onclick = (e) => { const b = e.target.closest('.svc'); if (b) b.classList.toggle('on'); };
+$('playBtn').onclick = pressPlay;
+$('designBtn').onclick = design;
+$('prompt').addEventListener('input', () => { state.prompt = $('prompt').value; if (state.screen === 'home' || state.screen === 'gallery') state.screen = 'create'; });
+$('chips').onclick = (e) => { const b = e.target.closest('.chip'); if (!b) return; $('prompt').value = b.textContent; state.prompt = b.textContent; state.screen = 'create'; };
+$('photo').onchange = (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    const base = FACES[state.selected];
+    startGift(faceFromPhoto(r.result, base), `Made from your photo · ${base.show} style`);
+    state.play = { show: base.show, ep: base.ep, left: base.left, total: 50 };
+  };
+  r.readAsDataURL(file);
+};
+$('spikeBtn').onclick = () => { state.spikeAt = secs; state.screen = 'home'; };
+$('hrAuto').onclick = () => { state.hrManual = null; state.spikeAt = null; };
+$('hr').oninput = (e) => { state.hrManual = +e.target.value; state.spikeAt = null; };
+
+function renderTaste() {
+  const top = Object.entries(state.taste).sort((a, b) => b[1] - a[1]);
+  $('taste').innerHTML = 'On-device taste profile: ' + top.map(([k, n]) => `<b>${FACES[k].show}</b> ${n} eps`).join(' · ');
+}
+
+function renderGalleryThumbs() {
+  const items = [
+    [FACES.studio, 'Encore original'], [FACES.friends, 'Inspired by Friends'], [FACES.stranger, 'Inspired by Stranger Things'],
+    [FACES.heist, 'Inspired by Money Heist'], [FACES.squid, 'Inspired by Squid Game'],
+    [faceFromPrompt('Rainy café, cosy'), '“Rainy café, cosy”'], [faceFromPrompt('Neon Tokyo night'), '“Neon Tokyo night”'], [faceFromPrompt('Calm ocean, teal'), '“Calm ocean, teal”'],
+  ];
+  $('gallery').innerHTML = items.map(([f, sub], i) => {
+    const play = f.show ? { show: f.show, ep: f.ep, left: f.left, total: 50 } : null;
+    return `<div class="thumb"><div class="f">${renderHome({ face: f, t: 10.15, secs: 2, id: 'gt' + i, play, day: 'WED 4' })}</div><b>${f.name}</b><span>${sub}</span></div>`;
+  }).join('');
+}
+
+// ---------------- loop ----------------
+function draw() {
+  const t = nowT(), day = dayLabel(), { hr, spike } = heartState();
+  let svg;
+  if (state.screen === 'gallery') {
+    state.pos += (state.target - state.pos) * 0.25;
+    svg = renderGallery({ cards: cards(), pos: state.pos, secs, t, day });
+  } else if (state.screen === 'gift') {
+    svg = renderGift({ face: state.gift.face, el: secs - state.gift.start, reason: state.gift.reason, t, secs, day });
+  } else if (state.screen === 'create') {
+    svg = renderCreate({ prompt: state.prompt, secs });
+  } else if (state.screen === 'quiz') {
+    svg = renderQuiz({ show: state.quiz.show, chars: state.quiz.chars, secs, accent: state.quiz.base.accent });
+  } else if (state.screen === 'designing') {
+    const d = state.designing, steps = d.steps || STEPS;
+    let p = Math.min(1, (secs - d.start) / 5);
+    if (d.slow) p = d.done === null ? Math.min(0.92, (secs - d.start) / 14) : Math.min(1, 0.92 + (secs - d.done) / 1.2);
+    svg = renderDesigning({ face: d.face, p, step: steps[Math.min(steps.length - 1, Math.floor(p * steps.length))], secs });
+    if (p >= 1) startGift(d.face, d.face.character ? `Because ${d.face.character} is your favourite` : 'From your description');
+  } else {
+    const play = state.play && state.play.show === state.face.show ? state.play : null;
+    svg = renderHome({ face: state.face, t, secs, hr, spike, play, day, aod: state.aod });
+  }
+  if (state.flash && secs - state.flash < 0.6) svg = svg.replace('</g></svg>', `<rect width="${W}" height="${H}" fill="#fff" opacity="${(0.35 * (1 - (secs - state.flash) / 0.6)).toFixed(2)}"/></g></svg>`);
+  screenEl.innerHTML = svg;
+  const accent = state.screen === 'gift' ? state.gift.face.accent : state.screen === 'designing' ? state.designing.face.accent : state.face.accent;
+  $('watch').style.setProperty('--accent', accent);
+  $('hrLbl').textContent = `${hr} bpm${state.hrManual === null ? ' · auto' : ''}`;
+  if (document.activeElement !== $('hr')) $('hr').value = hr;
+}
+
+// deep-link states (used by the export script)
+if (params.has('pfx')) state.face = faceFromPrompt(params.get('pfx'));
+if (params.has('edit')) state.face = applyPatch(state.face, refineOffline(state.face, params.get('edit')).patch);
+if (state.screen === 'quiz') { const k = params.get('face') || 'stranger'; state.selected = k; state.quiz = { show: FACES[k].show, base: FACES[k], chars: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'] }; }
+if (params.has('play') && state.face.show) state.play = { show: state.face.show, ep: state.face.ep, left: state.face.left, total: 50 };
+if (state.screen === 'gift') { startGift(state.face, params.get('reason') || `Because you're watching ${state.face.show || 'something new'}`); if (params.has('el')) state.gift.start = secs - +params.get('el'); }
+if (state.screen === 'designing') state.designing = { face: faceFromPrompt(state.prompt || 'Rainy café'), start: secs - (+params.get('p') || 0.6) * 5 };
+if (state.screen === 'gallery') state.pos = state.target = +(params.get('pos') || 1);
+
+renderTaste(); renderGalleryThumbs();
+let last = performance.now(), lastDraw = 0;
+function tick(now) {
+  secs += (now - last) / 1000; last = now;
+  if (now - lastDraw > 33) { lastDraw = now; draw(); }
+  requestAnimationFrame(tick);
+}
+if (params.has('freeze')) draw(); else requestAnimationFrame(tick);
+
+</script>
+</body>
+</html>

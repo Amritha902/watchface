@@ -72,6 +72,8 @@ npm start
 ```
 Open http://localhost:8787. Pick a show and press play, pick a favourite character, swipe the watch screen, describe a face, edit it, or simulate a heart-rate spike.
 
+No server? `dist/encore.html` is the whole prototype in one file (rebuild with `node scripts/bundle.cjs`); the AI routes fall back to the built-in generator.
+
 Regenerate PNGs and Figma-ready SVGs (`exports/`, `figma/`) while the server runs:
 ```bash
 node scripts/export.cjs
