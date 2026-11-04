@@ -75,9 +75,9 @@
   .svc { display: flex; align-items: center; gap: 8px; padding: 12px 16px; min-height: 44px; border-radius: 12px; background: #121218; border: 1px solid #2a2a33; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); }
   .svc i { width: 8px; height: 8px; border-radius: 50%; background: #3a3a44; }
   .svc.on i { background: #33d17a; box-shadow: 0 0 8px #33d17a; }
-  .shows { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .shows { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: auto; gap: 8px; margin-bottom: 14px; }
   @media (max-width: 520px) { .shows { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .show { aspect-ratio: 2/3; border-radius: 14px; border: 2px solid transparent; cursor: pointer; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end;
+  .show { aspect-ratio: 3/4; border-radius: 14px; border: 2px solid transparent; cursor: pointer; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end;
     font-weight: 800; font-size: 14px; color: #fff; text-align: left; letter-spacing: -.01em; position: relative; overflow: hidden; }
   .show small { font-weight: 500; font-size: 11px; opacity: .75; }
   .show.on { border-color: #fff; }
@@ -220,7 +220,7 @@
     <div><small>Phone app</small><b>Android 10+ · iOS 16+</b><span>Automatic "now playing" detection on Android. On iPhone you pick shows or import your viewing history.</span></div>
     <div><small>Battery target</small><b>Under 3% a day</b><span>Redraws once a minute, animations only while you're looking, true-black always-on. A design target, to be measured on hardware.</span></div>
     <div><small>Water resistance</small><b>Same as your watch</b><span>It's software. Nothing about Encore changes your watch's rating.</span></div>
-    <div><small>Display</small><b>Round &amp; rectangular</b><span>Designed at 396 × 484 (rectangular OLED). Layouts reflow for round 1.4" faces.</span></div>
+    <div><small>Display</small><b>Round &amp; rectangular</b><span>Designed at 368 × 448 (Titan kit, rectangular OLED). Layouts reflow for round faces.</span></div>
     <div><small>Privacy</small><b>On-device taste profile</b><span>Viewing data never leaves the phone. Opt-in per streaming app, revocable anytime.</span></div>
     <div><small>Offline</small><b>Fully works</b><span>The built-in generator makes faces without a network. AI wallpapers need a connection on the phone.</span></div>
     <div><small>Languages</small><b>English first</b><span>Hindi, Tamil and more planned. All on-watch text is short by design.</span></div>

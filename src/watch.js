@@ -96,7 +96,7 @@ export function renderHome(o) {
       s += `<rect x="32" y="${cy + 20}" width="58" height="58" rx="16" fill="${f.accent}"/>`;
       s += `<text x="61" y="${cy + 59}" text-anchor="middle" ${UI} font-size="28" font-weight="800" fill="#111">${play.show[0]}</text>`;
       s += `<text x="104" y="${cy + 43}" ${UI} font-size="23" font-weight="700" fill="#fff">${play.show}</text>`;
-      s += `<text x="104" y="${cy + 72}" ${UI} font-size="21" fill="#fff" opacity=".72">${play.ep.replace(' · ', ' ')} · ${play.left}m left</text>`;
+      s += `<text x="104" y="${cy + 72}" ${UI} font-size="21" fill="#fff" opacity=".72">${f.live ? play.ep : `${play.ep.replace(' · ', ' ')} · ${play.left}m left`}</text>`;
       s += `<rect x="104" y="${cy + 82}" width="196" height="4" rx="2" fill="#fff" opacity=".2"/><rect x="104" y="${cy + 82}" width="${(196 * prog).toFixed(1)}" height="4" rx="2" fill="${f.accent}"/>`;
       s += `<circle cx="${W - 56}" cy="${cy + 50}" r="24" fill="#fff"/><path d="M${W - 63} ${cy + 38} L ${W - 44} ${cy + 50} L ${W - 63} ${cy + 62} Z" fill="#111"/>`;
     } else {

@@ -111,6 +111,68 @@ function game({ id, secs }) {
     ${shapes(`filter="url(#${id}g)"`)}${shapes('')}`;
 }
 
+
+function stadium({ id, secs }) {
+  const beam = (x, dir) => `<path d="M${x} 40 L ${x + dir * 210} 330 L ${x + dir * 60} 330 Z" fill="url(#${id}beam)" opacity="${(0.55 + 0.15 * Math.sin(secs * 1.3 + x)).toFixed(2)}"/>`;
+  const tower = (x) => `<rect x="${x - 3}" y="40" width="6" height="150" fill="#0b1226"/><rect x="${x - 22}" y="26" width="44" height="22" rx="4" fill="#fffbe0"/><rect x="${x - 22}" y="26" width="44" height="22" rx="4" fill="#fff6c4" filter="url(#${id}g)"/>`;
+  let crowd = ''; for (let i = 0; i < 70; i++) { const x = (i * 37) % 396, y = 262 + ((i * 13) % 26); crowd += `<circle cx="${x}" cy="${y}" r="1.6" fill="${['#ffd166', '#4dd0e1', '#ff6b6b', '#fff'][i % 4]}" opacity="${(0.3 + 0.4 * ((Math.sin(secs * 3 + i) + 1) / 2)).toFixed(2)}"/>`; }
+  return `<defs>${blurDef(id + 'g', 10)}
+      <linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050b1f"/><stop offset=".6" stop-color="#0d1f45"/><stop offset="1" stop-color="#071a12"/></linearGradient>
+      <linearGradient id="${id}beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c4" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c4" stop-opacity="0"/></linearGradient>
+      <radialGradient id="${id}grass" cx=".5" cy=".2" r=".9"><stop offset="0" stop-color="#3fae5a"/><stop offset="1" stop-color="#0d4a22"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}sky)"/>${beam(34, 1)}${beam(362, -1)}${tower(34)}${tower(362)}
+    <path d="M0 250 Q 198 228 396 250 L 396 300 L 0 300 Z" fill="#0a1430"/>${crowd}
+    <ellipse cx="198" cy="420" rx="300" ry="140" fill="url(#${id}grass)"/>
+    <rect x="178" y="300" width="40" height="190" fill="#c9b27a" opacity=".85"/>
+    <line x1="168" y1="330" x2="228" y2="330" stroke="#fff" stroke-width="2" opacity=".8"/><line x1="168" y1="460" x2="228" y2="460" stroke="#fff" stroke-width="2" opacity=".8"/>
+    ${[190, 198, 206].map((x) => `<rect x="${x - 1.5}" y="312" width="3" height="18" fill="#f4ecd8"/>`).join('')}`;
+}
+
+function petals({ id, secs }) {
+  let pet = '';
+  for (let i = 0; i < 16; i++) {
+    const x = (i * 61 + 30 * Math.sin(secs * 0.7 + i)) % W, y = ((secs * 26 + i * 47) % (H + 40)) - 20, r = (secs * 40 + i * 30) % 360;
+    pet += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="7" ry="4" fill="#ffd1e0" opacity=".85" transform="rotate(${r.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+  }
+  let blossoms = '';
+  [[300, 70], [340, 110], [262, 52], [372, 160], [220, 40], [318, 150], [356, 64]].forEach(([x, y], i) => {
+    blossoms += `<circle cx="${x}" cy="${y}" r="${16 + (i % 3) * 5}" fill="#ffb3cc" opacity=".9"/><circle cx="${x - 4}" cy="${y - 4}" r="${7 + (i % 2) * 3}" fill="#ffe3ec"/>`;
+  });
+  return `<defs>${blurDef(id + 'b', 16)}<linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b1d4f"/><stop offset=".55" stop-color="#c2587f"/><stop offset="1" stop-color="#f6a96b"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}sky)"/>
+    <circle cx="90" cy="250" r="60" fill="#ffd9a8" opacity=".35" filter="url(#${id}b)"/><circle cx="330" cy="330" r="80" fill="#ff9ec0" opacity=".3" filter="url(#${id}b)"/>
+    <path d="M${W + 10} 20 C 330 60, 280 70, 200 40 M 330 52 C 330 100, 360 140, 380 170 M 290 66 C 300 110, 300 140, 320 160" stroke="#3a1f2a" stroke-width="7" fill="none" stroke-linecap="round"/>
+    ${blossoms}${pet}`;
+}
+
+function orbit({ id, secs }) {
+  const a = secs * 0.25, mx = 198 + 150 * Math.cos(a), my = 330 + 40 * Math.sin(a);
+  let dust = ''; for (let i = 0; i < 18; i++) dust += `<circle cx="${(i * 83) % W}" cy="${(i * 47) % 240}" r="${0.6 + (i % 3) * 0.4}" fill="#cfe3ff" opacity=".35"/>`;
+  return `<defs>${blurDef(id + 'g', 22)}
+      <radialGradient id="${id}bg" cx=".5" cy=".75" r=".9"><stop offset="0" stop-color="#1b2a6b"/><stop offset=".6" stop-color="#090c24"/><stop offset="1" stop-color="#02030a"/></radialGradient>
+      <radialGradient id="${id}pl" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb36b"/><stop offset=".55" stop-color="#d4486a"/><stop offset="1" stop-color="#3a0f3f"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}bg)"/>${dust}
+    <circle cx="198" cy="330" r="118" fill="#ff7a6b" opacity=".35" filter="url(#${id}g)"/>
+    <ellipse cx="198" cy="330" rx="200" ry="46" fill="none" stroke="#ffd7a8" stroke-width="10" opacity=".35"/>
+    <circle cx="198" cy="330" r="100" fill="url(#${id}pl)"/>
+    <path d="M110 300 Q 198 280 286 300 M 104 330 Q 198 312 292 330" stroke="#fff" stroke-opacity=".12" stroke-width="6" fill="none"/>
+    <path d="M-2 330 A 200 46 0 0 0 398 330" fill="none" stroke="#ffe3c4" stroke-width="4" opacity=".75"/>
+    <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="12" fill="#cfd8ff"/><circle cx="${(mx - 3).toFixed(1)}" cy="${(my - 3).toFixed(1)}" r="5" fill="#fff" opacity=".6"/>`;
+}
+
+function aurora({ id, secs }) {
+  const band = (y, c, o, k) => { let d = `M -20 ${y}`; for (let x = 0; x <= W + 20; x += 22) d += ` L ${x} ${(y + 26 * Math.sin(x / 70 + secs * 0.5 + k) + 12 * Math.sin(x / 31 + k)).toFixed(1)}`; return `<path d="${d}" stroke="${c}" stroke-width="${48 - k * 8}" fill="none" opacity="${o}" filter="url(#${id}g)" stroke-linecap="round"/>`; };
+  return `<defs>${blurDef(id + 'g', 18)}<linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a14"/><stop offset=".7" stop-color="#0a2236"/><stop offset="1" stop-color="#05131f"/></linearGradient>
+      <linearGradient id="${id}lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d3a4a"/><stop offset="1" stop-color="#020a10"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#${id}sky)"/>
+    ${band(150, '#3dffb0', '.55', 0)}${band(190, '#3bd6ff', '.45', 1)}${band(120, '#b07bff', '.35', 2)}
+    <path d="M0 330 L 60 262 L 104 300 L 170 220 L 236 296 L 286 250 L 350 310 L ${W} 280 L ${W} 340 L 0 340 Z" fill="#071019"/>
+    <path d="M150 238 L 170 220 L 190 240 L 178 236 L 170 244 L 162 236 Z" fill="#dbe9f2" opacity=".85"/>
+    <rect y="338" width="${W}" height="${H - 338}" fill="url(#${id}lake)"/>
+    <path d="M0 346 L 60 400 L 104 372 L 170 430 L 236 374 L 286 410 L 350 366 L ${W} 386 L ${W} 346 Z" fill="#071019" opacity=".6"/>
+    ${band(420, '#3dffb0', '.18', 3)}`;
+}
+
 // motifs for prompt-generated faces
 const MOTIFS = {
   waves: ({ secs, pal }) => [0, 1, 2].map((k) => {
@@ -169,6 +231,22 @@ export const FACES = {
   squid: {
     id: 'squid', name: 'The Game', show: 'Last Round', genre: 'survival game', service: 'Netflix', ep: 'S1 · E5', left: 18, accent: '#ff2e88', ink: '#ffffff',
     timeFont: "'JetBrains Mono', monospace", timeWeight: 700, layout: 'center', wallpaper: game, nudge: 'Move: 3,000 steps to go',
+  },
+  cricket: {
+    id: 'cricket', name: 'Match Day', show: 'Super Over', live: true, genre: 'live cricket', service: 'JioHotstar', ep: 'LIVE 182/4 · 18.2', left: 10, accent: '#ffd166', ink: '#fffbe8',
+    timeFont: "'Bebas Neue', sans-serif", timeWeight: 400, layout: 'center', wallpaper: stadium, nudge: 'Last over, stay calm',
+  },
+  romance: {
+    id: 'romance', name: 'Petal Season', show: 'Spring Letters', genre: 'romance drama', service: 'Netflix', ep: 'S1 · E9', left: 27, accent: '#ffb3cc', ink: '#fff5f8',
+    timeFont: "'Libre Baskerville', serif", timeWeight: 700, layout: 'stack', wallpaper: petals, nudge: 'Call someone you love',
+  },
+  scifi: {
+    id: 'scifi', name: 'Orbit 9', show: 'Orbit 9', genre: 'sci-fi', service: 'Prime Video', ep: 'S2 · E1', left: 38, accent: '#ffb36b', ink: '#eef2ff',
+    timeFont: "'JetBrains Mono', monospace", timeWeight: 700, layout: 'center', wallpaper: orbit, nudge: 'Lights out at 11',
+  },
+  nature: {
+    id: 'nature', name: 'Northern', show: 'Wild North', genre: 'nature documentary', service: 'Netflix', ep: 'Ep 4', left: 15, accent: '#3dffb0', ink: '#effff8',
+    timeFont: "'Inter Tight', sans-serif", timeWeight: 300, layout: 'center', wallpaper: aurora, nudge: 'Step outside today',
   },
 };
 

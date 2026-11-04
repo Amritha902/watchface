@@ -4,10 +4,11 @@ import { renderHome, renderGallery, renderGift, renderCreate, renderDesigning, r
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 
-const SHOWS = ['friends', 'stranger', 'heist', 'squid'];
+const SHOWS = ['friends', 'stranger', 'heist', 'squid', 'cricket', 'romance', 'scifi', 'nature'];
 const POSTER = {
   friends: 'linear-gradient(160deg,#7446ad,#e9c44c)', stranger: 'linear-gradient(160deg,#050307,#ff1d1d)',
   heist: 'linear-gradient(160deg,#b3141d,#1c0204)', squid: 'linear-gradient(160deg,#0c9e8a,#ff2e88)',
+  cricket: 'linear-gradient(160deg,#0d1f45,#3fae5a)', romance: 'linear-gradient(160deg,#3b1d4f,#f6a96b)', scifi: 'linear-gradient(160deg,#090c24,#d4486a)', nature: 'linear-gradient(160deg,#030a14,#3dffb0)',
 };
 
 const state = {
@@ -76,7 +77,7 @@ async function openQuiz() {
   state.quiz = { show: base.show, base, chars: [] }; state.screen = 'quiz';
   let chars = [];
   try { const r = await fetch(`/api/characters?show=${encodeURIComponent(base.show)}`); if (r.ok) chars = (await r.json()).characters; } catch {}
-  if (!chars.length) chars = { friends: ['Maya', 'Rohan', 'Tara', 'Kabir', 'Zoe', 'Dev'], stranger: ['Wren', 'Jun', 'Ellie', 'Sam', 'Noor', 'Ravi'], heist: ['Vega', 'Rook', 'Saffron', 'Kit', 'Marlow', 'Ines'], squid: ['Jae', 'Hana', 'Min', 'Ola', 'Teo', 'Aria'] }[state.selected];
+  if (!chars.length) chars = { friends: ['Maya', 'Rohan', 'Tara', 'Kabir', 'Zoe', 'Dev'], stranger: ['Wren', 'Jun', 'Ellie', 'Sam', 'Noor', 'Ravi'], heist: ['Vega', 'Rook', 'Saffron', 'Kit', 'Marlow', 'Ines'], squid: ['Jae', 'Hana', 'Min', 'Ola', 'Teo', 'Aria'], cricket: ['Arjun', 'Veer', 'Kabir', 'Ishan', 'Neel', 'Rafi'], romance: ['Seo-ah', 'Ji-ho', 'Mira', 'Leo', 'Hae', 'Yuna'], scifi: ['Captain Ixa', 'Bolt', 'Dr Vale', 'Nyx', 'Oren', 'Sol'], nature: ['Orca', 'Snow fox', 'Moose', 'Eagle', 'Lynx', 'Elk'] }[state.selected];
   state.quiz.chars = chars.slice(0, 6);
   $('favChips').innerHTML = state.quiz.chars.map((c, i) => `<button class="chip" data-i="${i}">${c}</button>`).join('');
 }
@@ -217,6 +218,7 @@ function renderGalleryThumbs() {
   const items = [
     [FACES.studio, 'Encore original'], [FACES.friends, 'Sitcom · Flat 5B'], [FACES.stranger, '80s supernatural · Hollow Lights'],
     [FACES.heist, 'Heist · The Mint Job'], [FACES.squid, 'Survival game · Last Round'],
+    [FACES.cricket, 'Live cricket · Super Over'], [FACES.romance, 'Romance · Spring Letters'], [FACES.scifi, 'Sci-fi · Orbit 9'], [FACES.nature, 'Nature doc · Wild North'],
     [faceFromPrompt('Rainy café, cosy'), '“Rainy café, cosy”'], [faceFromPrompt('Neon Tokyo night'), '“Neon Tokyo night”'], [faceFromPrompt('Calm ocean, teal'), '“Calm ocean, teal”'],
   ];
   $('gallery').innerHTML = items.map(([f, sub], i) => {

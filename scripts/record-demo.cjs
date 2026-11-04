@@ -40,17 +40,17 @@ const URL = 'file://' + path.resolve('dist/encore.html') + '?t=10.15';
 
   // 1 · gift
   await scrollTo('.stage', 'start'); await wait(700);
-  await say('1 · You press play on Friends', 'Encore\'s phone app notices what\'s playing, privately and on-device');
+  await say('1 · You press play on a sitcom', 'Encore\'s phone app notices what\'s playing, privately and on-device');
   await wait(1600); await click('#playBtn'); await wait(1500);
-  await say('Your watch gets a gift', '"Made for you · Because you\'re watching Friends"'); await wait(3600);
+  await say('Your watch gets a gift', '"Made for you · Because you\'re watching Flat 5B"'); await wait(3600);
   await say('One tap: wear it', 'The face carries your show: episode, minutes left, resume on TV'); await tap(0.5, 420 / 484); await wait(2600);
 
   // 2 · favourite character
   await scrollTo('#favBtn'); await wait(600);
-  await say('2 · Who\'s your favourite?', 'Pick Stranger Things, then a character'); await click('.show[data-k="stranger"]'); await wait(500);
+  await say('2 · Who\'s your favourite?', 'Pick a show, then a character'); await click('.show[data-k="stranger"]'); await wait(500);
   await click('#favBtn'); await wait(1800);
-  await say('Tap Eleven', 'Claude reads her world · Flux paints the wallpaper'); await tap(0.25, 162 / 484); await wait(4600);
-  await say('"Because Eleven is your favourite"', 'Her colours, objects and mood. Never an actor\'s face.'); await wait(2200); await tap(0.5, 420 / 484); await wait(1800);
+  await say('Tap Wren', 'Claude reads her world · Flux paints the wallpaper'); await tap(0.25, 162 / 484); await wait(4600);
+  await say('"Because Wren is your favourite"', 'Their colours, objects and mood. Never an actor\'s face.'); await wait(2200); await tap(0.5, 420 / 484); await wait(1800);
 
   // 3 · swipe
   await say('3 · Swipe for more', 'Your collection, with + Create your own at the end'); await scrollTo('.stage', 'start'); await wait(500);
@@ -81,6 +81,17 @@ const URL = 'file://' + path.resolve('dist/encore.html') + '?t=10.15';
   await say('On your wrist', 'Real scale, 45 mm-class display'); await scrollTo('#wrist', 'start'); await wait(3200);
   await say('A watch-face app, not a new watch', 'Runs on Wear OS 4+ · on-device privacy · under 3% battery a day (target)'); await scrollTo('#specs', 'start'); await wait(3600);
   await say('');
+
+  // the collection: 10 designs
+  await page.evaluate(() => {
+    const names = ['01-Encore/Encore','02-Match-Day/Match Day','03-Petal-Season/Petal Season','04-Orbit-9/Orbit 9','05-Northern/Northern','06-Glance-Deck/Glance Deck','07-Next-Stop/Next Stop','08-Bloom/Bloom','09-Tide/Tide','10-Deep-Work/Deep Work'];
+    const g = document.createElement('div'); g.id = 'grid';
+    g.style.cssText = 'position:fixed;inset:0;z-index:101;background:#050507;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:70px 40px 30px;opacity:0;transition:opacity .6s';
+    g.innerHTML = '<div style="position:absolute;top:18px;left:0;right:0;text-align:center;font:700 28px Inter;color:#fff">The Encore collection · 10 original watch faces</div>' +
+      names.map((n) => `<img src="../submission/${n.split('/')[0]}/${n.split('/')[1]} - preview 1x1.png" style="width:100%;border-radius:14px">`).join('');
+    document.body.appendChild(g); requestAnimationFrame(() => (g.style.opacity = 1));
+  });
+  await wait(4200); await page.evaluate(() => document.getElementById('grid').remove());
 
   // end
   await card('Usability-tested with TheySaid · 10 sessions', '100% delightful', 'Every round-2 tester called the gift moment delightful. Premium feel 5.8 / 7.'); await wait(3600);

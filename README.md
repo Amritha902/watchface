@@ -2,44 +2,53 @@
 
 # Encore.
 
-**Watch faces that know what you love.**
-
-You start a show and your watch gets a face made for it. Name your favourite character and it paints one around their world.
-Say *"put it in a circle, a bit darker"* and it changes in a second.
+**Ten original watch faces, and the idea that ties them together:<br/>a watch face that knows what you love.**
 
 [![Design in Figma](https://img.shields.io/badge/Design-Figma-a259ff?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)
-[![Usability tested with TheySaid](https://img.shields.io/badge/Usability%20tested%20with-TheySaid-ff5a5f?style=for-the-badge)](https://theysaid.io)
-[![Prototype](https://img.shields.io/badge/Prototype-run%20locally-111?style=for-the-badge)](#run-it)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Amritha902/watchface)
+[![Usability tested with TheySaid](https://img.shields.io/badge/Usability%20tested%20with-TheySaid-ff5a5f?style=for-the-badge)](https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92)
+[![Live demo](https://img.shields.io/badge/Live%20demo-Render-46e3b7?style=for-the-badge)](https://encore-watch-faces.onrender.com)
+[![Demo video](https://img.shields.io/badge/Demo%20video-85s-ff4d5e?style=for-the-badge)](docs/encore-demo.mp4)
 
-<sub>Watch Face Design Challenge 2026 · Open Innovation track · <i>"Think freely. Design boldly. Innovate beyond the dial."</i></sub>
+<sub>Titan Watch Face Design Challenge 2026 · Open Innovation · <i>"Think freely. Design boldly. Innovate beyond the dial."</i></sub>
 
 <br/>
 
-<img src="exports/showcase-hero.png" alt="Encore showcase page with the watch wearing the Friends-inspired face" width="900"/>
+<a href="docs/encore-demo.mp4"><img src="docs/encore-demo-preview.gif" width="720" alt="Encore demo: tap to watch the full video"/></a>
+
+<sub>▶ <a href="docs/encore-demo.mp4"><b>Watch the 85-second demo</b></a> (gift reveal → favourite character → swipe → describe → edit → heart sync → the full collection) · or <a href="https://encore-watch-faces.onrender.com">try it live</a></sub>
 
 </div>
 
 ---
 
+## The collection
+
+Ten designs, each a separate submission with its own Figma frames (Active, Always-On, Interactive), all at the Titan kit size of **368 × 448**, with text at 21 px or larger and icons at 25 px or larger.
+
+<table>
+<tr><td width="50%" align="center"><img src="docs/entries/01-Encore.jpg" width="100%" alt="Encore"/><br/><b>01 · Encore</b> <sub>· Personalised entertainment</sub><br/><sub>Your watch gifts you a face for the show you just started.</sub></td><td width="50%" align="center"><img src="docs/entries/02-Match-Day.jpg" width="100%" alt="Match Day"/><br/><b>02 · Match Day</b> <sub>· Live sport</sub><br/><sub>A floodlit night match with a live score.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/03-Petal-Season.jpg" width="100%" alt="Petal Season"/><br/><b>03 · Petal Season</b> <sub>· Romance / calm</sub><br/><sub>Petals drift past a big serif clock.</sub></td><td width="50%" align="center"><img src="docs/entries/04-Orbit-9.jpg" width="100%" alt="Orbit 9"/><br/><b>04 · Orbit 9</b> <sub>· Sci-fi</sub><br/><sub>A moon orbits once a minute behind the time.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/05-Northern.jpg" width="100%" alt="Northern"/><br/><b>05 · Northern</b> <sub>· Nature / ambient</sub><br/><sub>Aurora ribbons over a still lake.</sub></td><td width="50%" align="center"><img src="docs/entries/06-Glance-Deck.jpg" width="100%" alt="Glance Deck"/><br/><b>06 · Glance Deck</b> <sub>· Notification centre</sub><br/><sub>Your next three things, stacked like cards.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/07-Next-Stop.jpg" width="100%" alt="Next Stop"/><br/><b>07 · Next Stop</b> <sub>· Commute</sub><br/><sub>Your metro ride, live, stop by stop.</sub></td><td width="50%" align="center"><img src="docs/entries/08-Bloom.jpg" width="100%" alt="Bloom"/><br/><b>08 · Bloom</b> <sub>· Wellness</sub><br/><sub>Your steps grow a flower.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/09-Tide.jpg" width="100%" alt="Tide"/><br/><b>09 · Tide</b> <sub>· Battery</sub><br/><sub>Battery as water; red at low tide.</sub></td><td width="50%" align="center"><img src="docs/entries/10-Deep-Work.jpg" width="100%" alt="Deep Work"/><br/><b>10 · Deep Work</b> <sub>· Focus</sub><br/><sub>A focus ring that holds your alerts.</sub></td></tr>
+</table>
+
+Every design in this repo is ready to submit: [`submission/`](submission/) holds one folder and one zip per entry (preview, frames at 3x, editable SVGs, description), and [`submission/ENTRIES.md`](submission/ENTRIES.md) has the text to paste for all ten.
+
 ## Why
 
-Your watch face is the screen you look at most, about 80 times a day. And it knows nothing about you.
+Your watch face is the screen you look at most, about 80 times a day, and it knows nothing about you. Picking one today means scrolling a gallery of near-identical dials. The things people actually love (the show they can't stop watching, the match they're following, the ride they're on) never reach the wrist.
 
-Picking a face today means scrolling a gallery of near-identical dials. Meanwhile the things people actually love (the show they can't stop watching, the character they quote all week) never reach the wrist.
+**Encore** closes that gap. It pays attention, then *gives* you a face instead of making you go and find one. The other nine designs push the same idea in different directions: a live score, a commute, a notification deck, a battery you can read from across the room.
 
-Encore closes that gap. It pays attention to what you watch, then **gives** you a face instead of making you go and find one.
-
-## How it works
+## How Encore works
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
 ### 1 · A face shows up as a gift
-Press play on *Friends* and Encore notices. A few seconds later your wrist lights up: **"Made for you · Because you're watching Friends."** The face is unwrapped with a light sweep. Wear it, or save it for later.
-
-The face carries your show with it: episode, minutes left, and a play button that hands off to the TV.
+Press play on a show and Encore notices. A few seconds later your wrist lights up: **"Made for you · Because you're watching Flat 5B."** The face is unwrapped with a light sweep. Wear it, or save it for later. It carries your show with it: episode, minutes left, and a play button that hands off to the TV.
 
 </td>
 <td width="50%" align="center"><img src="docs/gift.gif" width="280" alt="Gift reveal animation"/></td>
@@ -49,9 +58,7 @@ The face carries your show with it: episode, minutes left, and a play button tha
 <td valign="top">
 
 ### 2 · Who's your favourite?
-The watch asks, and shows the cast. Tap *Eleven* and Encore designs a face around her world: the colours, the objects, the places, the mood. It doesn't copy a face or a logo.
-
-Behind it: the cast comes from **TMDB**, **Claude** writes a style card, and an image model (**Flux**) paints the wallpaper.
+The watch shows the cast. Tap a character and Encore designs a face around their world: colours, objects, places, mood. It never copies a face or a logo. Behind it, the cast comes from **TMDB**, **Claude** writes a style card and **Flux** paints the wallpaper.
 
 </td>
 </tr>
@@ -69,7 +76,7 @@ Swipe the face to browse your collection. The last card is always **+ Create you
 <td valign="top">
 
 ### 4 · Describe it in a sentence
-*"Neon Tokyo night." "A rainy café in Mumbai, warm and cosy." "Calm ocean, teal."* Say it on the watch or type it on the phone. Encore builds the face (wallpaper, palette, typeface, layout) and gifts it back.
+*"Neon Tokyo night." "A rainy café in Mumbai, warm and cosy."* Encore builds the wallpaper, palette, typeface and layout, then gifts it back.
 
 </td>
 </tr>
@@ -77,14 +84,7 @@ Swipe the face to browse your collection. The last card is always **+ Create you
 <td valign="top">
 
 ### 5 · Then make it yours
-Not quite right? Just say what to change.
-
-- *"Put it in a circle"* frames the art in a medallion on a slow ray burst
-- *"Clock on the left"*, *"bigger time"*, *"serif font"*
-- *"Make it darker"*, *"gold accent"*, *"hide the card"*
-- *"Make it rainier"* repaints the artwork itself
-
-Claude turns the sentence into exact edits. Undo is one tap.
+*"Put it in a circle"*, *"clock on the left"*, *"darker"*, *"gold accent"*, *"serif"*, *"repaint it rainier"*. Claude turns the sentence into exact edits, and Undo steps back one change at a time.
 
 </td>
 <td align="center"><img src="docs/edit.gif" width="280" alt="Editing with plain words"/></td>
@@ -94,44 +94,28 @@ Claude turns the sentence into exact edits. Undo is one tap.
 <td valign="top">
 
 ### 6 · It beats with you
-On every face, the heart rate pulses live. When your heart races, the edge of the screen glows red on each beat. If it **spikes** suddenly, a breathing guide takes over (4 seconds in, 6 out) until you settle.
+Heart rate pulses live on every face. When your heart races, the screen edge glows red on each beat; after a sudden spike, a breathing guide takes over.
 
 </td>
 </tr>
 </table>
 
-## The faces
+## Design in Figma
 
-**Show-inspired.** Each one is a living scene, not a static wallpaper: steam rises from the mug, the fairy lights flicker, the vault wheel turns, the shapes light up in sequence.
+**→ [Open the Encore file](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)** · **→ [Match Day file](https://www.figma.com/design/IDcHaADMOicH5pN6GQjgzT)** · other entries import in a minute from their `frames-svg/` folders.
 
-<img src="docs/lineup-shows.png" alt="Studio, The Apartment (Friends), Upside (Stranger Things), The Vault (Money Heist), The Game (Squid Game)" width="100%"/>
+Frames are named by state, as the brief asks: `Active Display`, `Always-On`, `Interactive · …`. Everything is vector with live text.
 
-<sub>Studio · The Apartment (<i>Friends</i>) · Upside (<i>Stranger Things</i>) · The Vault (<i>Money Heist</i>) · The Game (<i>Squid Game</i>)</sub>
+<img src="docs/figma-submission.png" width="100%" alt="Encore submission page in Figma"/>
 
-**Made from a sentence, or framed as a medallion.**
+<img src="docs/figma-entries.png" width="100%" alt="Match Day, Petal Season, Orbit 9 and Northern in Figma"/>
 
-<img src="docs/lineup-generated.png" alt="Faces generated from descriptions and medallion frames" width="100%"/>
-
-<sub>"Rainy café, cosy" · "Neon Tokyo night" · "Calm ocean, teal" · Upside in a medallion · The Apartment in a medallion</sub>
-
-**The moments around them.**
-
-<img src="docs/lineup-screens.png" alt="Gift reveal, favourite character quiz, create card, describe screen, always-on" width="100%"/>
-
-<sub>Gift reveal · Who's your favourite? · Create your own · Describe it · Always-on (true black, type only)</sub>
-
-## Design
-
-The full design lives in Figma: the collection, the gift and create flows, heart sync, always-on, the favourite-character quiz and the medallion frames. Everything is built as editable vectors with real type.
-
-**→ [Open the Encore board in Figma](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)**
-
-Some notes on the decisions:
-
-- **Rounded-rectangle OLED, 396 × 484.** Premium smartwatch proportions, with a titanium case and a solo-loop strap in the showcase.
-- **One type system, many personalities.** UI text is always Inter. The clock changes with the face: Gabarito for the sitcom warmth, Libre Baskerville with a neon outline for the 80s supernatural, Bebas Neue for the heist, JetBrains Mono for the game.
-- **Glass complications.** A single frosted card at the bottom, so the art gets the rest of the screen.
-- **Always-on mode drops the art entirely.** True black and thin type, which saves battery and avoids burn-in.
+**Design rules we followed (from the Titan design kit):**
+- **368 × 448** rectangular OLED, one of the kit's listed sizes.
+- **Text ≥ 21 px, icons ≥ 25 px.** The time is always the largest element and reads in about a second.
+- **No brand logos** on any face, and **only fictional** show, character and place names. All artwork is original vector illustration.
+- **Always-on** for every design: true black, type and thin lines only.
+- Commercially free fonts only: Inter, Inter Tight, Gabarito, Libre Baskerville, Bebas Neue, JetBrains Mono (Google Fonts, OFL).
 
 ## Verified with TheySaid
 
@@ -178,7 +162,7 @@ What testers liked, in their words: *"Delightful gift moment"*, *"Clear product 
 | Thought Encore was a new watch; wanted battery life and water resistance before trusting it | High | Hero now states it's a **watch-face app for the watch you already own**, plus a full **spec sheet** (compatibility, battery target, water resistance, privacy, offline) |
 | Hadn't seen the watch on a wrist or from the side | High | New **On your wrist** section: the live face on a wrist, and a dimensioned side profile |
 | Primary button not clearly primary | Medium | "Get a face made for you" is now the one solid button; "How it works" became an outline |
-| "Try it: watch Friends" read like a demo command | Medium | New copy, plus a line explaining what happens next |
+| The first button read like a demo command | Medium | New copy, plus a line explaining what happens next |
 | Body text too dim on black | Medium | Raised contrast on all secondary text |
 | Service chips too small to tap | Low | 44 px+ tap targets |
 | Selected show easy to miss | Low | Bold white ring and solid "SELECTED" tag |
@@ -196,80 +180,27 @@ TheySaid's first design scan also caught a missing "start here" button *before* 
 
 ## Under the hood
 
-```mermaid
-flowchart LR
-  P[Phone: what's playing<br/>Netflix · Prime Video] -->|on-device| T[Taste profile]
-  T -->|new favourite| G[Gift a show face]
-  Q[Who's your favourite?] --> C[TMDB cast list]
-  C --> S[Claude: style card<br/>palette · type · props · mood]
-  S --> F[Flux: paints the wallpaper]
-  F --> E[Face engine]
-  D[Describe it / Make it yours] --> S2[Claude: edit → settings patch] --> E
-  E --> W[Watch]
-```
+The designs are backed by a working prototype, so the interactions in the video are real.
 
 | Piece | What it does |
 |---|---|
-| `src/faces.js` | Face library and art, the sentence-to-face generator, style-card faces, and the edit engine |
-| `src/watch.js` | Every watch screen: home, gallery, gift, quiz, create, designing, breathe |
+| `src/faces.js` | Face art and the sentence-to-face generator, style-card faces, edit engine |
+| `src/concepts.js` | Glance Deck, Next Stop, Bloom, Tide, Deep Work (every state) |
+| `src/watch.js` | Watch screens: home, gallery, gift, quiz, create, designing, breathe |
 | `src/app.js` | Interactions: swipe, streaming simulation, favourite character, edits with undo, heart sync |
-| `server/index.mjs` | Small Node server: TMDB cast lists, Claude style cards and edits (structured JSON), Flux wallpapers via Replicate |
-| `dist/encore.html` | The whole prototype in one file, no server needed |
-
-**Every AI step has an offline fallback.** With no API keys, a built-in generator takes over and the whole demo still works. Keys stay on the server, never in the browser.
-
-## Built to ship
-
-- **Private by design.** Viewing data never leaves the phone. The watch only ever receives finished faces. Every connection is opt-in.
-- **Honest about platforms.** On Android, a companion app can read what's playing through the system's media controls, with permission. iOS doesn't allow this, so iPhone users pick shows or import their viewing history. Neither Netflix nor Prime Video has a public API, and Encore doesn't need one.
-- **Rights-aware.** Show faces and AI wallpapers evoke a character's world (objects, places, colour) and never reproduce actors, logos or studio art. Official artwork is a licensing conversation, and a natural partnership for a watch brand.
-- **Light on the watch.** Faces are vectors plus one optional image. Generation happens on the phone or server, not the wrist.
-
-## Run it
+| `server/index.mjs` | TMDB cast lists, Claude style cards and edits, Flux wallpapers (all optional, offline fallback) |
+| `scripts/` | Exports, Figma SVGs, submission packages, README GIFs and the demo video |
 
 ```bash
 npm install
 ```
 ```bash
-cp .env.example .env
-```
-
-Add any keys you have to `.env`. All are optional:
-
-| Key | Unlocks |
-|---|---|
-| `ANTHROPIC_API_KEY` | Claude style cards and plain-language edits |
-| `REPLICATE_API_TOKEN` | AI-painted wallpapers (Flux) |
-| `TMDB_API_KEY` | Live cast lists for any show |
-
-```bash
 npm start
 ```
-
-Then open **http://localhost:8787**. Or just open `dist/encore.html` in a browser.
-
-**Host it:** the repo includes `netlify.toml`, so importing it on Netlify (or the Deploy button above) publishes the single-file demo with no server and no keys.
-
-<details>
-<summary>Regenerating the images and animations</summary>
-
-With the server running:
-
-```bash
-node scripts/export.cjs
-```
-```bash
-node scripts/record-gifs.cjs
-```
-```bash
-node scripts/bundle.cjs
-```
-
-These produce `exports/` (PNG renders), `figma/` (Figma-ready SVGs), `docs/` (README animations) and `dist/encore.html`.
-</details>
+Open **http://localhost:8787**, or just open `dist/encore.html`. Optional keys go in `.env` (see `.env.example`): `ANTHROPIC_API_KEY`, `REPLICATE_API_TOKEN`, `TMDB_API_KEY`.
 
 ---
 
 <div align="center">
-<sub>Designed and built by <b>Amritha S</b> · Watch Face Design Challenge 2026</sub>
+<sub>Designed and built by <b>Amritha S</b> · Titan Watch Face Design Challenge 2026</sub>
 </div>
