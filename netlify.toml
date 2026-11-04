@@ -1,0 +1,4 @@
+# Netlify: publishes the single-file prototype (no build step, no server, no keys).
+[build]
+  publish = "dist"
+  command = "node scripts/bundle.cjs"

@@ -10,6 +10,7 @@ Say *"put it in a circle, a bit darker"* and it changes in a second.
 [![Design in Figma](https://img.shields.io/badge/Design-Figma-a259ff?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)
 [![Usability tested with TheySaid](https://img.shields.io/badge/Usability%20tested%20with-TheySaid-ff5a5f?style=for-the-badge)](https://theysaid.io)
 [![Prototype](https://img.shields.io/badge/Prototype-run%20locally-111?style=for-the-badge)](#run-it)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Amritha902/watchface)
 
 <sub>Watch Face Design Challenge 2026 · Open Innovation track · <i>"Think freely. Design boldly. Innovate beyond the dial."</i></sub>
 
@@ -140,14 +141,18 @@ Encore was usability-tested with **[TheySaid](https://theysaid.io)** AI testers 
 
 <table>
 <tr>
-<td align="center"><h3>5.5 / 7</h3><sub>How premium it feels<br/>vs. their current faces</sub></td>
-<td align="center"><h3>2 of 3</h3><sub>called the gift moment<br/><b>"Delightful"</b></sub></td>
-<td align="center"><h3>#1 feature</h3><sub><b>Describe-a-face</b><br/>(40% picked it)</sub></td>
-<td align="center"><h3>3.5 / 5</h3><sub>comfortable with an app<br/>noticing what they stream</sub></td>
+<td align="center"><h3>5.8 / 7</h3><sub>How premium it feels<br/>vs. their current faces</sub></td>
+<td align="center"><h3>83%</h3><sub>called the gift moment<br/><b>"Delightful"</b></sub></td>
+<td align="center"><h3>Top features</h3><sub><b>Describe-a-face</b> and the<br/><b>show gift</b> (tied)</sub></td>
+<td align="center"><h3>3.6 / 5</h3><sub>comfortable with an app<br/>noticing what they stream</sub></td>
 </tr>
 </table>
 
-<sub>Early aggregate while the last sessions were scored (n = 2–5 per question). Full report, session recordings and quotes: <a href="https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92">TheySaid project</a>.</sub>
+<sub>Round 1, all 5 testers scored. Full report, session recordings and quotes: <a href="https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92">TheySaid project</a>.</sub>
+
+TheySaid's summary: *"Users grasp the concept quickly; 'made for you' feels personal, not intrusive. Create, character quiz, and preset edits are easy; character-capturing and heart-rate faces feel premium."*
+
+<!-- ROUND2 -->
 
 What testers liked, in their words: *"Delightful gift moment"*, *"Clear product pitch"*, *"Animated generation feels engaging"*, *"Accurate custom rendering"*, *"Battery-friendly design"*.
 
@@ -163,6 +168,11 @@ What testers liked, in their words: *"Delightful gift moment"*, *"Clear product 
 | Service chips too small to tap | Low | 44 px+ tap targets |
 | Selected show easy to miss | Low | Bold white ring and solid "SELECTED" tag |
 | Apply and Undo too close together | Low | Separated, with Undo restyled as a secondary action |
+| *Round 1 follow-ups:* the describe box felt buried | Low | **✎ Describe your own** button right under the watch |
+| "Design it" and "Use your own photo" side by side confused people | Low | Photo moved to its own "Or start from a picture" row |
+| Didn't realise Undo can go back more than one step | Low | Undo shows the steps left, e.g. **Undo (2)** |
+| The heart-rate spike demo wasn't self-explanatory | Low | One-line explanation of what the button simulates |
+| Wanted compatibility before anything else | Medium | "Works on Wear OS 4+" in the hero, linked to the spec sheet |
 
 TheySaid's first design scan also caught a missing "start here" button *before* the full test. We fixed that first, so testers reacted to the improved build.
 
@@ -222,6 +232,8 @@ npm start
 ```
 
 Then open **http://localhost:8787**. Or just open `dist/encore.html` in a browser.
+
+**Host it:** the repo includes `netlify.toml`, so importing it on Netlify (or the Deploy button above) publishes the single-file demo with no server and no keys.
 
 <details>
 <summary>Regenerating the images and animations</summary>

@@ -6,4 +6,5 @@ const js = ['src/faces.js', 'src/watch.js', 'src/app.js'].map(strip).join('\n;\n
 let html = fs.readFileSync('index.html', 'utf8').replace('<script type="module" src="src/app.js"></script>', `<script type="module">\n${js}\n</script>`);
 fs.mkdirSync('dist', { recursive: true });
 fs.writeFileSync('dist/encore.html', html);
+fs.writeFileSync('dist/index.html', html); // Netlify / static hosting entry point
 console.log('dist/encore.html', (html.length / 1024).toFixed(1) + ' KB');
