@@ -137,6 +137,8 @@
         <div class="shows" id="shows"></div>
         <div class="row"><button class="btn white" id="playBtn">▶ Press play</button><span id="playState" style="color:var(--muted);font-size:13px"></span></div>
         <div class="taste" id="taste"></div>
+        <div class="row" style="margin-top:14px"><button class="btn" id="favBtn">★ Pick a favourite character</button><span id="aiState" style="color:var(--muted);font-size:13px"></span></div>
+        <div class="row" style="margin-top:10px" id="favChips"></div>
       </div>
 
       <div class="panel">
@@ -154,7 +156,18 @@
       </div>
 
       <div class="panel">
-        <h3><span class="step">3</span> It beats with you</h3>
+        <h3><span class="step">3</span> Make it yours</h3>
+        <p class="sub">Not quite right? Tell it what to change on the face you're wearing. Claude turns your words into exact edits, and repaints the artwork when you ask for something new.</p>
+        <textarea id="refine" placeholder="Put it in a circle, clock top right, a bit darker…" style="min-height:64px"></textarea>
+        <div class="row" style="margin-top:10px" id="refineChips">
+          <button class="chip">Put it in a circle</button><button class="chip">Clock on the left</button><button class="chip">Make it darker</button>
+          <button class="chip">Gold accent</button><button class="chip">Serif font</button><button class="chip">Bigger time</button><button class="chip">Hide the card</button>
+        </div>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="refineBtn">Apply</button><button class="btn" id="undoBtn">Undo</button><span id="refineState" style="color:var(--muted);font-size:13px"></span></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="step">4</span> It beats with you</h3>
         <p class="sub">Whatever face you wear, the heart rate pulses live. When your heart races, the screen edge glows red on every beat. After a sudden spike, a breathing guide takes over.</p>
         <div class="row"><button class="btn red" id="spikeBtn">Simulate a spike</button><button class="btn" id="hrAuto">Auto</button></div>
         <label class="ctl" for="hr"><span>Heart rate</span><b id="hrLbl">72 bpm</b></label>

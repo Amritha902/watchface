@@ -212,6 +212,7 @@ export function faceFromPrompt(prompt) {
 // Any image the user picks (stays on the device) becomes the wallpaper, wrapped in a show's
 // styling. The prototype never ships or commits third-party photos.
 export function faceFromPhoto(dataUrl, base = FACES.friends, focus = 'xMidYMid') {
+  // (frame / clockPos / dim are applied by the renderer, so they work on every face)
   return {
     ...base, id: 'photo-' + dataUrl.length, name: base.show ? `${base.show} · Your photo` : 'Your photo',
     layout: 'photo', photo: dataUrl,
@@ -223,4 +224,55 @@ export function faceFromPhoto(dataUrl, base = FACES.friends, focus = 'xMidYMid')
       <rect width="${W}" height="${H}" fill="url(#${id}ps)"/>
       <rect x="3" y="3" width="${W - 6}" height="${H - 6}" rx="89" fill="none" stroke="${base.accent}" stroke-width="6" opacity=".9"/>`,
   };
+}
+
+// ---------------------------------------------------------------- favourite character → face
+// style: the card from /api/style (Claude). image: optional AI wallpaper (data: URL).
+const WEIGHT = { 'Inter Tight': 800, Gabarito: 800, 'Libre Baskerville': 700, 'Bebas Neue': 400, 'JetBrains Mono': 700 };
+export function faceFromStyle(style, base, character, image = null) {
+  const [bg, mid, accent] = style.palette;
+  const look = { ...base, accent, ink: style.ink, nudge: style.nudge, timeFont: `'${style.timeFont}', sans-serif`, timeWeight: WEIGHT[style.timeFont] || 700 };
+  if (image) return { ...faceFromPhoto(image, look), id: 'char-' + character, name: style.name, character, style };
+  const gen = faceFromPrompt(`${style.motifs.join(' ')} ${style.mood}`);
+  return { ...gen, ...look, layout: gen.layout, id: 'char-' + character, name: style.name, character, style,
+    wallpaper: ({ id, secs }) => studio({ id, secs, palette: [mid, accent, mid], bg }) };
+}
+
+// offline fallback when no Claude key: the show's own scene, re-tinted per character
+const CHAR_TINT = ['#ff6fb5', '#4da3ff', '#ffb547', '#7cf29a', '#c77bff', '#ff6b4d', '#2fe0c8', '#f3c77a'];
+export function faceForCharacterOffline(base, character, i) {
+  return { ...base, id: 'char-' + character, name: `${character}'s ${base.name.replace(/^The /, '')}`, character, accent: CHAR_TINT[i % CHAR_TINT.length] };
+}
+
+// ---------------------------------------------------------------- refine: "make it darker", "put it in a circle"…
+// A face's editable settings. Claude (via /api/refine) or the offline rules below produce a patch.
+export const EDITABLE = ['accent', 'ink', 'timeFont', 'frame', 'clockPos', 'timeScale', 'dim', 'hideCard'];
+export const settingsOf = (f) => ({
+  accent: f.accent, ink: f.ink, timeFont: (f.timeFont.match(/'([^']+)'/) || [, 'Inter Tight'])[1],
+  frame: f.frame || 'full', clockPos: f.clockPos || 'auto', timeScale: f.timeScale || 1, dim: f.dim || 0, hideCard: !!f.hideCard,
+});
+export function applyPatch(face, patch) {
+  const f = { ...face };
+  for (const k of EDITABLE) if (patch[k] !== undefined && patch[k] !== null) f[k] = patch[k];
+  if (patch.timeFont) { f.timeFont = `'${patch.timeFont}', sans-serif`; f.timeWeight = WEIGHT[patch.timeFont] || 700; }
+  f.timeScale = Math.min(1.5, Math.max(0.6, +f.timeScale || 1));
+  f.dim = Math.min(0.7, Math.max(-0.3, +f.dim || 0));
+  f.id = face.id.replace(/~\d+$/, '') + '~' + Date.now() % 100000;
+  return f;
+}
+const FONT_WORDS = [[/serif|classic|elegant/, 'Libre Baskerville'], [/mono|code|typewriter|retro computer/, 'JetBrains Mono'], [/condensed|tall|poster|bold/, 'Bebas Neue'], [/round|friendly|chunky|playful/, 'Gabarito'], [/minimal|clean|modern|apple/, 'Inter Tight']];
+export function refineOffline(face, text) {
+  const t = text.toLowerCase(), cur = settingsOf(face), patch = {}, done = [];
+  if (/circle|medallion|round frame|badge|porthole/.test(t)) { patch.frame = 'medallion'; done.push('framed in a medallion'); }
+  else if (/full ?(screen|bleed)|edge to edge|no circle|remove (the )?circle/.test(t)) { patch.frame = 'full'; done.push('full-screen artwork'); }
+  for (const pos of ['left', 'right', 'center']) if (new RegExp(`(clock|time).*${pos}|${pos}.*(clock|time)`).test(t.replace('centre', 'center'))) { patch.clockPos = pos; done.push(`clock ${pos}`); }
+  if (/bigger|larger|huge|giant/.test(t)) { patch.timeScale = cur.timeScale * 1.18; done.push('bigger time'); }
+  if (/smaller|tiny|subtle/.test(t)) { patch.timeScale = cur.timeScale / 1.18; done.push('smaller time'); }
+  if (/darker|moodier|night|dim/.test(t)) { patch.dim = cur.dim + 0.18; done.push('darker'); }
+  if (/brighter|lighter|sunny/.test(t)) { patch.dim = cur.dim - 0.15; done.push('brighter'); }
+  const col = Object.keys(COLORS).find((k) => t.includes(k)); if (col) { patch.accent = COLORS[col]; done.push(`${col} accent`); }
+  const font = FONT_WORDS.find(([re]) => re.test(t)); if (font) { patch.timeFont = font[1]; done.push(`${font[1]} type`); }
+  if (/hide (the )?card|no card|cleaner|declutter/.test(t)) { patch.hideCard = true; done.push('card hidden'); }
+  if (/show (the )?card|add (the )?card/.test(t)) { patch.hideCard = false; done.push('card shown'); }
+  return { patch, summary: done.length ? done.join(' · ') : "Didn't catch that. Try “circle frame”, “clock left”, “darker”, “gold”, “serif”." };
 }

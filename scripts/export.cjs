@@ -1,8 +1,8 @@
 // Renders submission PNGs (+ Figma-ready SVGs) of every Encore screen.
-// Usage: python3 -m http.server 8123 &  then  node scripts/export.cjs [baseUrl]
+// Usage: npm start &  then  node scripts/export.cjs [baseUrl]
 const { chromium } = require('playwright');
 const { mkdirSync, writeFileSync } = require('node:fs');
-const base = process.argv[2] || 'http://localhost:8123/';
+const base = process.argv[2] || 'http://localhost:8787/';
 const shots = [
   ['01-studio', 'face=studio'],
   ['02-friends', 'face=friends&play=1'],
@@ -21,6 +21,11 @@ const shots = [
   ['15-heart-racing', 'face=friends&play=1&hr=140&secs=0.02'],
   ['16-heart-breathe', 'face=friends&spike=1&secs=2.6'],
   ['17-always-on', 'face=friends&aod=1'],
+  ['18-favourite-quiz', 'screen=quiz&face=stranger&secs=0.5'],
+  ['19-medallion-stranger', 'face=stranger&edit=put it in a circle&secs=1.3'],
+  ['20-medallion-friends', 'face=friends&edit=circle frame&secs=1'],
+  ['21-edited-friends', 'face=friends&play=1&edit=clock on the right, darker, serif, hide the card'],
+  ['22-medallion-tokyo', 'pfx=Neon Tokyo night&edit=put it in a circle, pink'],
 ];
 const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
 (async () => {

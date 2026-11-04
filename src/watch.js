@@ -35,33 +35,56 @@ export function renderHome(o) {
   const pulse = beatPulse(secs, hr);
   const stress = clamp((hr - 95) / 50, 0, 1);
   const ink = aod ? '#a8a8a8' : f.ink;
-  let s = aod ? `<rect width="${W}" height="${H}" fill="#000"/>` : f.wallpaper({ id, secs });
+  const medal = f.frame === 'medallion' && !aod;
+  let s;
+  if (aod) s = `<rect width="${W}" height="${H}" fill="#000"/>`;
+  else if (medal) {
+    // ray burst + the face's own artwork inside a ringed circle (works for scenes, photos and AI art)
+    s = `<rect width="${W}" height="${H}" fill="#050507"/>`;
+    for (let k = 0; k < 36; k++) { const a = (k * 10 + secs * 2) * Math.PI / 180, b = a + Math.PI / 54; s += `<path d="M198 318 L ${(198 + 600 * Math.cos(a)).toFixed(1)} ${(318 + 600 * Math.sin(a)).toFixed(1)} L ${(198 + 600 * Math.cos(b)).toFixed(1)} ${(318 + 600 * Math.sin(b)).toFixed(1)} Z" fill="${f.accent}" opacity=".07"/>`; }
+    s += `<circle cx="198" cy="318" r="150" fill="${f.accent}" opacity=".25" filter="url(#${id}soft)"/>`;
+    s += `<defs><clipPath id="${id}med"><circle cx="198" cy="318" r="128"/></clipPath></defs><g clip-path="url(#${id}med)"><g transform="translate(67.3 158.3) scale(0.66)">${f.wallpaper({ id: id + 'w', secs })}</g></g>`;
+    s += `<circle cx="198" cy="318" r="131" fill="none" stroke="#fff" stroke-width="7"/>`;
+  } else s = f.wallpaper({ id, secs });
+  if (!aod && f.dim) s += `<rect width="${W}" height="${H}" fill="${f.dim > 0 ? '#000' : '#fff'}" opacity="${Math.abs(f.dim).toFixed(2)}"/>`;
 
   // scrim behind type for legibility (premium: soft vignette, not a box)
   if (!aod) s += `<rect width="${W}" height="${H}" fill="url(#${id}vig)"/>`;
 
   // status row
-  s += `<text x="38" y="62" ${UI} font-size="15" font-weight="600" letter-spacing="1.2" fill="${ink}" opacity=".9">${day}</text>`;
-  s += heart(W - 82, 57, 0.62 + 0.18 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
-  s += `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="${ink}">${hr}</text>`;
+  const pos = f.clockPos && f.clockPos !== 'auto' ? f.clockPos : medal ? 'right' : null;
+  const ax = pos === 'left' ? 34 : pos === 'right' ? W - 34 : W / 2, anchor = pos === 'left' ? 'start' : pos === 'right' ? 'end' : 'middle';
+  const k = f.timeScale || 1;
+  if (medal) {
+    s += heart(48, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="62" y="62" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`;
+    s += `<text x="${ax}" y="72" text-anchor="${anchor}" ${UI} font-size="19" font-weight="600" letter-spacing="1.5" fill="#fff">${day}</text>`;
+  } else {
+    s += `<text x="38" y="62" ${UI} font-size="15" font-weight="600" letter-spacing="1.2" fill="${ink}" opacity=".9">${day}</text>`;
+    s += heart(W - 82, 57, 0.62 + 0.18 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
+    s += `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="${ink}">${hr}</text>`;
+  }
 
   // time
   const tf = `font-family="${f.timeFont.replace(/"/g, "'")}" font-weight="${aod ? 300 : f.timeWeight}"`;
-  if (f.layout === 'stack') {
-    const big = f.timeFont.includes('Bebas') ? 168 : 132;
+  if (medal) {
+    s += `<text x="${ax}" y="${150 + 30 * (k - 1)}" text-anchor="${anchor}" ${tf} font-size="${(86 * k).toFixed(0)}" letter-spacing="-2" fill="#fff">${hh}:${mm}</text>`;
+  } else if (pos) {
+    s += `<text x="${ax}" y="${f.layout === 'photo' ? 146 : 280}" text-anchor="${anchor}" ${tf} font-size="${((f.layout === 'photo' ? 92 : 120) * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" ${aod ? '' : `filter="url(#${id}shadow)"`}>${hh}:${mm}</text>`;
+  } else if (f.layout === 'stack') {
+    const big = (f.timeFont.includes('Bebas') ? 168 : 132) * Math.min(k, 1.12);
     s += `<g ${aod ? '' : `filter="url(#${id}shadow)"`}><text x="34" y="${f.timeFont.includes('Bebas') ? 222 : 206}" ${tf} font-size="${big}" letter-spacing="-4" fill="${ink}">${hh.padStart(2, '0')}</text>`;
     s += `<text x="34" y="${f.timeFont.includes('Bebas') ? 366 : 330}" ${tf} font-size="${big}" letter-spacing="-4" fill="${aod ? ink : f.accent}">${mm}</text></g>`;
   } else if (f.layout === 'photo' && !aod) {
-    s += `<text x="${W / 2}" y="146" text-anchor="middle" ${tf} font-size="92" letter-spacing="-3" fill="${ink}" filter="url(#${id}shadow)">${hh}:${mm}</text>`;
+    s += `<text x="${W / 2}" y="146" text-anchor="middle" ${tf} font-size="${(92 * k).toFixed(0)}" letter-spacing="-3" fill="${ink}" filter="url(#${id}shadow)">${hh}:${mm}</text>`;
   } else if (f.layout === 'glow' && !aod) {
     s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="${f.accent}" opacity=".8" filter="url(#${id}soft)">${hh}:${mm}</text>`;
     s += `<text x="${W / 2}" y="268" text-anchor="middle" ${tf} font-size="104" fill="#120202" stroke="${f.accent}" stroke-width="2.2">${hh}:${mm}</text>`;
   } else {
-    const size = f.timeFont.includes('Mono') ? 104 : 138;
+    const size = (f.timeFont.includes('Mono') ? 104 : 138) * Math.min(k, 1.1);
     s += `<text x="${W / 2}" y="${f.timeFont.includes('Mono') ? 270 : 280}" text-anchor="middle" ${tf} font-size="${size}" letter-spacing="${f.timeFont.includes('Mono') ? -6 : -6}" fill="${ink}" ${aod ? '' : `filter="url(#${id}shadow)"`}>${hh}:${mm}</text>`;
   }
 
-  if (!aod) {
+  if (!aod && !medal && !f.hideCard) {
     // glass complication card
     const cy = 384, ch = 72;
     s += `<rect x="20" y="${cy}" width="${W - 40}" height="${ch}" rx="26" fill="#0b0b10" fill-opacity=".52" stroke="#fff" stroke-opacity=".14"/>`;
@@ -79,9 +102,8 @@ export function renderHome(o) {
       s += `<text x="${W - 40}" y="${cy + 54}" text-anchor="end" ${UI} font-size="16" font-weight="700" fill="${f.accent}">6,842</text>`;
       s += `<text x="${W - 40}" y="${cy + 31}" text-anchor="end" ${UI} font-size="12" font-weight="600" letter-spacing="1" fill="#fff" opacity=".55">STEPS</text>`;
     }
-    // swipe affordance
-    s += `<rect x="${W / 2 - 18}" y="${H - 16}" width="36" height="4" rx="2" fill="#fff" opacity=".35"/>`;
   }
+  if (!aod) s += `<rect x="${W / 2 - 18}" y="${H - 16}" width="36" height="4" rx="2" fill="#fff" opacity=".35"/>`;
 
   // heart sync: racing → red edge glow on every beat; spike → breathe overlay
   if (stress > 0 && !aod) {
@@ -216,3 +238,22 @@ function wrap(text, n) {
   if (line.trim()) out.push(line.trim());
   return out;
 }
+
+// ------------------------------------------------------------------ FAVOURITE CHARACTER QUIZ
+export function renderQuiz({ show, chars, secs, accent = '#fff', id = 'qz' }) {
+  let s = `<rect width="${W}" height="${H}" fill="#000"/><circle cx="${W / 2}" cy="-40" r="220" fill="${accent}" opacity=".18" filter="url(#${id}soft)"/>`;
+  s += `<text x="${W / 2}" y="62" text-anchor="middle" ${UI} font-size="12.5" font-weight="700" letter-spacing="2" fill="${accent}">${show.toUpperCase()}</text>`;
+  s += `<text x="${W / 2}" y="98" text-anchor="middle" ${UI} font-size="24" font-weight="700" fill="#fff">Who's your favourite?</text>`;
+  const list = chars.slice(0, 6);
+  if (!list.length) s += `<text x="${W / 2}" y="240" text-anchor="middle" ${UI} font-size="15" fill="#fff" opacity=".6">Looking up the cast…</text>`;
+  list.forEach((c, i) => {
+    const x = i % 2 ? W / 2 + 6 : 34, y = 130 + Math.floor(i / 2) * 78, w = W / 2 - 40;
+    const pulse = 0.12 + 0.05 * Math.sin(secs * 2 + i);
+    s += `<rect x="${x}" y="${y}" width="${w}" height="64" rx="22" fill="#fff" fill-opacity="${pulse.toFixed(2)}" stroke="#fff" stroke-opacity=".18"/>`;
+    s += `<circle cx="${x + 30}" cy="${y + 32}" r="16" fill="${accent}"/><text x="${x + 30}" y="${y + 38}" text-anchor="middle" ${UI} font-size="15" font-weight="800" fill="#111">${c[0]}</text>`;
+    s += `<text x="${x + 54}" y="${y + 38}" ${UI} font-size="${c.length > 10 ? 13 : 15}" font-weight="600" fill="#fff">${c.length > 13 ? c.slice(0, 12) + '…' : c}</text>`;
+  });
+  s += `<text x="${W / 2}" y="${H - 34}" text-anchor="middle" ${UI} font-size="13" fill="#fff" opacity=".5">We'll design a face around their world</text>`;
+  return open(id, s);
+}
+export const QUIZ_HIT = (sx, sy) => { const r = Math.floor((sy - 130) / 78), c = sx > W / 2 ? 1 : 0; return sy >= 130 && r >= 0 && r < 3 ? r * 2 + c : -1; };

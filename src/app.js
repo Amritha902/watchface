@@ -1,5 +1,5 @@
-import { FACES, faceFromPrompt, faceFromPhoto, W, H } from './faces.js';
-import { renderHome, renderGallery, renderGift, renderCreate, renderDesigning } from './watch.js';
+import { FACES, faceFromPrompt, faceFromPhoto, faceFromStyle, faceForCharacterOffline, refineOffline, applyPatch, settingsOf, W, H } from './faces.js';
+import { renderHome, renderGallery, renderGift, renderCreate, renderDesigning, renderQuiz, QUIZ_HIT } from './watch.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -11,6 +11,7 @@ const POSTER = {
 };
 
 const state = {
+  quiz: null,
   screen: params.get('screen') || 'home',
   face: FACES[params.get('face')] || FACES.studio,
   owned: [FACES.studio],
@@ -63,6 +64,78 @@ function pressPlay() {
     if (state.face.id !== f.id) startGift(f, `Because you're watching ${f.show}`);
   }, 1300);
 }
+// ---------------- favourite character → AI face ----------------
+const CHAR_STEPS = ['Looking up the cast…', 'Reading their world with Claude…', 'Painting the wallpaper…', 'Setting type and colour…', 'Checking always-on & battery…'];
+let api = { claude: false, replicate: false, tmdb: false };
+fetch('/api/health').then((r) => (r.ok ? r.json() : api)).then((h) => { api = h; aiLabel(); }).catch(() => aiLabel());
+function aiLabel() {
+  $('aiState').textContent = api.claude ? `AI on: Claude${api.replicate ? ' + Flux' : ''}${api.tmdb ? ' + TMDB' : ''}` : 'AI offline: using the built-in generator';
+}
+async function openQuiz() {
+  const base = FACES[state.selected];
+  state.quiz = { show: base.show, base, chars: [] }; state.screen = 'quiz';
+  let chars = [];
+  try { const r = await fetch(`/api/characters?show=${encodeURIComponent(base.show)}`); if (r.ok) chars = (await r.json()).characters; } catch {}
+  if (!chars.length) chars = { friends: ['Rachel', 'Ross', 'Monica', 'Chandler', 'Joey', 'Phoebe'], stranger: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'], heist: ['The Professor', 'Tokyo', 'Berlin', 'Nairobi', 'Rio', 'Denver'], squid: ['Gi-hun', 'Sae-byeok', 'Sang-woo', 'Ali', 'Il-nam', 'The Front Man'] }[state.selected];
+  state.quiz.chars = chars.slice(0, 6);
+  $('favChips').innerHTML = state.quiz.chars.map((c, i) => `<button class="chip" data-i="${i}">${c}</button>`).join('');
+}
+async function designCharacter(i) {
+  const { base, chars, show } = state.quiz, character = chars[i];
+  const job = { face: { ...base, accent: faceForCharacterOffline(base, character, i).accent }, start: secs, done: null, steps: CHAR_STEPS, slow: true };
+  state.designing = job; state.screen = 'designing';
+  let face;
+  try {
+    const r = await fetch('/api/style', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ show, character }) });
+    if (!r.ok) throw new Error((await r.json()).error);
+    const style = await r.json();
+    job.face = faceFromStyle(style, base, character);
+    let image = null;
+    try {
+      const w = await fetch('/api/wallpaper', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imagePrompt: style.imagePrompt }) });
+      if (w.ok) image = (await w.json()).image;
+    } catch {}
+    face = faceFromStyle(style, base, character, image);
+    $('aiState').textContent = `Claude style: “${style.mood}”`;
+  } catch (e) {
+    face = faceForCharacterOffline(base, character, i);
+    if (api.claude) $('aiState').textContent = `AI unavailable (${e.message}); using the built-in generator`;
+  }
+  job.face = face; job.done = secs;
+}
+$('favBtn').onclick = openQuiz;
+
+// ---------------- refine the worn face ----------------
+const history = [];
+async function refineFace(text) {
+  text = text.trim(); if (!text) return;
+  const face = state.face;
+  $('refineState').textContent = 'Working…';
+  let patch, summary, image = null;
+  try {
+    if (!api.claude) throw new Error('offline');
+    const r = await fetch('/api/refine', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ settings: settingsOf(face), instruction: text, imagePrompt: face.style?.imagePrompt || '' }) });
+    if (!r.ok) throw new Error((await r.json()).error);
+    const out = await r.json();
+    ({ summary } = out); patch = out;
+    if (out.regenerateImage && out.imagePrompt && api.replicate) {
+      $('refineState').textContent = 'Repainting the artwork…';
+      const w = await fetch('/api/wallpaper', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imagePrompt: out.imagePrompt }) });
+      if (w.ok) image = (await w.json()).image;
+    }
+  } catch { ({ patch, summary } = refineOffline(face, text)); }
+  history.push(face);
+  let next = applyPatch(face, patch);
+  if (image) next = { ...applyPatch(faceFromPhoto(image, next), patch), name: face.name, style: { ...(face.style || {}), imagePrompt: patch.imagePrompt } };
+  const i = state.owned.findIndex((f) => f.id === face.id); if (i >= 0) state.owned[i] = next;
+  state.face = next; state.screen = 'home'; state.flash = secs;
+  $('refineState').textContent = `✓ ${summary}`;
+}
+$('refineBtn').onclick = () => refineFace($('refine').value);
+$('refineChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) { $('refine').value = b.textContent; refineFace(b.textContent); } };
+$('undoBtn').onclick = () => { if (history.length) { state.face = history.pop(); state.screen = 'home'; $('refineState').textContent = 'Undone'; } };
+$('favChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) designCharacter(+b.dataset.i); };
+
 const STEPS = ['Reading your description…', 'Choosing a palette…', 'Composing the wallpaper…', 'Setting the type…', 'Checking always-on & battery…'];
 function design() {
   const p = $('prompt').value.trim() || state.prompt;
@@ -85,7 +158,7 @@ screenEl.addEventListener('pointermove', (e) => {
 });
 screenEl.addEventListener('pointerup', (e) => {
   if (!drag) return;
-  const dx = e.clientX - drag.x, [, sy] = drag.at;
+  const dx = e.clientX - drag.x, [drag0x, sy] = drag.at;
   const moved = drag.moved; drag = null;
   if (state.screen === 'home' && moved && dx < -30) { openGallery(); return; }
   if (state.screen === 'gallery') {
@@ -101,6 +174,7 @@ screenEl.addEventListener('pointerup', (e) => {
     if (sy > 390 && sy < 450) wear(state.gift.face);
     else if (sy >= 450) { if (!state.owned.some((f) => f.id === state.gift.face.id)) state.owned.push(state.gift.face); state.screen = 'home'; }
   } else if (state.screen === 'create' && state.prompt && sy > 398) design();
+  else if (state.screen === 'quiz') { const k = QUIZ_HIT(drag0x, sy); if (k >= 0 && k < state.quiz.chars.length) designCharacter(k); }
 });
 function openGallery() { state.screen = 'gallery'; const i = cards().findIndex((c) => c.face && c.face.id === state.face.id); state.pos = state.target = Math.max(0, i); }
 
@@ -158,14 +232,19 @@ function draw() {
     svg = renderGift({ face: state.gift.face, el: secs - state.gift.start, reason: state.gift.reason, t, secs, day });
   } else if (state.screen === 'create') {
     svg = renderCreate({ prompt: state.prompt, secs });
+  } else if (state.screen === 'quiz') {
+    svg = renderQuiz({ show: state.quiz.show, chars: state.quiz.chars, secs, accent: state.quiz.base.accent });
   } else if (state.screen === 'designing') {
-    const p = Math.min(1, (secs - state.designing.start) / 5);
-    svg = renderDesigning({ face: state.designing.face, p, step: STEPS[Math.min(STEPS.length - 1, Math.floor(p * STEPS.length))], secs });
-    if (p >= 1) startGift(state.designing.face, 'From your description');
+    const d = state.designing, steps = d.steps || STEPS;
+    let p = Math.min(1, (secs - d.start) / 5);
+    if (d.slow) p = d.done === null ? Math.min(0.92, (secs - d.start) / 14) : Math.min(1, 0.92 + (secs - d.done) / 1.2);
+    svg = renderDesigning({ face: d.face, p, step: steps[Math.min(steps.length - 1, Math.floor(p * steps.length))], secs });
+    if (p >= 1) startGift(d.face, d.face.character ? `Because ${d.face.character} is your favourite` : 'From your description');
   } else {
     const play = state.play && state.play.show === state.face.show ? state.play : null;
     svg = renderHome({ face: state.face, t, secs, hr, spike, play, day, aod: state.aod });
   }
+  if (state.flash && secs - state.flash < 0.6) svg = svg.replace('</g></svg>', `<rect width="${W}" height="${H}" fill="#fff" opacity="${(0.35 * (1 - (secs - state.flash) / 0.6)).toFixed(2)}"/></g></svg>`);
   screenEl.innerHTML = svg;
   const accent = state.screen === 'gift' ? state.gift.face.accent : state.screen === 'designing' ? state.designing.face.accent : state.face.accent;
   $('watch').style.setProperty('--accent', accent);
@@ -175,6 +254,8 @@ function draw() {
 
 // deep-link states (used by the export script)
 if (params.has('pfx')) state.face = faceFromPrompt(params.get('pfx'));
+if (params.has('edit')) state.face = applyPatch(state.face, refineOffline(state.face, params.get('edit')).patch);
+if (state.screen === 'quiz') { const k = params.get('face') || 'stranger'; state.selected = k; state.quiz = { show: FACES[k].show, base: FACES[k], chars: ['Eleven', 'Dustin', 'Steve', 'Max', 'Hopper', 'Will'] }; }
 if (params.has('play') && state.face.show) state.play = { show: state.face.show, ep: state.face.ep, left: state.face.left, total: 50 };
 if (state.screen === 'gift') { startGift(state.face, params.get('reason') || `Because you're watching ${state.face.show || 'something new'}`); if (params.has('el')) state.gift.start = secs - +params.get('el'); }
 if (state.screen === 'designing') state.designing = { face: faceFromPrompt(state.prompt || 'Rainy café'), start: secs - (+params.get('p') || 0.6) * 5 };

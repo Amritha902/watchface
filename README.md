@@ -18,6 +18,29 @@ Entry for the *Watch Face Design Challenge 2026 · Open Innovation*: *"Think fre
 5. **Describe:** say or type *"a rainy café in Mumbai"*. Encore composes the wallpaper, palette, typography and layout, then gifts it back.
 6. **Heart sync:** heart rate pulses live on every face. A racing heart makes the screen edge glow red on each beat, and a sudden spike brings up a breathing guide.
 
+## Your favourite character, designed by AI
+| Pick a favourite | Medallion frame | Edit it: "circle frame" | AI scene in a medallion |
+|---|---|---|---|
+| ![](exports/18-favourite-quiz.png) | ![](exports/19-medallion-stranger.png) | ![](exports/20-medallion-friends.png) | ![](exports/22-medallion-tokyo.png) |
+
+1. **"Who's your favourite?"** The watch lists the cast. Character lists come live from **TMDB** for any show, with a built-in list as fallback.
+2. **Claude reads their world.** Claude Opus 5.5 turns the character into a structured *style card*: palette, typeface, signature objects and places, mood, an up-next line in their spirit, and an image prompt.
+3. **AI paints the wallpaper.** Flux (via Replicate) renders the scene. The prompt rules forbid faces, people, logos and text, so the artwork is *character-inspired* (their objects, places and colours) rather than a copy of an actor or studio art. That keeps it shippable; official art would come through licensing.
+4. **Make it yours.** "Put it in a circle", "clock on the left", "darker", "gold accent", "serif", "hide the card", "repaint it rainier"… Claude converts the request into exact edits, and repaints only when the request changes what the art shows. An offline rule engine covers common edits. Undo is one tap.
+
+The **medallion** frame puts any artwork (built-in scenes, your own photo, AI paintings) in a ringed circle on a slow ray burst, with the clock top-right.
+
+## Architecture
+```
+watch UI (src/watch.js)  ←  face engine (src/faces.js)  ←  app (src/app.js)
+                                                    │  fetch
+server/index.mjs ── /api/characters → TMDB
+                 ── /api/style      → Claude Opus 5.5 (structured JSON style card)
+                 ── /api/refine     → Claude Opus 5.5 (edit → settings patch)
+                 ── /api/wallpaper  → Replicate · Flux (image → data URL)
+```
+API keys live only on the server (`.env`, git-ignored). Every route degrades gracefully: with no keys, the built-in generator keeps the whole demo working.
+
 ## The collection
 | Studio | The Apartment | Upside | The Vault | The Game |
 |---|---|---|---|---|
@@ -38,17 +61,25 @@ Entry for the *Watch Face Design Challenge 2026 · Open Innovation*: *"Think fre
 
 ## Run it
 ```bash
-python3 -m http.server 8123
+npm install
 ```
-Then open http://localhost:8123. Pick a show and press play, swipe the watch screen, type a description, or simulate a heart-rate spike.
-
-Regenerate PNGs and Figma-ready SVGs (`exports/`, `figma/`):
 ```bash
-node scripts/export.cjs http://localhost:8123/
+cp .env.example .env
+```
+Add whichever keys you have to `.env` (all optional): `ANTHROPIC_API_KEY`, `REPLICATE_API_TOKEN`, `TMDB_API_KEY`. Then:
+```bash
+npm start
+```
+Open http://localhost:8787. Pick a show and press play, pick a favourite character, swipe the watch screen, describe a face, edit it, or simulate a heart-rate spike.
+
+Regenerate PNGs and Figma-ready SVGs (`exports/`, `figma/`) while the server runs:
+```bash
+node scripts/export.cjs
 ```
 
 ## Files
-- `src/faces.js`: face library (wallpaper art) and the description-to-face generator
+- `src/faces.js`: face library (wallpaper art), description-to-face generator, style-card faces, refine engine
 - `src/watch.js`: watch screens (home, gallery, gift reveal, create, designing, breathe)
-- `src/app.js`: interaction (swipe, flows, streaming simulation, heart sync)
+- `src/app.js`: interaction (swipe, flows, streaming simulation, favourite character, refine, heart sync)
+- `server/index.mjs`: backend (static hosting + TMDB, Claude and Replicate integrations)
 - `index.html`: showcase page
