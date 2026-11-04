@@ -1,87 +1,229 @@
+<div align="center">
+
 # Encore.
 
-**A watch face that knows what you love.** It notices what you're watching, gifts you a face made for it, and designs one from a sentence.
+**Watch faces that know what you love.**
 
-Entry for the *Watch Face Design Challenge 2026 · Open Innovation*: *"Think freely. Design boldly. Innovate beyond the dial."*
+You start a show and your watch gets a face made for it. Name your favourite character and it paints one around their world.
+Say *"put it in a circle, a bit darker"* and it changes in a second.
 
-![Encore showcase](exports/showcase-hero.png)
+[![Design in Figma](https://img.shields.io/badge/Design-Figma-a259ff?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)
+[![Usability tested with TheySaid](https://img.shields.io/badge/Usability%20tested%20with-TheySaid-ff5a5f?style=for-the-badge)](https://theysaid.io)
+[![Prototype](https://img.shields.io/badge/Prototype-run%20locally-111?style=for-the-badge)](#run-it)
 
-## The experience
-| Gift reveal | Your face | Swipe to browse | Describe it |
-|---|---|---|---|
-| ![](exports/06-gift-reveal.png) | ![](exports/02-friends.png) | ![](exports/08-gallery.png) | ![](exports/10-describe.png) |
+<sub>Watch Face Design Challenge 2026 · Open Innovation track · <i>"Think freely. Design boldly. Innovate beyond the dial."</i></sub>
 
-1. **Notice:** the Encore phone app sees what's playing on Netflix, Prime Video and similar apps (on Android, through the system's media controls, with your permission). It builds a **private taste profile on the phone**.
-2. **Gift:** when a show becomes a real favourite, the watch shows **"Made for you · Because you're watching Friends"**. The face is revealed with a light sweep. *Wear this face* or *Save for later*.
-3. **Live complication:** the face carries your show: episode, minutes left, and a resume button that hands off to the TV.
-4. **Swipe:** a horizontal swipe opens your face carousel. The last card is **+ Create your own**.
-5. **Describe:** say or type *"a rainy café in Mumbai"*. Encore composes the wallpaper, palette, typography and layout, then gifts it back.
-6. **Heart sync:** heart rate pulses live on every face. A racing heart makes the screen edge glow red on each beat, and a sudden spike brings up a breathing guide.
+<br/>
 
-## Your favourite character, designed by AI
-| Pick a favourite | Medallion frame | Edit it: "circle frame" | AI scene in a medallion |
-|---|---|---|---|
-| ![](exports/18-favourite-quiz.png) | ![](exports/19-medallion-stranger.png) | ![](exports/20-medallion-friends.png) | ![](exports/22-medallion-tokyo.png) |
+<img src="exports/showcase-hero.png" alt="Encore showcase page with the watch wearing the Friends-inspired face" width="900"/>
 
-1. **"Who's your favourite?"** The watch lists the cast. Character lists come live from **TMDB** for any show, with a built-in list as fallback.
-2. **Claude reads their world.** Claude Opus 5.5 turns the character into a structured *style card*: palette, typeface, signature objects and places, mood, an up-next line in their spirit, and an image prompt.
-3. **AI paints the wallpaper.** Flux (via Replicate) renders the scene. The prompt rules forbid faces, people, logos and text, so the artwork is *character-inspired* (their objects, places and colours) rather than a copy of an actor or studio art. That keeps it shippable; official art would come through licensing.
-4. **Make it yours.** "Put it in a circle", "clock on the left", "darker", "gold accent", "serif", "hide the card", "repaint it rainier"… Claude converts the request into exact edits, and repaints only when the request changes what the art shows. An offline rule engine covers common edits. Undo is one tap.
+</div>
 
-The **medallion** frame puts any artwork (built-in scenes, your own photo, AI paintings) in a ringed circle on a slow ray burst, with the clock top-right.
+---
 
-## Architecture
+## Why
+
+Your watch face is the screen you look at most, about 80 times a day. And it knows nothing about you.
+
+Picking a face today means scrolling a gallery of near-identical dials. Meanwhile the things people actually love (the show they can't stop watching, the character they quote all week) never reach the wrist.
+
+Encore closes that gap. It pays attention to what you watch, then **gives** you a face instead of making you go and find one.
+
+## How it works
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 1 · A face shows up as a gift
+Press play on *Friends* and Encore notices. A few seconds later your wrist lights up: **"Made for you · Because you're watching Friends."** The face is unwrapped with a light sweep. Wear it, or save it for later.
+
+The face carries your show with it: episode, minutes left, and a play button that hands off to the TV.
+
+</td>
+<td width="50%" align="center"><img src="docs/gift.gif" width="280" alt="Gift reveal animation"/></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/character.gif" width="280" alt="Favourite character flow"/></td>
+<td valign="top">
+
+### 2 · Who's your favourite?
+The watch asks, and shows the cast. Tap *Eleven* and Encore designs a face around her world: the colours, the objects, the places, the mood. It doesn't copy a face or a logo.
+
+Behind it: the cast comes from **TMDB**, **Claude** writes a style card, and an image model (**Flux**) paints the wallpaper.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 3 · Swipe for more, or make your own
+Swipe the face to browse your collection. The last card is always **+ Create your own**.
+
+</td>
+<td align="center"><img src="docs/swipe.gif" width="280" alt="Swipe gallery"/></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/describe.gif" width="280" alt="Describe a face"/></td>
+<td valign="top">
+
+### 4 · Describe it in a sentence
+*"Neon Tokyo night." "A rainy café in Mumbai, warm and cosy." "Calm ocean, teal."* Say it on the watch or type it on the phone. Encore builds the face (wallpaper, palette, typeface, layout) and gifts it back.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 5 · Then make it yours
+Not quite right? Just say what to change.
+
+- *"Put it in a circle"* frames the art in a medallion on a slow ray burst
+- *"Clock on the left"*, *"bigger time"*, *"serif font"*
+- *"Make it darker"*, *"gold accent"*, *"hide the card"*
+- *"Make it rainier"* repaints the artwork itself
+
+Claude turns the sentence into exact edits. Undo is one tap.
+
+</td>
+<td align="center"><img src="docs/edit.gif" width="280" alt="Editing with plain words"/></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/heart.gif" width="280" alt="Heart sync and breathing guide"/></td>
+<td valign="top">
+
+### 6 · It beats with you
+On every face, the heart rate pulses live. When your heart races, the edge of the screen glows red on each beat. If it **spikes** suddenly, a breathing guide takes over (4 seconds in, 6 out) until you settle.
+
+</td>
+</tr>
+</table>
+
+## The faces
+
+**Show-inspired.** Each one is a living scene, not a static wallpaper: steam rises from the mug, the fairy lights flicker, the vault wheel turns, the shapes light up in sequence.
+
+<img src="docs/lineup-shows.png" alt="Studio, The Apartment (Friends), Upside (Stranger Things), The Vault (Money Heist), The Game (Squid Game)" width="100%"/>
+
+<sub>Studio · The Apartment (<i>Friends</i>) · Upside (<i>Stranger Things</i>) · The Vault (<i>Money Heist</i>) · The Game (<i>Squid Game</i>)</sub>
+
+**Made from a sentence, or framed as a medallion.**
+
+<img src="docs/lineup-generated.png" alt="Faces generated from descriptions and medallion frames" width="100%"/>
+
+<sub>"Rainy café, cosy" · "Neon Tokyo night" · "Calm ocean, teal" · Upside in a medallion · The Apartment in a medallion</sub>
+
+**The moments around them.**
+
+<img src="docs/lineup-screens.png" alt="Gift reveal, favourite character quiz, create card, describe screen, always-on" width="100%"/>
+
+<sub>Gift reveal · Who's your favourite? · Create your own · Describe it · Always-on (true black, type only)</sub>
+
+## Design
+
+The full design lives in Figma: the collection, the gift and create flows, heart sync, always-on, the favourite-character quiz and the medallion frames. Everything is built as editable vectors with real type.
+
+**→ [Open the Encore board in Figma](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)**
+
+Some notes on the decisions:
+
+- **Rounded-rectangle OLED, 396 × 484.** Premium smartwatch proportions, with a titanium case and a solo-loop strap in the showcase.
+- **One type system, many personalities.** UI text is always Inter. The clock changes with the face: Gabarito for the sitcom warmth, Libre Baskerville with a neon outline for the 80s supernatural, Bebas Neue for the heist, JetBrains Mono for the game.
+- **Glass complications.** A single frosted card at the bottom, so the art gets the rest of the screen.
+- **Always-on mode drops the art entirely.** True black and thin type, which saves battery and avoids burn-in.
+
+## User testing
+
+Encore was usability-tested with **[TheySaid](https://theysaid.io)**. Five AI testers matched to the target audience (smartwatch owners aged 18–35 in India who binge on Netflix and Prime Video) worked through five tasks: understanding the idea, the gift reveal, the favourite-character flow, swiping to create, and editing a face.
+
+TheySaid's first design scan flagged that the landing screen had no obvious place to start. We added a clear **Try it** button, raised text contrast, enlarged tap targets and made the selected show unmistakable, then ran the full test on the improved build.
+
+**What testers told us, and what changed**
+
+| Finding | Severity | What we did |
+|---|---|---|
+| Testers thought Encore was a new watch and asked for battery life and water resistance before they'd trust it | High | The hero now says plainly that Encore is a **watch-face app for the smartwatch you already own**. Battery, sensors and water rating come from the user's own watch. |
+| They wanted to see the watch in a realistic context | High | Next step: renders of the face on a wrist and in side profile |
+| The main button wasn't clearly the main button, and "Try it: watch Friends" read like a demo command | Medium | Renamed to **"Get a face made for you"**, made it the dominant solid button, demoted "How it works" to an outline, and added a one-line explanation of what happens |
+| Body text was too dim on black | Medium | Raised the muted text colour |
+| Service chips and the selected show were hard to tap and spot | Low | Bigger tap targets (44 px+) and a bold white ring on the selected show |
+
+Full report: [TheySaid project](https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92)
+
+## Under the hood
+
+```mermaid
+flowchart LR
+  P[Phone: what's playing<br/>Netflix · Prime Video] -->|on-device| T[Taste profile]
+  T -->|new favourite| G[Gift a show face]
+  Q[Who's your favourite?] --> C[TMDB cast list]
+  C --> S[Claude: style card<br/>palette · type · props · mood]
+  S --> F[Flux: paints the wallpaper]
+  F --> E[Face engine]
+  D[Describe it / Make it yours] --> S2[Claude: edit → settings patch] --> E
+  E --> W[Watch]
 ```
-watch UI (src/watch.js)  ←  face engine (src/faces.js)  ←  app (src/app.js)
-                                                    │  fetch
-server/index.mjs ── /api/characters → TMDB
-                 ── /api/style      → Claude Opus 5.5 (structured JSON style card)
-                 ── /api/refine     → Claude Opus 5.5 (edit → settings patch)
-                 ── /api/wallpaper  → Replicate · Flux (image → data URL)
-```
-API keys live only on the server (`.env`, git-ignored). Every route degrades gracefully: with no keys, the built-in generator keeps the whole demo working.
 
-## The collection
-| Studio | The Apartment | Upside | The Vault | The Game |
-|---|---|---|---|---|
-| ![](exports/01-studio.png) | ![](exports/02-friends.png) | ![](exports/03-stranger.png) | ![](exports/04-money-heist.png) | ![](exports/05-squid-game.png) |
-| Encore original | Inspired by *Friends* | Inspired by *Stranger Things* | Inspired by *Money Heist* | Inspired by *Squid Game* |
+| Piece | What it does |
+|---|---|
+| `src/faces.js` | Face library and art, the sentence-to-face generator, style-card faces, and the edit engine |
+| `src/watch.js` | Every watch screen: home, gallery, gift, quiz, create, designing, breathe |
+| `src/app.js` | Interactions: swipe, streaming simulation, favourite character, edits with undo, heart sync |
+| `server/index.mjs` | Small Node server: TMDB cast lists, Claude style cards and edits (structured JSON), Flux wallpapers via Replicate |
+| `dist/encore.html` | The whole prototype in one file, no server needed |
 
-| "Rainy café, cosy" | "Neon Tokyo night" | "Calm ocean, teal" | Racing heart | Breathe |
-|---|---|---|---|---|
-| ![](exports/12-prompt-cafe.png) | ![](exports/13-prompt-tokyo.png) | ![](exports/14-prompt-ocean.png) | ![](exports/15-heart-racing.png) | ![](exports/16-heart-breathe.png) |
-
-> All artwork is original vector illustration (a purple apartment door, fairy lights, a vault wheel, neon shapes) that evokes each show's world without logos, stills or likenesses. Official artwork would ship through studio licensing.
+**Every AI step has an offline fallback.** With no API keys, a built-in generator takes over and the whole demo still works. Keys stay on the server, never in the browser.
 
 ## Built to ship
-- **Privacy:** viewing data stays on the phone, and the watch only receives finished faces. Every connection is opt-in.
-- **Platforms, honestly:** on Android, automatic detection uses the system's media controls. iOS doesn't allow it, so iPhone users connect by picking shows or importing their viewing history. Netflix and Prime have no public API, and Encore doesn't need one.
-- **Generator, not a gallery:** a face is built from parts (motif × palette × type × layout), so a new one takes seconds and stays sharp at any size.
-- **Always-on:** true black with thin type only.
+
+- **Private by design.** Viewing data never leaves the phone. The watch only ever receives finished faces. Every connection is opt-in.
+- **Honest about platforms.** On Android, a companion app can read what's playing through the system's media controls, with permission. iOS doesn't allow this, so iPhone users pick shows or import their viewing history. Neither Netflix nor Prime Video has a public API, and Encore doesn't need one.
+- **Rights-aware.** Show faces and AI wallpapers evoke a character's world (objects, places, colour) and never reproduce actors, logos or studio art. Official artwork is a licensing conversation, and a natural partnership for a watch brand.
+- **Light on the watch.** Faces are vectors plus one optional image. Generation happens on the phone or server, not the wrist.
 
 ## Run it
+
 ```bash
 npm install
 ```
 ```bash
 cp .env.example .env
 ```
-Add whichever keys you have to `.env` (all optional): `ANTHROPIC_API_KEY`, `REPLICATE_API_TOKEN`, `TMDB_API_KEY`. Then:
+
+Add any keys you have to `.env`. All are optional:
+
+| Key | Unlocks |
+|---|---|
+| `ANTHROPIC_API_KEY` | Claude style cards and plain-language edits |
+| `REPLICATE_API_TOKEN` | AI-painted wallpapers (Flux) |
+| `TMDB_API_KEY` | Live cast lists for any show |
+
 ```bash
 npm start
 ```
-Open http://localhost:8787. Pick a show and press play, pick a favourite character, swipe the watch screen, describe a face, edit it, or simulate a heart-rate spike.
 
-No server? `dist/encore.html` is the whole prototype in one file (rebuild with `node scripts/bundle.cjs`); the AI routes fall back to the built-in generator.
+Then open **http://localhost:8787**. Or just open `dist/encore.html` in a browser.
 
-Regenerate PNGs and Figma-ready SVGs (`exports/`, `figma/`) while the server runs:
+<details>
+<summary>Regenerating the images and animations</summary>
+
+With the server running:
+
 ```bash
 node scripts/export.cjs
 ```
+```bash
+node scripts/record-gifs.cjs
+```
+```bash
+node scripts/bundle.cjs
+```
 
-## Files
-- `src/faces.js`: face library (wallpaper art), description-to-face generator, style-card faces, refine engine
-- `src/watch.js`: watch screens (home, gallery, gift reveal, create, designing, breathe)
-- `src/app.js`: interaction (swipe, flows, streaming simulation, favourite character, refine, heart sync)
-- `server/index.mjs`: backend (static hosting + TMDB, Claude and Replicate integrations)
-- `index.html`: showcase page
+These produce `exports/` (PNG renders), `figma/` (Figma-ready SVGs), `docs/` (README animations) and `dist/encore.html`.
+</details>
+
+---
+
+<div align="center">
+<sub>Designed and built by <b>Amritha S</b> · Watch Face Design Challenge 2026</sub>
+</div>

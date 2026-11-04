@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #000; --panel: #0e0e12; --line: #1f1f27; --text: #f5f5f7; --muted: #8e8e98; --accent: #8d8dff; }
+  :root { --bg: #000; --panel: #0e0e12; --line: #1f1f27; --text: #f5f5f7; --muted: #c4c4cc; --accent: #8d8dff; }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   body { overflow-x: hidden; }
@@ -59,12 +59,20 @@
   .panel p.sub { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 8px 0 16px; }
   .btn { background: #1b1b22; color: var(--text); border: 1px solid #2a2a33; border-radius: 999px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
   .btn:hover { border-color: #45454f; }
+  .btn.big { padding: 14px 22px; font-size: 16px; }
+  .btn.ghost { background: transparent; border-color: #3a3a44; color: var(--muted); }
+  .cta-sub { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+  .what { display: inline-block; margin: 22px auto 0; padding: 10px 16px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; color: var(--muted); }
+  .what b { color: var(--text); }
+  .chip { min-height: 40px; }
+  .show.on { box-shadow: 0 0 0 3px #fff, 0 10px 30px -10px rgba(255,255,255,.4); }
+  .show.on .pl { background: #fff; color: #000; }
   .btn.white { background: #fff; color: #000; border-color: #fff; }
   .btn.red { background: #2a0d12; border-color: #5c1a25; color: #ffc2cb; }
   .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .chip { border: 1px solid #2a2a33; background: #121218; color: var(--text); border-radius: 999px; padding: 8px 14px; font-size: 13px; cursor: pointer; }
   .services { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .svc { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: #121218; border: 1px solid #2a2a33; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); }
+  .svc { display: flex; align-items: center; gap: 8px; padding: 12px 16px; min-height: 44px; border-radius: 12px; background: #121218; border: 1px solid #2a2a33; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); }
   .svc i { width: 8px; height: 8px; border-radius: 50%; background: #3a3a44; }
   .svc.on i { background: #33d17a; box-shadow: 0 0 8px #33d17a; }
   .shows { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
@@ -107,6 +115,12 @@
     <div class="eyebrow">Watch Face Design Challenge 2026 · Open Innovation</div>
     <h1>Encore.</h1>
     <p class="tag">A watch face that knows what you love. It <b>notices what you're watching</b>, <b>gifts you a face</b> made for it, and <b>designs one from a sentence</b>.</p>
+    <div class="row" style="justify-content:center;margin-top:28px">
+      <button class="btn white big" id="tryBtn" style="padding:16px 32px;font-size:17px">▶ Get a face made for you</button>
+      <a class="btn big ghost" href="#how" style="text-decoration:none">How it works</a>
+    </div>
+    <p class="cta-sub">Pretend you just started <i>Friends</i>. Your watch gets a face in about 5 seconds.</p>
+    <p class="what">Encore is a <b>watch-face app</b>, not a new watch. It runs on the smartwatch you already own, using its battery, sensors and water resistance.</p>
   </header>
 
   <div class="stage">
@@ -177,7 +191,7 @@
   </div>
 </div>
 
-<section><div class="wrap">
+<section id="how"><div class="wrap">
   <h2>From binge to wrist.</h2>
   <p>No menus, no hunting through face galleries. Encore pays attention, then makes something just for you.</p>
   <div class="steps4">

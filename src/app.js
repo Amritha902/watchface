@@ -187,6 +187,7 @@ $('shows').innerHTML = SHOWS.map((k) => `<button class="show${k === state.select
 $('shows').onclick = (e) => { const b = e.target.closest('.show'); if (!b) return; state.selected = b.dataset.k; document.querySelectorAll('.show').forEach((x) => x.classList.toggle('on', x === b)); };
 $('services').onclick = (e) => { const b = e.target.closest('.svc'); if (b) b.classList.toggle('on'); };
 $('playBtn').onclick = pressPlay;
+$('tryBtn').onclick = () => { state.selected = 'friends'; document.querySelectorAll('.show').forEach((x) => x.classList.toggle('on', x.dataset.k === 'friends')); $('watch').scrollIntoView({ behavior: 'smooth', block: 'center' }); pressPlay(); };
 $('designBtn').onclick = design;
 $('prompt').addEventListener('input', () => { state.prompt = $('prompt').value; if (state.screen === 'home' || state.screen === 'gallery') state.screen = 'create'; });
 $('chips').onclick = (e) => { const b = e.target.closest('.chip'); if (!b) return; $('prompt').value = b.textContent; state.prompt = b.textContent; state.screen = 'create'; };
@@ -237,7 +238,10 @@ function draw() {
   } else if (state.screen === 'designing') {
     const d = state.designing, steps = d.steps || STEPS;
     let p = Math.min(1, (secs - d.start) / 5);
-    if (d.slow) p = d.done === null ? Math.min(0.92, (secs - d.start) / 14) : Math.min(1, 0.92 + (secs - d.done) / 1.2);
+    if (d.slow) {
+      const el = secs - d.start, shown = Math.min(0.92, el / 4.2);
+      p = d.done === null || el < 3.9 ? shown : Math.min(1, 0.92 + (secs - Math.max(d.done, d.start + 3.9)) / 1.1);
+    }
     svg = renderDesigning({ face: d.face, p, step: steps[Math.min(steps.length - 1, Math.floor(p * steps.length))], secs });
     if (p >= 1) startGift(d.face, d.face.character ? `Because ${d.face.character} is your favourite` : 'From your description');
   } else {

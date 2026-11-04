@@ -56,7 +56,10 @@ export function renderHome(o) {
   const ax = pos === 'left' ? 34 : pos === 'right' ? W - 34 : W / 2, anchor = pos === 'left' ? 'start' : pos === 'right' ? 'end' : 'middle';
   const k = f.timeScale || 1;
   if (medal) {
-    s += heart(48, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="62" y="62" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`;
+    // heart rate sits in the corner opposite the clock
+    s += pos === 'left'
+      ? heart(W - 82, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="${W - 38}" y="62" text-anchor="end" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`
+      : heart(48, 57, 0.62 + 0.18 * pulse, '#ff4d5e') + `<text x="62" y="62" ${UI} font-size="15" font-weight="600" fill="#fff">${hr}</text>`;
     s += `<text x="${ax}" y="72" text-anchor="${anchor}" ${UI} font-size="19" font-weight="600" letter-spacing="1.5" fill="#fff">${day}</text>`;
   } else {
     s += `<text x="38" y="62" ${UI} font-size="15" font-weight="600" letter-spacing="1.2" fill="${ink}" opacity=".9">${day}</text>`;
