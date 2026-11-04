@@ -18,6 +18,30 @@ Every watch tells you *what time it is*. PRAHAR also tells you *what kind of tim
 | **Bilingual** | English ⇄ हिंदी with a single tap. Designed to localise to any Indian language. |
 | **Battery-aware AOD** | Always-on mode uses thin outlines on true black with no fills, which keeps the panel cool and avoids burn-in. |
 
+## ♥ Heart sync: the face beats with you
+- **Every beat is visible:** the heart icon pulses in time with your real BPM, even at rest.
+- **Racing heart (>95 bpm):** the screen edge glows red on each beat, the whole face throbs from bright to dim ("lub-dub" envelope), and a **live ECG trace** replaces the stats row.
+- **Sudden spike:** a red ring flashes with each beat and a **breathing ring** takes over (4 s in, 6 s out) to guide you back down, then fades out as your heart rate settles.
+
+| Racing heart | Spike → guided breathing |
+|---|---|
+| ![](exports/face-11-heart-racing.png) | ![](exports/face-12-heart-spike-breathe.png) |
+
+## 🎬 Binge Match: a face from what you're watching
+1. The companion app notices a new series playing on your phone (on-device, opt-in, via the media session).
+2. The watch asks: *"Now watching Dark: want a face inspired by it?"*
+3. You pick a character, for example **Jonas / Martha / Adam** for *Dark* or **Light Yagami / L / Ryuk** for *Death Note*.
+4. A show lookup (title → mood, palette, characters) feeds a generator that designs the skin in about 10 minutes (sped up to 7 s in the demo). The skin sits on top of the same prahar engine, so you keep the sky ring, nudges and heart sync.
+5. For any other title, a palette is generated from the title itself.
+
+| Jonas · Dark | Martha · Dark | Adam · Dark |
+|---|---|---|
+| ![](exports/face-13-binge-dark-jonas.png) | ![](exports/face-14-binge-dark-martha.png) | ![](exports/face-15-binge-dark-adam.png) |
+| **Light Yagami · Death Note** | **L · Death Note** | **Ryuk · Death Note** |
+| ![](exports/face-16-binge-deathnote-light.png) | ![](exports/face-17-binge-deathnote-l.png) | ![](exports/face-18-binge-deathnote-ryuk.png) |
+
+> All motifs are original geometry (time loops, rain, apples, sugar cubes, wings) that evoke a show's mood. No official artwork, logos or likenesses are used. Shipping official character art would go through a licensed studio partnership.
+
 ## The eight prahars
 | # | Prahar | | Nudge |
 |---|---|---|---|
@@ -41,9 +65,9 @@ Every watch tells you *what time it is*. PRAHAR also tells you *what kind of tim
 ```bash
 python3 -m http.server 8123
 ```
-Then open http://localhost:8123. Try **Play a day**, **Play a year** (watch the prahars breathe), **Always-on**, tapping the face for हिंदी, and switching the city to Oslo.
+Then open http://localhost:8123. Try **Simulate a spike**, **Binge Match → Detect & suggest a face**, **Play a day**, **Play a year** (watch the prahars breathe), **Always-on**, tapping the face for हिंदी, and switching the city to Oslo.
 
-URL params for direct states: `?t=17.1&doy=308&city=oslo&aod=1&lang=hi`.
+URL params for direct states: `?t=17.1&doy=308&city=oslo&aod=1&lang=hi&hr=130&theme=dark.jonas`.
 
 ## Regenerate the renders
 ```bash
@@ -58,6 +82,7 @@ Writes `exports/face-*.png` plus showcase screenshots (needs Playwright + Chromi
 
 ## Files
 - `src/face.js`: face engine (solar math, prahar calculation, moon phase, SVG renderer)
-- `src/app.js`: showcase controls (live / play day / play year / manual, AOD, language, city)
+- `src/themes.js`: Binge Match show/character skins and the auto-palette generator
+- `src/app.js`: showcase controls (time modes, AOD, language, city, heart sync, Binge Match flow)
 - `index.html`: showcase and pitch page
 - `exports/`: submission-ready PNGs

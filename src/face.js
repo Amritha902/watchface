@@ -144,12 +144,30 @@ const fmtClock = (h) => {
 };
 export { fmtDur, fmtClock };
 
+// ---- heart ----------------------------------------------------------------
+const gauss = (u, m, w) => Math.exp(-(((u - m) / w) ** 2));
+// one heartbeat as an ECG trace, u in [0,1)
+const ecgWave = (u) => 0.12 * gauss(u, 0.1, 0.03) - 0.15 * gauss(u, 0.17, 0.01) + 1 * gauss(u, 0.2, 0.012)
+  - 0.3 * gauss(u, 0.23, 0.012) + 0.22 * gauss(u, 0.42, 0.05);
+// brightness envelope: "lub" then "dub", fast attack, exponential decay
+export function beatPulse(secs, hr) {
+  const ph = ((secs * hr) / 60) % 1;
+  const lub = Math.exp(-ph * 9);
+  const dub = ph > 0.17 ? 0.6 * Math.exp(-(ph - 0.17) * 9) : 0;
+  return clamp(Math.max(lub, dub), 0, 1);
+}
+const heartPath = (x, y, k) => `<path transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${k.toFixed(3)})" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
+export function simulatedHr(t, isDay) {
+  return isDay ? 72 + Math.round(6 * Math.sin(t * 1.7)) : 56 + Math.round(3 * Math.sin(t));
+}
+
 /**
- * state = { t (hours 0-24), date (Date for weekday/moon), doy, city, aod, lang ('en'|'hi'), id }
- * returns SVG markup string
+ * state = { t, doy, date, city, aod, lang, id,
+ *           theme?  (character skin from themes.js, plus showTitle),
+ *           hr?     (bpm; simulated when omitted), secs? (animation clock), spike? (0..1) }
  */
 export function renderFace(state) {
-  const { t, doy, date, city, aod = false, lang = 'en', id = 'f' } = state;
+  const { t, doy, date, city, aod = false, lang = 'en', id = 'f', theme: th = null, secs = 0, spike = 0 } = state;
   const day = new Date(Date.UTC(date.getUTCFullYear(), 0, doy, 12)); // local calendar day for labels
   const tz = tzFor(city, doy);
   const { sr, ss } = sunTimes(doy, city.lat, city.lng, tz);
@@ -160,16 +178,23 @@ export function renderFace(state) {
   const isDay = mod24(t - sr) < dayLen;
   const solar = isDay ? Math.sin((Math.PI * mod24(t - sr)) / dayLen)
                       : -Math.sin((Math.PI * mod24(t - ss)) / (24 - dayLen));
-  const starA = clamp(-solar * 2.2, 0, 1);
-  const [top, bot] = sky(t, sr, ss);
+  let starA = clamp(-solar * 2.2, 0, 1);
+  let [top, bot] = sky(t, sr, ss);
+  if (th) { [top, bot] = th.sky; starA = th.light ? 0 : starA * 0.5; }
   const brahma = mod24(sr - 1.6); // Brahma muhurta: 96 → 48 min before sunrise
   const inBrahma = mod24(t - brahma) < 0.8;
-  const accent = cur.color;
+  const accent = th ? th.accent : cur.color;
+  const ink = aod ? '#bfbfbf' : th ? th.ink : '#fff';
   const R = 204; // prahar ring radius
   const gap = 0.07;
+  const hr = state.hr ?? simulatedHr(t, isDay);
+  const pulse = beatPulse(secs, hr);
+  const stress = aod ? 0 : clamp((hr - 95) / 50, 0, 1); // 0 calm → 1 racing
 
   const font = `font-family="Outfit, 'Segoe UI', sans-serif"`;
   const deva = `font-family="'Noto Sans Devanagari', 'Outfit', sans-serif"`;
+  const tFont = th ? `font-family="${th.timeFont.replace(/"/g, "'")}"` : font;
+  const lFont = th ? `font-family="${th.labelFont.replace(/"/g, "'")}"` : font;
   const wd = day.toLocaleDateString('en-GB', { weekday: 'short', timeZone: 'UTC' }).toUpperCase();
   const dm = day.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', timeZone: 'UTC' }).toUpperCase();
 
@@ -177,13 +202,16 @@ export function renderFace(state) {
   s += `<defs>
     <clipPath id="${id}c"><circle cx="${C}" cy="${C}" r="233"/></clipPath>
     <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="${top}"/><stop offset=".62" stop-color="${bot}"/><stop offset="1" stop-color="${mix(bot, '#000000', 0.55)}"/>
+      <stop offset="0" stop-color="${top}"/><stop offset=".62" stop-color="${bot}"/><stop offset="1" stop-color="${mix(bot, '#000000', th?.light ? 0.12 : 0.55)}"/>
     </linearGradient>
     <radialGradient id="${id}v" cx=".5" cy=".5" r=".5">
-      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/>
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${th?.light ? 0.18 : 0.55}"/>
     </radialGradient>
     <radialGradient id="${id}m" cx=".5" cy=".5" r=".5">
       <stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="${id}h" cx=".5" cy=".5" r=".5">
+      <stop offset=".5" stop-color="#ff1f3d" stop-opacity="0"/><stop offset=".85" stop-color="#ff1f3d" stop-opacity=".55"/><stop offset="1" stop-color="#ff1f3d" stop-opacity=".95"/>
     </radialGradient>
     <radialGradient id="${id}g" cx=".5" cy=".5" r=".5">
       <stop offset="0" stop-color="${isDay ? '#FFE8A3' : '#DCE6FF'}" stop-opacity=".85"/>
@@ -200,17 +228,22 @@ export function renderFace(state) {
       s += `<g opacity="${starA.toFixed(2)}">` + STARS.map(([x, y, r, o]) =>
         `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="#fff" opacity="${o.toFixed(2)}"/>`).join('') + `</g>`;
     }
-    s += `<circle cx="${C}" cy="${C}" r="170" fill="url(#${id}m)"/>`;
+    if (th) s += th.motif(accent, ink);
+    if (!th?.light) s += `<circle cx="${C}" cy="${C}" r="170" fill="url(#${id}m)"/>`;
     s += `<rect width="466" height="466" fill="url(#${id}v)"/>`;
   }
 
-  // horizon hint: sunrise → sunset chord markers
-  const markR = 224;
-  for (const [h, lbl] of [[sr, '☀︎↑'], [ss, '☀︎↓']]) {
-    const [x, y] = pt(markR, ang(h));
-    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${aod ? 1.5 : 2.4}" fill="#FFD166" opacity="${aod ? 0.5 : 0.9}"><title>${lbl}</title></circle>`;
+  // heart-reactive glow: the edge of the screen breathes red with every beat
+  if (stress > 0) {
+    s += `<rect width="466" height="466" fill="url(#${id}h)" opacity="${(stress * (0.18 + 0.6 * pulse)).toFixed(3)}"/>`;
   }
-  // Brahma muhurta arc
+
+  // sunrise / sunset markers + Brahma muhurta arc
+  const markR = 224;
+  for (const h of [sr, ss]) {
+    const [x, y] = pt(markR, ang(h));
+    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${aod ? 1.5 : 2.4}" fill="#FFD166" opacity="${aod ? 0.5 : 0.9}"/>`;
+  }
   s += `<path d="${arc(markR, brahma, 0.8)}" stroke="#FF9EC4" stroke-width="${aod ? 1.2 : 2.5}" stroke-linecap="round" fill="none" opacity="${aod ? 0.5 : 0.95}"/>`;
 
   // hour ticks
@@ -218,35 +251,35 @@ export function renderFace(state) {
     const major = h % 6 === 0;
     const [x0, y0] = pt(major ? 183 : 187, ang(h));
     const [x1, y1] = pt(192, ang(h));
-    s += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" stroke="#fff" stroke-width="${major ? 2 : 1}" stroke-linecap="round" opacity="${aod ? 0.25 : major ? 0.7 : 0.35}"/>`;
+    s += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" stroke="${ink}" stroke-width="${major ? 2 : 1}" stroke-linecap="round" opacity="${aod ? 0.25 : major ? 0.7 : 0.35}"/>`;
   }
   if (!aod) {
     for (const h of [6, 12, 18]) {
       const [x, y] = pt(170, ang(h));
-      s += `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" font-size="11" ${font} font-weight="500" fill="#fff" opacity=".55">${String(h).padStart(2, '0')}</text>`;
+      s += `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" font-size="11" ${font} font-weight="500" fill="${ink}" opacity=".55">${String(h).padStart(2, '0')}</text>`;
     }
   }
 
   // prahar ring
   for (const p of list) {
     const active = p.i === cur.i;
+    const col = th ? th.ring : p.color;
     const d = arc(R, p.start + gap, Math.max(0.01, p.len - 2 * gap));
     if (aod) {
       s += `<path d="${d}" stroke="${p.color}" stroke-width="${active ? 2 : 1.2}" fill="none" opacity="${active ? 0.6 : 0.38}"/>`;
     } else {
-      s += `<path d="${d}" stroke="${p.color}" stroke-width="12" fill="none" opacity="${active ? 0.32 : 0.2}"/>`;
+      s += `<path d="${d}" stroke="${col}" stroke-width="12" fill="none" opacity="${th ? (active ? 0.9 : 0.6) : active ? 0.32 : 0.2}"/>`;
     }
   }
-  // progress inside current prahar
   const done = cur.progress * cur.len;
   if (done - gap > 0.01) {
-    s += `<path d="${arc(R, cur.start + gap, done - gap)}" stroke="${accent}" stroke-width="${aod ? 3 : 12}" fill="none" opacity="${aod ? 0.85 : 1}"/>`;
+    s += `<path d="${arc(R, cur.start + gap, done - gap)}" stroke="${aod ? cur.color : accent}" stroke-width="${aod ? 3 : 12}" fill="none" opacity="${aod ? 0.85 : 1}"/>`;
   }
 
   // the "hand": sun by day, moon (real phase) by night
   const [hx, hy] = pt(R, ang(t));
   if (aod) {
-    s += `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="7" fill="#000" stroke="${accent}" stroke-width="2"/>`;
+    s += `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="7" fill="#000" stroke="${cur.color}" stroke-width="2"/>`;
   } else {
     s += `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="30" fill="url(#${id}g)"/>`;
     if (isDay) {
@@ -259,50 +292,114 @@ export function renderFace(state) {
     }
   }
 
+  // breathing guide during a heart-rate spike: ring expands 4 s (in), contracts 6 s (out)
+  let breathe = '';
+  if (spike > 0 && !aod) {
+    const cyc = secs % 10;
+    const inhale = cyc < 4;
+    const e = inhale ? (1 - Math.cos((Math.PI * cyc) / 4)) / 2 : (1 + Math.cos((Math.PI * (cyc - 4)) / 6)) / 2;
+    const r = 112 + 44 * e;
+    s += `<circle cx="${C}" cy="${C}" r="${r.toFixed(1)}" fill="${accent}" fill-opacity="${(0.04 + 0.06 * e).toFixed(3)}" stroke="${accent}" stroke-width="1.5" opacity="${(0.35 + 0.5 * spike).toFixed(2)}"/>`;
+    breathe = inhale ? 'Breathe in…' : 'Breathe out…';
+  }
+
   // centre typography
   const primary = lang === 'hi' ? cur.hi : cur.en;
   const secondary = lang === 'hi' ? cur.en : cur.hi;
-  const nudge = inBrahma ? (lang === 'hi' ? 'ब्रह्म मुहूर्त · ध्यान' : 'Brahma muhurta · breathe') : (lang === 'hi' ? cur.hiN : cur.nudge);
+  let nudge = inBrahma && !th ? (lang === 'hi' ? 'ब्रह्म मुहूर्त · ध्यान' : 'Brahma muhurta · breathe') : th ? th.nudges[cur.i] : (lang === 'hi' ? cur.hiN : cur.nudge);
+  let chipCol = accent;
+  if (breathe) { nudge = `♥ ${hr} spike · ${breathe}`; chipCol = '#ff3b55'; }
   const nextName = lang === 'hi' ? next.hi : next.en;
-  const textCol = aod ? '#bfbfbf' : '#fff';
 
   if (!aod) {
-    s += `<text x="${C}" y="120" text-anchor="middle" font-size="13" ${font} font-weight="500" letter-spacing="3" fill="#fff" opacity=".78">${wd} · ${dm}</text>`;
+    s += `<text x="${C}" y="${th ? 112 : 120}" text-anchor="middle" font-size="13" ${font} font-weight="500" letter-spacing="3" fill="${ink}" opacity=".78">${wd} · ${dm}</text>`;
+    if (th) s += `<text x="${C}" y="132" text-anchor="middle" font-size="9.5" ${font} font-weight="600" letter-spacing="2.5" fill="${accent}" opacity=".9">${th.name.toUpperCase()} · ${th.showTitle.toUpperCase()}</text>`;
   }
-  s += `<text x="${C}" y="${aod ? 240 : 228}" text-anchor="middle" font-size="${aod ? 88 : 94}" ${font} font-weight="${aod ? 200 : 300}" letter-spacing="-2" fill="${textCol}">${fmtClock(t)}</text>`;
+  s += `<text x="${C}" y="${aod ? 240 : 228}" text-anchor="middle" font-size="${aod ? 88 : 94}" ${aod ? font : tFont} font-weight="${aod ? 200 : th ? th.timeWeight : 300}" letter-spacing="-2" fill="${ink}">${fmtClock(t)}</text>`;
 
-  const pFont = lang === 'hi' ? deva : font;
+  const pFont = lang === 'hi' ? deva : th ? lFont : font;
   const sFont = lang === 'hi' ? font : deva;
-  s += `<text x="${C}" y="${aod ? 278 : 266}" text-anchor="middle" font-size="${aod ? 17 : 21}" ${pFont} font-weight="600" letter-spacing="${lang === 'hi' ? 0 : 1.5}" fill="${accent}" opacity="${aod ? 0.7 : 1}">${lang === 'hi' ? primary : primary.toUpperCase()}</text>`;
+  s += `<text x="${C}" y="${aod ? 278 : 266}" text-anchor="middle" font-size="${aod ? 17 : th && /Fraktur/.test(th.labelFont) && lang !== 'hi' ? 25 : 21}" ${aod && lang !== 'hi' ? font : pFont} font-weight="600" letter-spacing="${lang === 'hi' ? 0 : 1.5}" fill="${aod ? cur.color : accent}" opacity="${aod ? 0.7 : 1}">${lang === 'hi' || (!aod && th && /Fraktur/.test(th.labelFont)) ? primary : primary.toUpperCase()}</text>`;
 
   if (!aod) {
-    s += `<text x="${C}" y="289" text-anchor="middle" font-size="14" ${sFont} font-weight="400" fill="#fff" opacity=".7">${secondary} · ${lang === 'hi' ? `Prahar ${cur.i + 1}/8` : `प्रहर ${cur.i + 1}/8`}</text>`;
+    s += `<text x="${C}" y="289" text-anchor="middle" font-size="14" ${sFont} font-weight="400" fill="${ink}" opacity=".7">${secondary} · ${lang === 'hi' ? `Prahar ${cur.i + 1}/8` : `प्रहर ${cur.i + 1}/8`}</text>`;
     // nudge chip
     const w = Math.max(120, nudge.length * 6.6 + 30);
-    s += `<rect x="${(C - w / 2).toFixed(1)}" y="304" width="${w.toFixed(1)}" height="26" rx="13" fill="#000" fill-opacity=".28" stroke="${accent}" stroke-opacity=".55"/>`;
-    s += `<circle cx="${(C - w / 2 + 14).toFixed(1)}" cy="317" r="3.5" fill="${accent}"/>`;
-    s += `<text x="${(C + 6).toFixed(1)}" y="321.5" text-anchor="middle" font-size="12" ${lang === 'hi' ? deva : font} font-weight="500" fill="#fff">${nudge}</text>`;
-    // countdown
-    s += `<text x="${C}" y="352" text-anchor="middle" font-size="12" ${lang === 'hi' ? deva : font} fill="#fff" opacity=".72">${lang === 'hi' ? `${nextName} ${fmtDur(cur.remaining)} में` : `${nextName} in ${fmtDur(cur.remaining)}`}</text>`;
+    s += `<rect x="${(C - w / 2).toFixed(1)}" y="304" width="${w.toFixed(1)}" height="26" rx="13" fill="${th?.light ? '#fff' : '#000'}" fill-opacity="${th?.light ? 0.55 : 0.28}" stroke="${chipCol}" stroke-opacity="${breathe ? 0.5 + 0.5 * pulse : 0.55}"/>`;
+    s += `<circle cx="${(C - w / 2 + 14).toFixed(1)}" cy="317" r="3.5" fill="${chipCol}"/>`;
+    s += `<text x="${(C + 6).toFixed(1)}" y="321.5" text-anchor="middle" font-size="12" ${lang === 'hi' && !th && !breathe ? deva : font} font-weight="500" fill="${ink}">${nudge}</text>`;
+    s += `<text x="${C}" y="352" text-anchor="middle" font-size="12" ${lang === 'hi' ? deva : font} fill="${ink}" opacity=".72">${lang === 'hi' ? `${nextName} ${fmtDur(cur.remaining)} में` : `${nextName} in ${fmtDur(cur.remaining)}`}</text>`;
 
-    // complications: heart, steps, battery (simulated from time of day)
-    const awake = clamp(mod24(t - sr - 0.5) / Math.max(1, dayLen + 3), 0, 1);
-    const steps = mod24(t - sr) > dayLen + 4 ? 0 : Math.round(9400 * (awake * awake * (3 - 2 * awake)));
-    const hr = isDay ? 72 + Math.round(6 * Math.sin(t * 1.7)) : 56 + Math.round(3 * Math.sin(t));
-    const batt = Math.round(100 - mod24(t - 7) * 3.1);
-    const items = [
-      ['#FF6B6B', `${hr}`, 'BPM'],
-      ['#7CE0A3', steps >= 1000 ? `${(steps / 1000).toFixed(1)}k` : `${steps}`, 'STEPS'],
-      ['#9DB4FF', `${batt}%`, 'BATT'],
-    ];
-    items.forEach(([c, v, l], k) => {
-      const x = C + (k - 1) * 62;
-      s += `<circle cx="${x}" cy="370" r="2.5" fill="${c}"/>`;
-      s += `<text x="${x}" y="388" text-anchor="middle" font-size="13" ${font} font-weight="600" fill="#fff">${v}</text>`;
-      s += `<text x="${x}" y="399" text-anchor="middle" font-size="7.5" ${font} letter-spacing="1.2" fill="#fff" opacity=".55">${l}</text>`;
-    });
+    const heartCol = '#FF4D5E';
+    if (stress > 0.05) {
+      // racing heart: big beating heart + live ECG trace replaces the stats row
+      s += `<g fill="${heartCol}">${heartPath(C - 70, 384, 1.25 + 0.35 * pulse)}</g>`;
+      s += `<text x="${C - 48}" y="390" font-size="17" ${font} font-weight="700" fill="${ink}">${hr}</text>`;
+      s += `<text x="${C - 48}" y="401" font-size="7.5" ${font} letter-spacing="1.2" fill="${ink}" opacity=".6">BPM</text>`;
+      const W = 2.4, N = 72, x0 = C - 8, wpx = 100, base = 393, amp = 20;
+      let d = '';
+      for (let i = 0; i <= N; i++) {
+        const tt = secs - W + (W * i) / N;
+        const u = ((((tt * hr) / 60) % 1) + 1) % 1;
+        d += `${i ? 'L' : 'M'}${(x0 + (wpx * i) / N).toFixed(1)} ${(base - amp * ecgWave(u)).toFixed(1)}`;
+      }
+      s += `<path d="${d}" fill="none" stroke="${heartCol}" stroke-width="1.8" stroke-linejoin="round" opacity=".95"/>`;
+      s += `<circle cx="${x0 + wpx}" cy="${(base - amp * ecgWave(((secs * hr) / 60) % 1)).toFixed(1)}" r="2.5" fill="#fff"/>`;
+    } else {
+      const awake = clamp(mod24(t - sr - 0.5) / Math.max(1, dayLen + 3), 0, 1);
+      const steps = mod24(t - sr) > dayLen + 4 ? 0 : Math.round(9400 * (awake * awake * (3 - 2 * awake)));
+      const batt = Math.round(100 - mod24(t - 7) * 3.1);
+      const items = [
+        [heartCol, `${hr}`, 'BPM'],
+        ['#7CE0A3', steps >= 1000 ? `${(steps / 1000).toFixed(1)}k` : `${steps}`, 'STEPS'],
+        ['#9DB4FF', `${batt}%`, 'BATT'],
+      ];
+      items.forEach(([c, v, l], k) => {
+        const x = C + (k - 1) * 62;
+        if (k === 0) s += `<g fill="${c}">${heartPath(x, 370, 0.5 + 0.12 * pulse)}</g>`;
+        else s += `<circle cx="${x}" cy="370" r="2.5" fill="${c}"/>`;
+        s += `<text x="${x}" y="388" text-anchor="middle" font-size="13" ${font} font-weight="600" fill="${ink}">${v}</text>`;
+        s += `<text x="${x}" y="399" text-anchor="middle" font-size="7.5" ${font} letter-spacing="1.2" fill="${ink}" opacity=".55">${l}</text>`;
+      });
+    }
   }
 
+  // brightness throb: whole face dims between beats when the heart races
+  if (stress > 0) s += `<rect width="466" height="466" fill="#000" opacity="${(stress * 0.38 * (1 - pulse)).toFixed(3)}"/>`;
+  // spike flash: a red ring that snaps on with each beat
+  if (spike > 0 && !aod) s += `<circle cx="${C}" cy="${C}" r="229" fill="none" stroke="#ff2a45" stroke-width="7" opacity="${(spike * pulse).toFixed(3)}"/>`;
+
   s += `</g></svg>`;
-  return { svg: s, cur, list, sr, ss, next, inBrahma };
+  return { svg: s, cur, list, sr, ss, next, inBrahma, hr };
+}
+
+// ---- Binge Match watch screens ------------------------------------------------
+const shell = (id, inner, bg = '#07080c') => `<svg viewBox="0 0 466 466" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${id}c"><circle cx="${C}" cy="${C}" r="233"/></clipPath></defs><g clip-path="url(#${id}c)"><rect width="466" height="466" fill="${bg}"/>${inner}</g></svg>`;
+const ff = `font-family="Outfit, sans-serif"`;
+
+export function renderSuggest(show, id = 'sg') {
+  let s = `<circle cx="${C}" cy="120" r="34" fill="#E50914" opacity=".14"/><circle cx="${C}" cy="120" r="22" fill="#E50914" opacity=".25"/>`;
+  s += `<path d="M225 108 L247 120 L225 132Z" fill="#fff"/>`;
+  s += `<text x="${C}" y="184" text-anchor="middle" font-size="12" ${ff} letter-spacing="3" fill="#fff" opacity=".6">NOW WATCHING</text>`;
+  s += `<text x="${C}" y="222" text-anchor="middle" font-size="34" ${ff} font-weight="600" fill="#fff">${show.title}</text>`;
+  s += `<text x="${C}" y="256" text-anchor="middle" font-size="15" ${ff} fill="#fff" opacity=".8">Want a face inspired by it?</text>`;
+  s += `<rect x="137" y="286" width="192" height="44" rx="22" fill="#FFC857"/><text x="${C}" y="314" text-anchor="middle" font-size="16" ${ff} font-weight="600" fill="#111">Design my face</text>`;
+  s += `<text x="${C}" y="362" text-anchor="middle" font-size="13" ${ff} fill="#fff" opacity=".5">Later</text>`;
+  return shell(id, s);
+}
+
+export function renderDesigning(char, progress, step, id = 'dg') {
+  const a = char.accent;
+  const R = 150, ang0 = -90, a1 = ang0 + 360 * progress;
+  const p = (deg) => [C + R * Math.cos((deg * Math.PI) / 180), C + R * Math.sin((deg * Math.PI) / 180)];
+  const [x0, y0] = p(ang0), [x1, y1] = p(a1);
+  let s = `<rect width="466" height="466" fill="${char.sky[1]}" opacity=".6"/>`;
+  s += char.motif(a, char.ink);
+  s += `<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="6"/>`;
+  if (progress > 0.001) s += `<path d="M${x0} ${y0}A${R} ${R} 0 ${progress > 0.5 ? 1 : 0} 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" fill="none" stroke="${a}" stroke-width="6" stroke-linecap="round"/>`;
+  s += `<text x="${C}" y="200" text-anchor="middle" font-size="12" ${ff} letter-spacing="3" fill="#fff" opacity=".6">DESIGNING</text>`;
+  s += `<text x="${C}" y="240" text-anchor="middle" font-size="30" ${ff} font-weight="600" fill="${char.light ? '#111' : '#fff'}">${char.name}</text>`;
+  s += `<text x="${C}" y="270" text-anchor="middle" font-size="13" ${ff} fill="${char.light ? '#111' : '#fff'}" opacity=".75">${step}</text>`;
+  s += `<text x="${C}" y="305" text-anchor="middle" font-size="22" ${ff} font-weight="300" fill="${a}">${Math.round(progress * 100)}%</text>`;
+  return shell(id, s, char.sky[0]);
 }

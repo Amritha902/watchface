@@ -7,7 +7,7 @@
 <meta name="description" content="PRAHAR — a living 24-hour watch face that tells time in the eight Indian prahars, which stretch with the real sunrise and sunset.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Special+Elite&family=UnifrakturMaguntia&family=IBM+Plex+Mono:wght@300;500&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #07080d; --panel: #10131c; --line: #22283a; --text: #eef0f6; --muted: #9aa3b8;
@@ -81,6 +81,31 @@
   .thumb p { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
   .thumb p b { color: var(--text); font-weight: 500; display: block; }
 
+  .stage > div:first-child { position: sticky; top: 16px; align-self: start; }
+  @media (max-width: 860px) { .stage > div:first-child { position: static; } }
+  .side { display: grid; gap: 16px; }
+  .panel h3 { margin: 0 0 4px; font-weight: 500; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+  .panel h3 .pill { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #111; background: var(--gold); border-radius: 999px; padding: 3px 8px; }
+  .panel .sub { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 12px; }
+  .btn.primary { background: var(--gold); color: #111; border-color: var(--gold); font-weight: 600; }
+  .btn.danger { background: #3a0f17; border-color: #6b1a28; color: #ffd0d6; }
+  .bpm { font-size: 34px; font-weight: 600; color: #FF4D5E; font-variant-numeric: tabular-nums; }
+  .phone { display: flex; gap: 12px; align-items: center; background: #0a0c12; border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 12px; }
+  .phone .np { width: 46px; height: 46px; border-radius: 10px; background: #E50914; display: grid; place-items: center; font-weight: 700; flex: none; }
+  .phone .meta { flex: 1; min-width: 0; }
+  .phone .meta small { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; display: block; }
+  .phone select, .phone input { width: 100%; margin-top: 4px; }
+  input[type=text] { background: #0a0c12; color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; }
+  .chars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+  .char { background: #0a0c12; border: 1px solid var(--line); border-radius: 14px; padding: 10px; cursor: pointer; text-align: center; color: var(--text); font: inherit; }
+  .char:hover, .char.on { border-color: var(--gold); }
+  .char .face { width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
+  .char .face svg { width: 100%; height: 100%; display: block; }
+  .char b { display: block; margin-top: 8px; font-weight: 500; font-size: 14px; }
+  .char span { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .steps { list-style: none; padding: 0; margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+  .steps li { padding: 3px 0; } .steps li.done { color: #7CE0A3; } .steps li.now { color: var(--text); }
+  .hidden { display: none !important; }
   footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
 </style>
 </head>
@@ -89,7 +114,7 @@
   <header class="hero">
     <div class="eyebrow">Watch Face Design Challenge 2026 · Open Innovation</div>
     <h1><b>PRAHAR</b> <span class="deva" style="font-weight:300">प्रहर</span></h1>
-    <p class="tag">A living 24-hour watch face that tells time the way India once felt it. Eight <em>prahars</em> that stretch and shrink with the real sunrise and sunset, so your wrist follows the sky, the seasons and your body clock.</p>
+    <p class="tag">A living 24-hour watch face that tells time the way India once felt it. Eight <em>prahars</em> that stretch and shrink with the real sunrise and sunset, so your wrist follows the sky, the seasons and your body clock. It beats with your heart, and it can dress itself up as the show you're binging.</p>
   </header>
 
   <div class="stage">
@@ -102,6 +127,7 @@
       <p class="hint">Tap the face to switch English ⇄ हिंदी · drag the sliders to travel through time</p>
     </div>
 
+    <div class="side">
     <div class="panel">
       <div class="readout">
         <div><small>Now in</small><span id="rPrahar">–</span></div>
@@ -139,6 +165,46 @@
       <div class="ringbar" id="ringbar"></div>
       <div class="ringlab"><span>Sunrise</span><span>Sunset</span><span>Next sunrise</span></div>
     </div>
+
+    <div class="panel" id="heartPanel">
+      <h3>Heart sync <span class="pill">New</span></h3>
+      <p class="sub">The face beats with you. Above 95 bpm the edge glows red on every beat and the whole screen throbs from bright to dim. A live ECG trace replaces the stats. If your heart rate spikes, a breathing ring takes over to guide you back down: 4 seconds in, 6 seconds out.</p>
+      <div class="row" style="justify-content:space-between">
+        <div><div class="bpm"><span id="bpm">72</span> <small style="font-size:14px;color:var(--muted)">bpm</small></div></div>
+        <div class="row" style="margin:0">
+          <button class="btn danger" id="spikeBtn">Simulate a spike</button>
+          <button class="btn" id="hrAuto">Auto</button>
+        </div>
+      </div>
+      <label class="ctl" for="hr">Heart rate <b id="hrLbl">auto</b></label>
+      <input type="range" id="hr" min="45" max="185" step="1" value="72">
+    </div>
+
+    <div class="panel" id="bingePanel">
+      <h3>Binge Match <span class="pill">New</span></h3>
+      <p class="sub">Your phone already knows what you're watching. When a new series starts, the watch offers a face inspired by it. Pick a character and it designs one for you, built on the same prahar engine.</p>
+      <div class="phone">
+        <div class="np">▶</div>
+        <div class="meta"><small>Now playing on your phone</small>
+          <select id="showSel" aria-label="Show">
+            <option value="dark">Dark · S1 E4</option>
+            <option value="deathnote">Death Note · Ep 7</option>
+            <option value="other">Something else…</option>
+          </select>
+          <input type="text" id="showOther" class="hidden" placeholder="Type any show title">
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="detectBtn">Detect &amp; suggest a face</button>
+        <button class="btn" id="classicBtn">Back to classic PRAHAR</button>
+      </div>
+      <div id="pickArea" class="hidden">
+        <p class="sub" style="margin:12px 0 0">Who's your character?</p>
+        <div class="chars" id="chars"></div>
+      </div>
+      <ul class="steps hidden" id="steps"></ul>
+    </div>
+    </div>
   </div>
 </div>
 
@@ -172,6 +238,12 @@
 </div></section>
 
 <section><div class="wrap">
+  <h2>Binge Match editions</h2>
+  <p>The same prahar engine, wearing six skins generated from two shows. All motifs are original geometry (time loops, rain, an apple, sugar cubes). In production, official character art would arrive through a licensed partnership with the studio.</p>
+  <div class="thumbs" id="editions"></div>
+</div></section>
+
+<section><div class="wrap">
   <h2>The eight prahars today</h2>
   <p>Computed for <span id="tblCity"></span> on <span id="tblDate"></span>. Change the city or date above to see them stretch.</p>
   <div class="tablewrap"><table id="tbl"></table></div>
@@ -182,6 +254,7 @@
   <div class="grid3">
     <div class="card"><h3>Offline &amp; light</h3><p>Sunrise and sunset use the NOAA solar approximation: a few lines of math, no network and no GPS polling. Location is taken once from the paired phone.</p></div>
     <div class="card"><h3>Platform-ready</h3><p>The face is pure vector (arcs, text, gradients) and maps directly onto Watch Face Format / Watch Face Studio and onto Titan's own smart-watch face pipelines.</p></div>
+    <div class="card"><h3>Binge Match, privately</h3><p>The companion app reads the phone's "now playing" media session on the device, with opt-in only. A show lookup (title → mood, palette, characters) feeds a generator that builds the skin in about 10 minutes. Nothing about your viewing leaves the phone without consent.</p></div>
     <div class="card"><h3>Bilingual by design</h3><p>English and हिंदी ship from day one, and the prahar names can be localised to Tamil, Bengali, Marathi and more for Titan's pan-India audience.</p></div>
   </div>
 </div></section>
