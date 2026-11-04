@@ -130,7 +130,7 @@
       <a class="btn big ghost" href="#how" style="text-decoration:none">How it works</a>
     </div>
     <p class="cta-sub">Pretend you just started <i>Friends</i>. Your watch gets a face in about 5 seconds.</p>
-    <p class="what">Encore is a <b>watch-face app</b>, not a new watch. It runs on the smartwatch you already own, using its battery, sensors and water resistance.</p>
+    <p class="what">Encore is a <b>watch-face app</b>, not a new watch. It runs on the smartwatch you already own, using its battery, sensors and water resistance. <b>Works on Wear OS 4+ watches</b> · <a href="#specs" style="color:var(--text)">full specs</a></p>
   </header>
 
   <div class="stage">
@@ -143,6 +143,7 @@
       </div>
       <div class="watchctl">
         <button class="btn" id="swipeBtn">⟵ Swipe for faces</button>
+        <button class="btn" id="describeJump">✎ Describe your own</button>
         <button class="btn" id="homeBtn">Crown · Home</button>
         <button class="btn" id="aodBtn">Always-on</button>
       </div>
@@ -168,13 +169,13 @@
       <div class="panel">
         <h3><span class="step">2</span> Or just describe it</h3>
         <p class="sub">Swipe to the last card on the watch, or type here. Encore turns a sentence into a full face: wallpaper, type and palette.</p>
-        <textarea id="prompt" placeholder="A rainy café in Mumbai, warm and cosy…"></textarea>
+        <textarea id="prompt" aria-label="Describe your face" placeholder="A rainy café in Mumbai, warm and cosy…"></textarea>
         <div class="row" style="margin-top:10px" id="chips">
           <button class="chip">Rainy café, cosy</button><button class="chip">Neon Tokyo night</button>
           <button class="chip">Calm ocean, teal</button><button class="chip">Retro 80s sunset</button><button class="chip">Misty forest hike</button>
         </div>
-        <div class="row" style="margin-top:14px"><button class="btn white" id="designBtn">Design it</button>
-          <label class="btn" for="photo" style="cursor:pointer">Use your own photo</label>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="designBtn">Design it</button></div>
+        <div class="row" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)"><span style="color:var(--muted);font-size:14px">Or start from a picture instead:</span><label class="btn ghost" for="photo" style="cursor:pointer">Use your own photo</label>
           <input type="file" id="photo" accept="image/*" hidden></div>
         <p class="sub" style="margin:10px 0 0;font-size:13px">Your photo stays on your device and gets the selected show's styling: type, colour and the episode card.</p>
       </div>
@@ -193,6 +194,7 @@
       <div class="panel">
         <h3><span class="step">4</span> It beats with you</h3>
         <p class="sub">Whatever face you wear, the heart rate pulses live. When your heart races, the screen edge glows red on every beat. After a sudden spike, a breathing guide takes over.</p>
+        <p class="sub" style="margin-top:-6px"><b style="color:var(--text)">Try it:</b> the button below pretends your heart rate just jumped to 150. Watch the screen pulse, then the breathing guide take over.</p>
         <div class="row"><button class="btn red" id="spikeBtn">Simulate a spike</button><button class="btn" id="hrAuto">Auto</button></div>
         <label class="ctl" for="hr"><span>Heart rate</span><b id="hrLbl">72 bpm</b></label>
         <input type="range" id="hr" min="50" max="180" value="72">

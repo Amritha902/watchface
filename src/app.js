@@ -124,7 +124,7 @@ async function refineFace(text) {
       if (w.ok) image = (await w.json()).image;
     }
   } catch { ({ patch, summary } = refineOffline(face, text)); }
-  history.push(face);
+  history.push(face); undoLabel();
   let next = applyPatch(face, patch);
   if (image) next = { ...applyPatch(faceFromPhoto(image, next), patch), name: face.name, style: { ...(face.style || {}), imagePrompt: patch.imagePrompt } };
   const i = state.owned.findIndex((f) => f.id === face.id); if (i >= 0) state.owned[i] = next;
@@ -133,7 +133,10 @@ async function refineFace(text) {
 }
 $('refineBtn').onclick = () => refineFace($('refine').value);
 $('refineChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) { $('refine').value = b.textContent; refineFace(b.textContent); } };
-$('undoBtn').onclick = () => { if (history.length) { state.face = history.pop(); state.screen = 'home'; $('refineState').textContent = 'Undone'; } };
+const undoLabel = () => { $('undoBtn').textContent = history.length ? `↶ Undo (${history.length})` : '↶ Undo'; $('undoBtn').disabled = !history.length; };
+$('undoBtn').onclick = () => { if (history.length) { state.face = history.pop(); state.screen = 'home'; $('refineState').textContent = history.length ? `Undone · ${history.length} more step${history.length > 1 ? 's' : ''} back available` : 'Back to the original'; } undoLabel(); };
+undoLabel();
+$('describeJump').onclick = () => { state.screen = 'create'; $('prompt').scrollIntoView({ behavior: 'smooth', block: 'center' }); $('prompt').focus(); };
 $('favChips').onclick = (e) => { const b = e.target.closest('.chip'); if (b) designCharacter(+b.dataset.i); };
 
 const STEPS = ['Reading your description…', 'Choosing a palette…', 'Composing the wallpaper…', 'Setting the type…', 'Checking always-on & battery…'];
