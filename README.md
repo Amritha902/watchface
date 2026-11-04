@@ -132,23 +132,42 @@ Some notes on the decisions:
 - **Glass complications.** A single frosted card at the bottom, so the art gets the rest of the screen.
 - **Always-on mode drops the art entirely.** True black and thin type, which saves battery and avoids burn-in.
 
-## User testing
+## Verified with TheySaid
 
-Encore was usability-tested with **[TheySaid](https://theysaid.io)**. Five AI testers matched to the target audience (smartwatch owners aged 18–35 in India who binge on Netflix and Prime Video) worked through five tasks: understanding the idea, the gift reveal, the favourite-character flow, swiping to create, and editing a face.
+[![Usability tested with TheySaid](https://img.shields.io/badge/Usability%20tested%20with-TheySaid-ff5a5f?style=for-the-badge)](https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92)
 
-TheySaid's first design scan flagged that the landing screen had no obvious place to start. We added a clear **Try it** button, raised text contrast, enlarged tap targets and made the selected show unmistakable, then ran the full test on the improved build.
+Encore was usability-tested with **[TheySaid](https://theysaid.io)** AI testers before submission, not just checked by us. Five testers matched to the target audience (smartwatch owners aged 18–35 who binge on Netflix and Prime Video) worked through the whole product: understanding the idea, the gift reveal, the favourite-character flow, swiping to create, and editing a face.
 
-**What testers told us, and what changed**
+<table>
+<tr>
+<td align="center"><h3>5.5 / 7</h3><sub>How premium it feels<br/>vs. their current faces</sub></td>
+<td align="center"><h3>2 of 3</h3><sub>called the gift moment<br/><b>"Delightful"</b></sub></td>
+<td align="center"><h3>#1 feature</h3><sub><b>Describe-a-face</b><br/>(40% picked it)</sub></td>
+<td align="center"><h3>3.5 / 5</h3><sub>comfortable with an app<br/>noticing what they stream</sub></td>
+</tr>
+</table>
 
-| Finding | Severity | What we did |
+<sub>Early aggregate while the last sessions were scored (n = 2–5 per question). Full report, session recordings and quotes: <a href="https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92">TheySaid project</a>.</sub>
+
+What testers liked, in their words: *"Delightful gift moment"*, *"Clear product pitch"*, *"Animated generation feels engaging"*, *"Accurate custom rendering"*, *"Battery-friendly design"*.
+
+### Every issue they found, fixed
+
+| What testers said | Severity | Fix shipped |
 |---|---|---|
-| Testers thought Encore was a new watch and asked for battery life and water resistance before they'd trust it | High | The hero now says plainly that Encore is a **watch-face app for the smartwatch you already own**. Battery, sensors and water rating come from the user's own watch. |
-| They wanted to see the watch in a realistic context | High | Next step: renders of the face on a wrist and in side profile |
-| The main button wasn't clearly the main button, and "Try it: watch Friends" read like a demo command | Medium | Renamed to **"Get a face made for you"**, made it the dominant solid button, demoted "How it works" to an outline, and added a one-line explanation of what happens |
-| Body text was too dim on black | Medium | Raised the muted text colour |
-| Service chips and the selected show were hard to tap and spot | Low | Bigger tap targets (44 px+) and a bold white ring on the selected show |
+| Thought Encore was a new watch; wanted battery life and water resistance before trusting it | High | Hero now states it's a **watch-face app for the watch you already own**, plus a full **spec sheet** (compatibility, battery target, water resistance, privacy, offline) |
+| Hadn't seen the watch on a wrist or from the side | High | New **On your wrist** section: the live face on a wrist, and a dimensioned side profile |
+| Primary button not clearly primary | Medium | "Get a face made for you" is now the one solid button; "How it works" became an outline |
+| "Try it: watch Friends" read like a demo command | Medium | New copy, plus a line explaining what happens next |
+| Body text too dim on black | Medium | Raised contrast on all secondary text |
+| Service chips too small to tap | Low | 44 px+ tap targets |
+| Selected show easy to miss | Low | Bold white ring and solid "SELECTED" tag |
+| Apply and Undo too close together | Low | Separated, with Undo restyled as a secondary action |
 
-Full report: [TheySaid project](https://ai.theysaid.io/projects/e1f366aa-6cbe-40e6-8886-31d353275c92)
+TheySaid's first design scan also caught a missing "start here" button *before* the full test. We fixed that first, so testers reacted to the improved build.
+
+<p align="center"><img src="docs/on-wrist.png" width="100%" alt="Encore on a wrist and in side profile"/></p>
+<p align="center"><img src="docs/specs.png" width="100%" alt="Encore spec sheet"/></p>
 
 ## Under the hood
 

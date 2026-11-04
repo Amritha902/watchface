@@ -106,6 +106,16 @@
   .thumb b { display: block; margin-top: 18px; font-weight: 700; font-size: 16px; }
   .thumb span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
   .note { color: var(--muted); font-size: 13px; margin-top: 28px; }
+  .wristgrid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; margin-top: 40px; }
+  @media (max-width: 860px) { .wristgrid { grid-template-columns: 1fr; } }
+  .wristgrid figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; }
+  .wristgrid svg { width: 100%; height: auto; display: block; }
+  .wristgrid figcaption { padding: 14px 20px; color: var(--muted); font-size: 14px; }
+  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 40px; }
+  .specs > div { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 20px; }
+  .specs small { display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .specs b { display: block; font-size: 20px; margin: 6px 0 6px; letter-spacing: -.01em; }
+  .specs span { color: var(--muted); font-size: 14px; line-height: 1.5; }
   footer { padding: 48px 0 72px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); text-align: center; }
 </style>
 </head>
@@ -177,7 +187,7 @@
           <button class="chip">Put it in a circle</button><button class="chip">Clock on the left</button><button class="chip">Make it darker</button>
           <button class="chip">Gold accent</button><button class="chip">Serif font</button><button class="chip">Bigger time</button><button class="chip">Hide the card</button>
         </div>
-        <div class="row" style="margin-top:14px"><button class="btn white" id="refineBtn">Apply</button><button class="btn" id="undoBtn">Undo</button><span id="refineState" style="color:var(--muted);font-size:13px"></span></div>
+        <div class="row" style="margin-top:14px"><button class="btn white" id="refineBtn">Apply</button><button class="btn ghost" id="undoBtn" style="margin-left:24px">↶ Undo</button><span id="refineState" style="color:var(--muted);font-size:13px"></span></div>
       </div>
 
       <div class="panel">
@@ -190,6 +200,30 @@
     </div>
   </div>
 </div>
+
+<section id="wrist"><div class="wrap">
+  <h2>On your wrist.</h2>
+  <p>Same face, real scale. A 45 mm-class rounded-rectangle display, about the size of a large postage stamp. Faces are designed to read at a glance from arm's length.</p>
+  <div class="wristgrid">
+    <figure><div id="wristShot"></div><figcaption>Worn, mid-glance</figcaption></figure>
+    <figure><div id="sideShot"></div><figcaption>Side profile: crown, button and a 10.7 mm case</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="specs"><div class="wrap">
+  <h2>Spec sheet.</h2>
+  <p>Encore is a watch-face app, not a new watch. It runs on the smartwatch you already own, so battery life, water resistance and sensors come from your watch. Here's what Encore itself needs and promises.</p>
+  <div class="specs">
+    <div><small>Runs on</small><b>Wear OS 4+ watches</b><span>Built on Watch Face Format. Ready to port to Titan's own smartwatch platform. Apple Watch doesn't allow third-party faces.</span></div>
+    <div><small>Phone app</small><b>Android 10+ · iOS 16+</b><span>Automatic "now playing" detection on Android. On iPhone you pick shows or import your viewing history.</span></div>
+    <div><small>Battery target</small><b>Under 3% a day</b><span>Redraws once a minute, animations only while you're looking, true-black always-on. A design target, to be measured on hardware.</span></div>
+    <div><small>Water resistance</small><b>Same as your watch</b><span>It's software. Nothing about Encore changes your watch's rating.</span></div>
+    <div><small>Display</small><b>Round &amp; rectangular</b><span>Designed at 396 × 484 (rectangular OLED). Layouts reflow for round 1.4" faces.</span></div>
+    <div><small>Privacy</small><b>On-device taste profile</b><span>Viewing data never leaves the phone. Opt-in per streaming app, revocable anytime.</span></div>
+    <div><small>Offline</small><b>Fully works</b><span>The built-in generator makes faces without a network. AI wallpapers need a connection on the phone.</span></div>
+    <div><small>Languages</small><b>English first</b><span>Hindi, Tamil and more planned. All on-watch text is short by design.</span></div>
+  </div>
+</div></section>
 
 <section id="how"><div class="wrap">
   <h2>From binge to wrist.</h2>

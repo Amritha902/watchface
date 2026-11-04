@@ -265,6 +265,45 @@ if (state.screen === 'gift') { startGift(state.face, params.get('reason') || `Be
 if (state.screen === 'designing') state.designing = { face: faceFromPrompt(state.prompt || 'Rainy café'), start: secs - (+params.get('p') || 0.6) * 5 };
 if (state.screen === 'gallery') state.pos = state.target = +(params.get('pos') || 1);
 
+// ---------------- on-the-wrist renders ----------------
+function renderWrist() {
+  const face = renderHome({ face: FACES.friends, t: 10.15, secs: 2, id: 'wr', play: { show: 'Friends', ep: 'S3 · E7', left: 22, total: 50 }, day: 'WED 4' });
+  const inner = (x, y, w, h) => face.replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h}" `);
+  $('wristShot').innerHTML = `<svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg"><defs>
+      <linearGradient id="bgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1712"/><stop offset="1" stop-color="#0b0a09"/></linearGradient>
+      <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c58d68"/><stop offset=".55" stop-color="#a8704f"/><stop offset="1" stop-color="#7d5038"/></linearGradient>
+      <linearGradient id="ti" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8e8ec"/><stop offset=".3" stop-color="#8d8d95"/><stop offset=".6" stop-color="#3a3a40"/><stop offset="1" stop-color="#b9b9c0"/></linearGradient>
+      <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15151a"/><stop offset=".5" stop-color="#2a2a31"/><stop offset="1" stop-color="#15151a"/></linearGradient>
+      <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".55"/></filter>
+      <radialGradient id="lamp" cx=".75" cy=".15" r=".8"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".18"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient></defs>
+    <rect width="720" height="460" fill="url(#bgw)"/><rect width="720" height="460" fill="url(#lamp)"/>
+    <g transform="rotate(-14 360 240)">
+      <path d="M-80 170 C 120 150 520 140 860 160 L 860 330 C 520 350 120 345 -80 320 Z" fill="url(#skin)" filter="url(#sh)"/>
+      <path d="M-80 300 C 120 318 520 322 860 305" stroke="#000" stroke-opacity=".18" stroke-width="10" fill="none"/>
+      <rect x="300" y="96" width="120" height="290" rx="18" fill="url(#band)"/>
+      <g filter="url(#sh)"><rect x="268" y="128" width="184" height="226" rx="54" fill="url(#ti)"/>
+      <rect x="275" y="135" width="170" height="212" rx="48" fill="#000"/></g>
+      <rect x="452" y="168" width="10" height="32" rx="4" fill="#b9b9c0"/><rect x="451" y="218" width="7" height="42" rx="3" fill="#8d8d95"/>
+      <defs><clipPath id="wrc"><rect x="279" y="139" width="162" height="204" rx="44"/></clipPath></defs>
+      <g clip-path="url(#wrc)">${inner(279, 139, 162, 204)}</g>
+    </g></svg>`;
+  $('sideShot').innerHTML = `<svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg"><defs>
+      <linearGradient id="sti" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f1f4"/><stop offset=".35" stop-color="#a3a3ab"/><stop offset=".7" stop-color="#4a4a52"/><stop offset="1" stop-color="#9b9ba3"/></linearGradient>
+      <linearGradient id="sband" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#121216"/><stop offset=".5" stop-color="#27272e"/><stop offset="1" stop-color="#121216"/></linearGradient></defs>
+    <rect width="460" height="460" fill="#0e0e12"/>
+    <path d="M90 226 C 40 230 10 300 20 460" stroke="url(#sband)" stroke-width="44" fill="none"/>
+    <path d="M370 226 C 420 230 450 300 440 460" stroke="url(#sband)" stroke-width="44" fill="none"/>
+    <rect x="70" y="190" width="320" height="58" rx="26" fill="url(#sti)"/>
+    <rect x="78" y="182" width="304" height="14" rx="7" fill="#0b0b0e"/><rect x="90" y="183" width="280" height="3" rx="1.5" fill="#fff" opacity=".35"/>
+    <rect x="392" y="200" width="18" height="20" rx="4" fill="#c9c9cf"/><rect x="406" y="203" width="6" height="14" rx="2" fill="#ff5a3c"/>
+    <rect x="390" y="228" width="10" height="14" rx="3" fill="#9b9ba3"/>
+    <path d="M200 248 h60 v6 a8 8 0 0 1 -8 8 h-44 a8 8 0 0 1 -8 -8z" fill="#3a3a40"/>
+    <line x1="70" y1="290" x2="390" y2="290" stroke="#5a5a64" stroke-dasharray="3 5"/><text x="230" y="312" text-anchor="middle" font-family="Inter" font-size="13" fill="#a4a4ae">45 mm</text>
+    <line x1="62" y1="182" x2="62" y2="248" stroke="#5a5a64" stroke-dasharray="3 5"/><text x="8" y="220" text-anchor="start" font-family="Inter" font-size="13" fill="#a4a4ae">10.7 mm</text>
+    <text x="230" y="120" text-anchor="middle" font-family="Inter" font-size="15" font-weight="600" fill="#f5f5f7">Titanium case · sapphire front</text>
+    <text x="230" y="144" text-anchor="middle" font-family="Inter" font-size="13" fill="#a4a4ae">Showcase render. Encore runs on any compatible watch.</text></svg>`;
+}
+renderWrist();
 renderTaste(); renderGalleryThumbs();
 let last = performance.now(), lastDraw = 0;
 function tick(now) {
