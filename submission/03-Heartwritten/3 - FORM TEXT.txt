@@ -1,0 +1,14 @@
+SUBMISSION 03 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Heartwritten
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Heartwritten draws the time with your own heartbeat: a single glowing ECG line runs across the screen and rises into the digits, so the '1' is literally a heartbeat spike and every beat travels through the numbers. Resting, the line is calm and rose-red; in a workout it turns amber, beats harder and the card shows your heart-rate zone. Always-on keeps the same line as a thin grey trace on true black.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Heartwritten preview 1x1.png"  (square 1:1, under 5 MB)

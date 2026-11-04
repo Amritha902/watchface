@@ -1,0 +1,14 @@
+SUBMISSION 04 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Inner Weather
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Inner Weather turns your stress level into the sky behind the time: when your heart-rate variability is healthy it is a clear, sunlit morning, and as stress rises clouds gather until a storm breaks. Instead of another number to decode, you feel your state at a glance, and a storm offers a one-tap breathing break. Always-on keeps the time and a single word forecast on true black.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Inner Weather preview 1x1.png"  (square 1:1, under 5 MB)

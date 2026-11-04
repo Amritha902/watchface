@@ -1,0 +1,14 @@
+SUBMISSION 05 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Threshold
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Threshold is inspired by the kolam drawn at Indian doorsteps every morning: a grid of rice-white dots and loops frames the time, and one loop fills with marigold colour for every minute that passes. You read the hour's progress like a drawing being completed, and on the hour the whole kolam glows before a fresh one begins. Always-on keeps only the dots, loops and time in grey.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Threshold preview 1x1.png"  (square 1:1, under 5 MB)

@@ -9,10 +9,10 @@ const { execFileSync } = require('node:child_process');
 const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@200;300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
 const LINKS = {
   '01': 'https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz', '02': 'https://www.figma.com/design/lfHmf0AWEL4PNBgcuxgbG3',
-  '03': 'https://www.figma.com/design/Fs5FBvEttQekJKB9GgLthI', '04': 'https://www.figma.com/design/sNU0yTJZs4gKYxI7J9hLT0',
-  '05': 'https://www.figma.com/design/L7qum1rt9LpCew269Z2qg5', '06': 'https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv',
+  '03': 'https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw', '04': 'https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi',
+  '05': 'https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM', '06': 'https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv',
   '07': 'https://www.figma.com/design/mxOUdLI0xfxt0DaLOSoTlx', '08': 'https://www.figma.com/design/dClIQaiEugnrDNzw5sGRFR',
-  '09': 'https://www.figma.com/design/LD0tsXhazvgDAslV8XVofp', '10': 'https://www.figma.com/design/UjcmdN2PbVrIDmIq1Yy3e8' };
+  '09': 'https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML', '10': 'https://www.figma.com/design/UjcmdN2PbVrIDmIq1Yy3e8' };
 const root = 'submission';
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const wrap = (s, n) => { const out = []; let l = ''; for (const w of s.split(' ')) { if ((l + ' ' + w).trim().length > n) { out.push(l.trim()); l = w; } else l += ' ' + w; } if (l.trim()) out.push(l.trim()); return out; };
