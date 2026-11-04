@@ -152,7 +152,22 @@ Encore was usability-tested with **[TheySaid](https://theysaid.io)** AI testers 
 
 TheySaid's summary: *"Users grasp the concept quickly; 'made for you' feels personal, not intrusive. Create, character quiz, and preset edits are easy; character-capturing and heart-rate faces feel premium."*
 
-<!-- ROUND2 -->
+### Round 2: after the fixes
+
+We fixed everything round 1 raised, then ran the same test again on the new build with five fresh testers.
+
+| | Round 1 | Round 2 (fixed build) | All 10 sessions |
+|---|---|---|---|
+| Gift moment felt **"Delightful"** | 83% | **100%** (4 of 4) | 90% |
+| How premium it feels (1–7) | 5.8 | 5.75 | **5.78** |
+| Comfortable with streaming-based personalisation (1–5) | 3.6 | 3.5 | 3.56 |
+| Most-wanted feature | Describe-a-face / show gift (tied) | **Describe-a-face** | Describe-a-face (33%) |
+
+<sub>Round-2 columns are worked out from TheySaid's combined totals minus round 1 (n = 4–5 per question). The intrusive vote came only in round 1.</sub>
+
+**What it tells us:** the gift reveal is the emotional hook, and nobody in round 2 found it intrusive. Premium feel held steady at almost 6 out of 7. Describe-a-face became the clear favourite once it was easier to find. Comfort with streaming-based personalisation sits in the middle (3.5/5), which is why Encore keeps viewing data on the phone and every connection opt-in. That trust story is worth leading with.
+
+**Next on the list, from the testers:** two or three variations per character to choose from, a clear "keep both / replace" choice when a new face arrives, and showing which parts of a description the generator will honour.
 
 What testers liked, in their words: *"Delightful gift moment"*, *"Clear product pitch"*, *"Animated generation feels engaging"*, *"Accurate custom rendering"*, *"Battery-friendly design"*.
 
