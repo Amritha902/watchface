@@ -675,12 +675,12 @@ function renderHome(o) {
   if (medal) {
     // heart rate sits in the corner opposite the clock
     s += pos === 'left'
-      ? heart(W - 92, 58, 1.25 + 0.15 * pulse, '#ff4d5e') + `<text x="${W - 36}" y="66" text-anchor="end" ${UI} font-size="23" font-weight="700" fill="#fff">${hr}</text>`
+      ? heart(W - 92 - (String(hr).length > 2 ? 14 : 0), 58, 1.25 + 0.15 * pulse, '#ff4d5e') + `<text x="${W - 36}" y="66" text-anchor="end" ${UI} font-size="23" font-weight="700" fill="#fff">${hr}</text>`
       : heart(54, 58, 1.25 + 0.15 * pulse, '#ff4d5e') + `<text x="72" y="66" ${UI} font-size="23" font-weight="700" fill="#fff">${hr}</text>`;
     s += `<text x="${ax}" y="${pos === 'left' ? 104 : 66}" text-anchor="${anchor}" ${UI} font-size="23" font-weight="700" letter-spacing="1.5" fill="#fff">${day}</text>`;
   } else {
     s += `<text x="38" y="66" ${UI} font-size="23" font-weight="700" letter-spacing="1.5" fill="${ink}">${day}</text>`;
-    s += heart(W - 92, 58, 1.25 + 0.15 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
+    s += heart(W - 92 - (String(hr).length > 2 ? 14 : 0), 58, 1.25 + 0.15 * pulse, aod ? '#7a3a3a' : '#ff4d5e');
     s += `<text x="${W - 36}" y="66" text-anchor="end" ${UI} font-size="23" font-weight="700" fill="${ink}">${hr}</text>`;
   }
 

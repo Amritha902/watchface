@@ -28,7 +28,7 @@ Ten designs, each a separate submission with its own Figma frames (Active, Alway
 <table>
 <tr><td width="50%" align="center"><img src="docs/entries/01-Encore.jpg" width="100%" alt="Encore"/><br/><b>01 · Encore</b> <sub>· Personalised entertainment</sub><br/><sub>Your watch gifts you a face for the show you just started.</sub></td><td width="50%" align="center"><img src="docs/entries/02-Contour.jpg" width="100%" alt="Contour"/><br/><b>02 · Contour</b> <sub>· Activity</sub><br/><sub>Your day as a terrain map; your busiest hour is the peak.</sub></td></tr>
 <tr><td width="50%" align="center"><img src="docs/entries/03-Heartwritten.jpg" width="100%" alt="Heartwritten"/><br/><b>03 · Heartwritten</b> <sub>· Heart rate</sub><br/><sub>One heartbeat line rises into the digits of the time.</sub></td><td width="50%" align="center"><img src="docs/entries/04-Inner-Weather.jpg" width="100%" alt="Inner Weather"/><br/><b>04 · Inner Weather</b> <sub>· Stress</sub><br/><sub>Your stress level, shown as your own sky.</sub></td></tr>
-<tr><td width="50%" align="center"><img src="docs/entries/05-Threshold.jpg" width="100%" alt="Threshold"/><br/><b>05 · Threshold</b> <sub>· Heritage</sub><br/><sub>A kolam frames the time; one loop fills per minute.</sub></td><td width="50%" align="center"><img src="docs/entries/06-Glance-Deck.jpg" width="100%" alt="Glance Deck"/><br/><b>06 · Glance Deck</b> <sub>· Notification centre</sub><br/><sub>Your next three things, stacked like cards.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/05-Threshold.jpg" width="100%" alt="Threshold"/><br/><b>05 · Threshold</b> <sub>· Heritage</sub><br/><sub>A real kolam below the time; one loop fills every 3 minutes.</sub></td><td width="50%" align="center"><img src="docs/entries/06-Glance-Deck.jpg" width="100%" alt="Glance Deck"/><br/><b>06 · Glance Deck</b> <sub>· Notification centre</sub><br/><sub>Your next three things, stacked like cards.</sub></td></tr>
 <tr><td width="50%" align="center"><img src="docs/entries/07-Haze.jpg" width="100%" alt="Haze"/><br/><b>07 · Haze</b> <sub>· Air quality</sub><br/><sub>The skyline blurs as the air gets worse.</sub></td><td width="50%" align="center"><img src="docs/entries/08-Rest-Moon.jpg" width="100%" alt="Rest Moon"/><br/><b>08 · Rest Moon</b> <sub>· Sleep</sub><br/><sub>The moon phase shows how rested you are.</sub></td></tr>
 <tr><td width="50%" align="center"><img src="docs/entries/09-Day-Weave.jpg" width="100%" alt="Day Weave"/><br/><b>09 · Day Weave</b> <sub>· Habits</sub><br/><sub>Your day woven as cloth, one thread per hour.</sub></td><td width="50%" align="center"><img src="docs/entries/10-Constellation.jpg" width="100%" alt="Constellation"/><br/><b>10 · Constellation</b> <sub>· Connection</sub><br/><sub>People you talked to today, as stars.</sub></td></tr>
 </table>
@@ -102,13 +102,13 @@ Heart rate pulses live on every face. When your heart races, the screen edge glo
 
 ## Design in Figma
 
-**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz) · [Contour](https://www.figma.com/design/YjlQIGfEwgmFysNBXPFapH) · [Heartwritten](https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw) · [Inner Weather](https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi) · [Threshold](https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM) · [Glance Deck](https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv) · [Haze](https://www.figma.com/design/U7y4mXiZqY1cFlBM0OKUJY) · [Rest Moon](https://www.figma.com/design/oilX3PE8PBoRqrHEk4TH1o) · [Day Weave](https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML) · [Constellation](https://www.figma.com/design/SGhvCTYn7A2Kgv6PSX3xTN)
+**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH) · [Contour](https://www.figma.com/design/H9eBqVrZG46G7HdsZ2YOBX) · [Heartwritten](https://www.figma.com/design/oNKXWRVPwyGrBbS3YtH35n) · [Inner Weather](https://www.figma.com/design/nIzWwVHivFNWqkogqFyzHV) · [Threshold](https://www.figma.com/design/KxHjBbahl7kHlULt5ApY3P) · [Glance Deck](https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl) · [Haze](https://www.figma.com/design/NhsO4KI1G8Jlm1KGJX0akd) · [Rest Moon](https://www.figma.com/design/asj3IBK6aQxYuHPuYMvL4E) · [Day Weave](https://www.figma.com/design/t75cnJ79LbweNdxeHuZTM6) · [Constellation](https://www.figma.com/design/mqGMJYIUvlFKCIhoXPmdGR)
 
 Frames are named by state, as the brief asks: `Active Display`, `Always-On`, `Interactive · …`. Everything is vector with live text.
 
-<img src="docs/figma-submission.png" width="100%" alt="Encore submission page in Figma"/>
+<img src="docs/figma-board-encore.jpg" width="100%" alt="Encore board in Figma: every screen, named by state"/>
 
-<img src="docs/figma-entries.png" width="100%" alt="Early entries in Figma"/>
+<img src="docs/figma-board-threshold.jpg" width="100%" alt="Threshold board in Figma"/>
 
 **Design rules we followed (from the Titan design kit):**
 - **368 × 448** rectangular OLED, one of the kit's listed sizes.

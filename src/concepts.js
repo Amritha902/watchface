@@ -10,7 +10,7 @@ const END = '</g></svg>';
 const T = (x, y, size, weight, fill, text, anchor = 'start', font = 'Inter', extra = '') =>
   `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${font}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${text}</text>`;
 const HEART = (x, y, k, c = '#ff4d5e') => `<path transform="translate(${x} ${y}) scale(${k})" fill="${c}" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
-const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
+const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(String(hr).length > 2 ? 292 : 306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
 const arc = (cx, cy, r, f) => {
   const a = -Math.PI / 2 + 2 * Math.PI * Math.min(f, 0.9999);
   return `M${cx} ${cy - r} A ${r} ${r} 0 ${f > 0.5 ? 1 : 0} 1 ${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`;
@@ -43,7 +43,8 @@ export function glanceDeck(state = 'active', id = 'gd') {
     return s + END;
   }
   s += T(34, 172, 108, 800, '#fff', '10:09', 'start', 'Inter Tight', 'letter-spacing="-4"');
-  s += `<rect x="62" y="194" width="272" height="80" rx="24" fill="#fff" fill-opacity=".06"/><rect x="46" y="206" width="304" height="86" rx="25" fill="#fff" fill-opacity=".1"/>`;
+  s += `<rect x="66" y="192" width="264" height="80" rx="24" fill="#1a1830" fill-opacity=".7" stroke="#fff" stroke-opacity=".08"/><rect x="48" y="205" width="300" height="86" rx="25" fill="#22203a" fill-opacity=".85" stroke="#fff" stroke-opacity=".12"/>`;
+  s += `<circle cx="84" cy="215" r="7" fill="#33d17a" opacity=".8"/><rect x="98" y="211" width="90" height="8" rx="4" fill="#fff" opacity=".22"/>`;
   s += card(34, 220, 328, 112, '#ff8a3c', bag, 'Food order', 'Arriving in 6 min', `<rect x="106" y="312" width="228" height="5" rx="2.5" fill="#fff" opacity=".18"/><rect x="106" y="312" width="160" height="5" rx="2.5" fill="#ff8a3c"/>`);
   s += `<rect x="296" y="190" width="56" height="34" rx="17" fill="#ff4d5e"/>` + T(324, 215, 21, 800, '#fff', '+2', 'middle');
   const tile = (x) => `<rect x="${x}" y="352" width="104" height="100" rx="26" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".12"/>`;

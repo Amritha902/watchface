@@ -2,20 +2,20 @@
 
 Participant: **Amritha S** · Challenge: **Open Innovation** · Tool: **Figma**
 
-Every Figma file below already contains the design. For each: set Share to "Anyone with the link · can edit", paste the name and concept, paste the link, upload `1 - UPLOAD THIS ... preview 1x1.png` from the zip.
+Every Figma file below already contains the final design. For each: set Share to "Anyone with the link · can edit", paste the name and concept, paste the link, upload `1 - UPLOAD THIS ... preview 1x1.png` from the zip.
 
 | # | Design name | Zip | Figma file (design inside) |
 |---|---|---|---|
-| 01 | Encore | `01-Encore.zip` | https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz |
-| 02 | Contour | `02-Contour.zip` | https://www.figma.com/design/YjlQIGfEwgmFysNBXPFapH |
-| 03 | Heartwritten | `03-Heartwritten.zip` | https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw |
-| 04 | Inner Weather | `04-Inner-Weather.zip` | https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi |
-| 05 | Threshold | `05-Threshold.zip` | https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM |
-| 06 | Glance Deck | `06-Glance-Deck.zip` | https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv |
-| 07 | Haze | `07-Haze.zip` | https://www.figma.com/design/U7y4mXiZqY1cFlBM0OKUJY |
-| 08 | Rest Moon | `08-Rest-Moon.zip` | https://www.figma.com/design/oilX3PE8PBoRqrHEk4TH1o |
-| 09 | Day Weave | `09-Day-Weave.zip` | https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML |
-| 10 | Constellation | `10-Constellation.zip` | https://www.figma.com/design/SGhvCTYn7A2Kgv6PSX3xTN |
+| 01 | Encore | `01-Encore.zip` | https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH |
+| 02 | Contour | `02-Contour.zip` | https://www.figma.com/design/H9eBqVrZG46G7HdsZ2YOBX |
+| 03 | Heartwritten | `03-Heartwritten.zip` | https://www.figma.com/design/oNKXWRVPwyGrBbS3YtH35n |
+| 04 | Inner Weather | `04-Inner-Weather.zip` | https://www.figma.com/design/nIzWwVHivFNWqkogqFyzHV |
+| 05 | Threshold | `05-Threshold.zip` | https://www.figma.com/design/KxHjBbahl7kHlULt5ApY3P |
+| 06 | Glance Deck | `06-Glance-Deck.zip` | https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl |
+| 07 | Haze | `07-Haze.zip` | https://www.figma.com/design/NhsO4KI1G8Jlm1KGJX0akd |
+| 08 | Rest Moon | `08-Rest-Moon.zip` | https://www.figma.com/design/asj3IBK6aQxYuHPuYMvL4E |
+| 09 | Day Weave | `09-Day-Weave.zip` | https://www.figma.com/design/t75cnJ79LbweNdxeHuZTM6 |
+| 10 | Constellation | `10-Constellation.zip` | https://www.figma.com/design/mqGMJYIUvlFKCIhoXPmdGR |
 
 ---
 
@@ -37,7 +37,7 @@ For the Open Innovation theme, Inner Weather turns your stress level into the sk
 
 ## 05 · Threshold
 
-For the Open Innovation theme, Threshold is inspired by the kolam drawn at Indian doorsteps every morning: a grid of rice-white dots and loops frames the time, and one loop fills with marigold colour for every minute that passes. You read the hour's progress like a drawing being completed, and on the hour the whole kolam glows before a fresh one begins. Always-on keeps only the dots, loops and time in grey.
+For the Open Innovation theme, Threshold is inspired by the kolam drawn at Indian doorsteps every morning: a grid of rice-white dots and loops frames the time, and one loop fills with marigold colour every three minutes. You read the hour's progress like a drawing being completed, and on the hour the whole kolam glows before a fresh one begins. Always-on keeps only the dots, loops and time in grey.
 
 ## 06 · Glance Deck
 

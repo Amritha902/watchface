@@ -7,7 +7,7 @@ BRIEF DESIGN CONCEPT (theme mentioned)
 For the Open Innovation theme, Contour draws your day as a topographic map: every active hour raises the land, so a morning run becomes a tall peak and a quiet afternoon stays flat, with the highest point marked by a glowing pin. The time floats in light type over the contour lines, and a swipe turns the map into an elevation profile of the whole day. Always-on keeps a few faint grey contour lines under the time.
 
 FIGMA FILE (EDITABLE LINK)
-https://www.figma.com/design/YjlQIGfEwgmFysNBXPFapH
+https://www.figma.com/design/H9eBqVrZG46G7HdsZ2YOBX
 (Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
 
 FINAL PREVIEW EXPORT

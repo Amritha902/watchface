@@ -84,11 +84,11 @@ const URL = 'file://' + path.resolve('dist/encore.html') + '?t=10.15';
 
   // the collection: 10 designs
   await page.evaluate(() => {
-    const names = ['01-Encore/Encore','02-Match-Day/Match Day','03-Petal-Season/Petal Season','04-Orbit-9/Orbit 9','05-Northern/Northern','06-Glance-Deck/Glance Deck','07-Next-Stop/Next Stop','08-Bloom/Bloom','09-Tide/Tide','10-Deep-Work/Deep Work'];
+    const names = ['01-Encore/Encore','02-Contour/Contour','03-Heartwritten/Heartwritten','04-Inner-Weather/Inner Weather','05-Threshold/Threshold','06-Glance-Deck/Glance Deck','07-Haze/Haze','08-Rest-Moon/Rest Moon','09-Day-Weave/Day Weave','10-Constellation/Constellation'];
     const g = document.createElement('div'); g.id = 'grid';
     g.style.cssText = 'position:fixed;inset:0;z-index:101;background:#050507;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:70px 40px 30px;opacity:0;transition:opacity .6s';
     g.innerHTML = '<div style="position:absolute;top:18px;left:0;right:0;text-align:center;font:700 28px Inter;color:#fff">The Encore collection · 10 original watch faces</div>' +
-      names.map((n) => `<img src="../submission/${n.split('/')[0]}/${n.split('/')[1]} - preview 1x1.png" style="width:100%;border-radius:14px">`).join('');
+      names.map((n) => `<img src="../submission/${n.split('/')[0]}/1 - UPLOAD THIS - ${n.split('/')[1]} preview 1x1.png" style="width:100%;border-radius:14px">`).join('');
     document.body.appendChild(g); requestAnimationFrame(() => (g.style.opacity = 1));
   });
   await wait(4200); await page.evaluate(() => document.getElementById('grid').remove());

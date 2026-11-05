@@ -7,7 +7,7 @@ BRIEF DESIGN CONCEPT (theme mentioned)
 For the Open Innovation theme, Day Weave turns your day into cloth: twenty-four threads, one per hour, are woven in colour as you live it, indigo for sleep, green for movement and gold for work, with the current hour glowing on the loom. A swipe shows your whole week as a woven swatch, so habits become a pattern you can see rather than a chart. Always-on keeps the woven strip in grey under the time.
 
 FIGMA FILE (EDITABLE LINK)
-https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML
+https://www.figma.com/design/t75cnJ79LbweNdxeHuZTM6
 (Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
 
 FINAL PREVIEW EXPORT

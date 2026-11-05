@@ -8,7 +8,7 @@ const END = '</g></svg>';
 const T = (x, y, size, weight, fill, text, anchor = 'start', font = 'Inter', extra = '') =>
   `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${font}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${text}</text>`;
 const HEART = (x, y, k, c = '#ff4d5e') => `<path transform="translate(${x} ${y}) scale(${k})" fill="${c}" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
-const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
+const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(String(hr).length > 2 ? 292 : 306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
 const GREY = '#a8a8a8';
 
 // ---------------------------------------------------------------- Heartwritten
@@ -57,6 +57,17 @@ export function heartwritten(state = 'active', id = 'hw') {
   return s + END;
 }
 
+const rnd2 = (i) => { const x = Math.sin(i * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+function softCloud(x, y, k, top, bottom, op, id, n) {
+  const g = `${id}cg${n}`;
+  const puffs = [[-46, 6, 26], [-20, -10, 34], [14, -16, 38], [44, -2, 28], [62, 10, 20], [-62, 14, 18]];
+  let s = `<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient><filter id="${g}f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="${(2.2 / k).toFixed(2)}"/></filter></defs>`;
+  s += `<g transform="translate(${x} ${y}) scale(${k})" opacity="${op}">`;
+  s += `<ellipse cx="4" cy="26" rx="80" ry="12" fill="#000" opacity=".12" filter="url(#${id}s)"/>`;
+  s += `<g fill="url(#${g})" filter="url(#${g}f)">` + puffs.map(([px, py, r]) => `<circle cx="${px}" cy="${py}" r="${r}"/>`).join('') + `<rect x="-74" y="4" width="146" height="26" rx="13"/></g>`;
+  s += `</g>`;
+  return s;
+}
 // ---------------------------------------------------------------- Inner Weather
 export function innerWeather(state = 'active', id = 'iw') {
   let s = HEAD(id);
@@ -72,8 +83,7 @@ export function innerWeather(state = 'active', id = 'iw') {
       <radialGradient id="${id}sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6d8"/><stop offset=".6" stop-color="#ffd27a"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>`;
     s += `<rect width="396" height="484" fill="url(#${id}sky)"/>`;
     s += `<circle cx="300" cy="330" r="150" fill="#ffd27a" opacity=".45" filter="url(#${id}b)"/><circle cx="300" cy="330" r="62" fill="url(#${id}sun)"/>`;
-    const cloud = (x, y, k, o) => `<g transform="translate(${x} ${y}) scale(${k})" opacity="${o}"><ellipse cx="0" cy="0" rx="60" ry="16" fill="#fff"/><ellipse cx="-14" cy="-12" rx="28" ry="18" fill="#fff"/><ellipse cx="16" cy="-8" rx="22" ry="14" fill="#fff"/></g>`;
-    s += cloud(90, 150, 1, .55) + cloud(320, 120, .7, .4) + cloud(120, 330, .8, .35);
+    s += softCloud(78, 128, .78, '#ffffff', '#c9d3f0', .85, id, 1) + softCloud(330, 104, .5, '#ffffff', '#cdd6f2', .7, id, 2) + softCloud(96, 318, .62, '#fff4ea', '#e9c2b4', .75, id, 3);
     s += STATUS('#fff', 66);
     s += T(198, 250, 118, 300, '#fff', '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
     s += `<rect x="18" y="352" width="360" height="100" rx="30" fill="#0e1a3a" fill-opacity=".45" stroke="#fff" stroke-opacity=".25"/>`;
@@ -83,9 +93,8 @@ export function innerWeather(state = 'active', id = 'iw') {
   }
   s += `<defs><linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1118"/><stop offset=".6" stop-color="#2b3445"/><stop offset="1" stop-color="#46506a"/></linearGradient></defs>`;
   s += `<rect width="396" height="484" fill="url(#${id}sky)"/>`;
-  const dark = (x, y, k, c, o) => `<g transform="translate(${x} ${y}) scale(${k})" opacity="${o}"><ellipse cx="0" cy="0" rx="90" ry="26" fill="${c}"/><ellipse cx="-30" cy="-20" rx="44" ry="30" fill="${c}"/><ellipse cx="26" cy="-16" rx="38" ry="26" fill="${c}"/></g>`;
-  s += dark(100, 120, 1.2, '#5b6478', .9) + dark(310, 100, 1, '#454e62', .95) + dark(220, 160, 1.1, '#6a7388', .8);
-  for (let i = 0; i < 26; i++) { const x = (i * 53) % 420 - 10, y = 150 + (i * 37) % 300; s += `<line x1="${x}" y1="${y}" x2="${x - 10}" y2="${y + 30}" stroke="#b9c6e0" stroke-width="2" opacity=".35" stroke-linecap="round"/>`; }
+  s += softCloud(80, 108, 1.25, '#8a93a8', '#3a4152', .95, id, 4) + softCloud(318, 92, 1.05, '#7c859a', '#323849', .95, id, 5) + softCloud(206, 150, 1.15, '#9aa3b6', '#454c5e', .9, id, 6);
+  for (let i = 0; i < 70; i++) { const x = rnd2(i) * 420 - 10, y = 150 + rnd2(i + 300) * 320, l = 14 + rnd2(i + 600) * 18; s += `<line x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x - l * .32).toFixed(1)}" y2="${(y + l).toFixed(1)}" stroke="#c7d3ec" stroke-width="1.4" opacity="${(.15 + rnd2(i + 900) * .3).toFixed(2)}" stroke-linecap="round"/>`; }
   s += `<path d="M344 268 L 328 306 L 344 306 L 334 342 L 364 296 L 348 296 L 360 268 Z" fill="#ffe27a"/><path d="M344 268 L 328 306 L 344 306 L 334 342 L 364 296 L 348 296 L 360 268 Z" fill="#ffe27a" opacity=".6" filter="url(#${id}s)"/>`;
   s += STATUS('#fff', 104);
   s += T(198, 262, 118, 300, '#fff', '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
@@ -96,45 +105,62 @@ export function innerWeather(state = 'active', id = 'iw') {
 }
 
 // ---------------------------------------------------------------- Threshold (kolam)
-function kolam(cols, rows, x0, y0, sp, skip, done, palette, aod) {
-  let s = '', k = 0;
-  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-    const x = x0 + c * sp, y = y0 + r * sp;
-    if (skip(x, y)) continue;
-    const h = sp * 0.5;
-    const col = aod ? GREY : (k < done ? palette[k % palette.length] : '#fff4e2');
-    const op = aod ? .7 : (k < done ? 1 : .55);
-    s += `<path d="M${x} ${y - h} Q ${x + h} ${y - h} ${x + h} ${y} Q ${x + h} ${y + h} ${x} ${y + h} Q ${x - h} ${y + h} ${x - h} ${y} Q ${x - h} ${y - h} ${x} ${y - h} Z" transform="rotate(45 ${x} ${y})" fill="none" stroke="${col}" stroke-width="${aod ? 2 : 3.2}" opacity="${op}" stroke-linejoin="round"/>`;
-    s += `<circle cx="${x}" cy="${y}" r="${aod ? 3 : 4}" fill="${aod ? GREY : '#fff4e2'}" opacity="${aod ? .8 : .95}"/>`;
-    if (!aod && c < cols - 1 && r < rows - 1 && !skip(x + sp, y + sp)) s += `<circle cx="${x + sp / 2}" cy="${y + sp / 2}" r="${sp * 0.2}" fill="none" stroke="${k < done ? palette[(k + 1) % palette.length] : '#fff4e2'}" stroke-width="2.4" opacity="${k < done ? .9 : .4}"/>`;
-    k++;
+// A real sikku kolam: one line weaves diagonally between a square grid of dots (pulli) and loops
+// around the outside at every edge, drawn rotated 45° into a diamond. One edge loop fills per 3 minutes.
+function sikku(n, a, cx, cy, done, aod, full) {
+  const P = (x, y) => { // grid → screen (rotate 45° around grid centre)
+    return [cx + (x - (n - 1) / 2) * a, cy + (y - (n - 1) / 2) * a];
+  };
+  const lo = -0.5, hi = n - 0.5, pt = ([x, y]) => P(x, y).map((v) => v.toFixed(1)).join(' ');
+  const clip = (c, slope) => { // segment of x + slope*y = c inside the square
+    const pts = [];
+    for (const x of [lo, hi]) { const y = (c - x) / slope; if (y >= lo - 1e-9 && y <= hi + 1e-9) pts.push([x, y]); }
+    for (const y of [lo, hi]) { const x = c - slope * y; if (x > lo + 1e-9 && x < hi - 1e-9) pts.push([x, y]); }
+    return pts.length >= 2 ? pts.slice(0, 2) : null;
+  };
+  const lines = [];
+  for (let c = -0.5; c <= 2 * n - 1.5; c += 1) { const sg = clip(c, 1); if (sg) lines.push(sg); }
+  for (let c = -(n - 0.5); c <= n - 0.5; c += 1) { const sg = clip(c, -1); if (sg) lines.push(sg); }
+  // edge loops: at every edge point beside a dot, the two diagonals turn around outside
+  const loops = [], d = 0.44, r = d * Math.SQRT1_2;
+  const edge = [];
+  for (let i = 0; i < n; i++) edge.push([[i, lo], [0, -1]]);
+  for (let j = 0; j < n; j++) edge.push([[hi, j], [1, 0]]);
+  for (let i = n - 1; i >= 0; i--) edge.push([[i, hi], [0, 1]]);
+  for (let j = n - 1; j >= 0; j--) edge.push([[lo, j], [-1, 0]]);
+  for (const [[px, py], [nx, ny]] of edge) {
+    const C = [px + nx * d, py + ny * d], base = Math.atan2(-ny, -nx), pts = [];
+    for (let t = 0; t <= 36; t++) { const ang = base + Math.PI / 4 + (t / 36) * (Math.PI * 1.5); pts.push([C[0] + r * Math.cos(ang), C[1] + r * Math.sin(ang)]); }
+    loops.push(`M${pt([px, py])} ` + pts.map((q) => `L${pt(q)}`).join(' ') + ` L${pt([px, py])}`);
   }
+  const pal = ['#ffb627', '#ff6b8b', '#ffd27a', '#4fd1a5'];
+  let s = '';
+  const sw = aod ? 2.2 : 4;
+  const base = aod ? GREY : '#fff4e2';
+  if (!aod) s += `<path d="${lines.map(([p1, p2]) => `M${pt(p1)} L${pt(p2)}`).join(' ')} ${loops.join(' ')}" fill="none" stroke="#ffb627" stroke-width="${sw * 3}" opacity="${full ? .35 : .12}" filter="url(#thglow)"/>`;
+  s += `<path d="${lines.map(([p1, p2]) => `M${pt(p1)} L${pt(p2)}`).join(' ')}" fill="none" stroke="${full ? '#ffd27a' : base}" stroke-width="${sw}" stroke-linecap="round" opacity="${aod ? .5 : .92}"/>`;
+  loops.forEach((l, i) => { const on = full || i < done; s += `<path d="${l}" fill="none" stroke="${aod ? GREY : on ? pal[i % pal.length] : base}" stroke-width="${sw}" stroke-linejoin="round" opacity="${aod ? .5 : on ? 1 : .55}"/>`; });
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) s += `<circle cx="${P(i, j)[0].toFixed(1)}" cy="${P(i, j)[1].toFixed(1)}" r="${aod ? 2.6 : 4.2}" fill="${aod ? GREY : '#fff4e2'}"/>`;
   return s;
 }
 export function threshold(state = 'active', id = 'th') {
   let s = HEAD(id);
   const aod = state === 'aod', full = state === 'alt';
-  const skip = (x, y) => y > 150 && y < 340 && x > 40 && x < 356;
+  s += `<defs><filter id="thglow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter></defs>`;
   if (aod) {
     s += `<rect width="396" height="484" fill="#000"/>` + STATUS(GREY, 66, true);
-    s += kolam(7, 8, 30, 96, 56, skip, 0, [], true);
-    s += T(198, 284, 112, 800, GREY, '10:09', 'middle', 'Gabarito', 'letter-spacing="-3"');
+    s += T(198, 152, 84, 800, GREY, '10:09', 'middle', 'Gabarito', 'letter-spacing="-2"');
+    s += sikku(5, 34, 198, 300, 0, true, false);
     return s + END;
   }
-  s += `<defs><radialGradient id="${id}bg" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="${full ? '#8a2a12' : '#6a2414'}"/><stop offset="1" stop-color="#260a05"/></radialGradient></defs>`;
-  s += `<rect width="396" height="484" fill="url(#${id}bg)"/>`;
-  s += `<circle cx="198" cy="240" r="160" fill="#ffb627" opacity="${full ? .35 : .16}" filter="url(#${id}b)"/>`;
-  const pal = ['#ffb627', '#ff6b8b', '#ffd27a', '#4fd1a5'];
-  s += kolam(7, 8, 30, 96, 56, skip, full ? 99 : 9, pal, false);
-  s += `<rect x="40" y="150" width="316" height="190" rx="40" fill="#260a05" fill-opacity=".55"/>`;
+  s += `<defs><radialGradient id="${id}bg" cx=".5" cy=".62" r=".75"><stop offset="0" stop-color="${full ? '#9a3414' : '#7a2a16'}"/><stop offset=".6" stop-color="#4a170b"/><stop offset="1" stop-color="#1f0804"/></radialGradient>
+    <pattern id="${id}grain" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#ffd9b0" opacity=".07"/><circle cx="4" cy="4" r=".5" fill="#000" opacity=".12"/></pattern></defs>`;
+  s += `<rect width="396" height="484" fill="url(#${id}bg)"/><rect width="396" height="484" fill="url(#${id}grain)"/>`;
+  s += `<circle cx="198" cy="304" r="130" fill="#ffb627" opacity="${full ? .32 : .14}" filter="url(#${id}b)"/>`;
   s += STATUS('#fff4e2', 66);
-  s += T(198, 284, 112, 800, full ? '#ffd27a' : '#fff4e2', full ? '11:00' : '10:09', 'middle', 'Gabarito', 'letter-spacing="-3"');
-  s += `<rect x="18" y="352" width="360" height="100" rx="30" fill="#1a0603" fill-opacity=".82" stroke="#ffb627" stroke-opacity=".35"/>`;
-  if (full) s += T(40, 394, 23, 700, '#fff', 'The hour is drawn') + T(40, 426, 21, 400, '#fff', 'Kolam complete · new one at 11', 'start', 'Inter', 'opacity=".75"');
-  else {
-    s += T(40, 394, 23, 700, '#fff', '9 of 60 loops') + T(40, 426, 21, 400, '#fff', 'One loop for every minute', 'start', 'Inter', 'opacity=".75"');
-    s += `<circle cx="336" cy="402" r="24" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="6"/><path d="M336 378 A 24 24 0 0 1 356.4 389.3" stroke="#ffb627" stroke-width="6" fill="none" stroke-linecap="round"/>`;
-  }
+  s += T(198, 152, 84, 800, full ? '#ffd27a' : '#fff4e2', full ? '11:00' : '10:09', 'middle', 'Gabarito', 'letter-spacing="-2"');
+  s += sikku(5, 34, 198, 300, full ? 20 : 3, false, full);
+  s += T(198, 452, 21, 600, '#fff4e2', full ? 'Kolam complete · new one at 11' : '9 min drawn · one loop every 3', 'middle', 'Inter', 'opacity=".8"');
   return s + END;
 }
 
@@ -168,7 +194,7 @@ export function dayWeave(state = 'active', id = 'dw') {
   if (state === 'alt') {
     s += T(34, 124, 46, 800, '#fff', 'Your week', 'start', 'Inter Tight', 'letter-spacing="-1.5"') + T(362, 122, 21, 600, '#fff', 'Mon–Sun', 'end', 'Inter', 'opacity=".6"');
     WEEK.forEach((row, r) => { const hrs = row.split('').concat(Array(24 - row.length).fill('')); s += weave(34, 150 + r * 34, 328, 26, hrs, false, id + r, r === 6 ? 10 : -1); });
-    s += T(34, 420, 21, 400, '#fff', 'One row per day, one thread per hour', 'start', 'Inter', 'opacity=".7"');
+    s += T(34, 420, 21, 400, '#fff', 'Each row is one day', 'start', 'Inter', 'opacity=".7"');
     s += T(34, 450, 23, 700, '#fff', 'Sleep steadier than last week', 'start');
     return s + END;
   }

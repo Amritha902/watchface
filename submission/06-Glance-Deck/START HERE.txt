@@ -9,7 +9,7 @@ What is in this folder
   screens-svg/                            Each screen as its own editable SVG (368 × 448).
 
 Put it in Figma (about 30 seconds)
-  1. Open https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv
+  1. Open https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl
   2. Drag "2 - FIGMA ... .svg" onto the canvas. Done: all screens appear as editable layers.
   3. Share > Anyone with the link > can edit.
 
