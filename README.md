@@ -33,6 +33,16 @@ Ten designs, each a separate submission with its own Figma frames (Active, Alway
 <tr><td width="50%" align="center"><img src="docs/entries/09-Day-Weave.jpg" width="100%" alt="Day Weave"/><br/><b>09 · Day Weave</b> <sub>· Habits</sub><br/><sub>Your day woven as cloth, one thread per hour.</sub></td><td width="50%" align="center"><img src="docs/entries/10-Constellation.jpg" width="100%" alt="Constellation"/><br/><b>10 · Constellation</b> <sub>· Connection</sub><br/><sub>People you talked to today, as stars.</sub></td></tr>
 </table>
 
+### In motion
+
+Every design cycles through its states: active, interactive and always-on.
+
+<table>
+<tr><td align="center"><img src="docs/entries/01-Encore.gif" width="150" alt="Encore in motion"/><br/><sub>Encore</sub></td><td align="center"><img src="docs/entries/02-Contour.gif" width="150" alt="Contour in motion"/><br/><sub>Contour</sub></td><td align="center"><img src="docs/entries/03-Heartwritten.gif" width="150" alt="Heartwritten in motion"/><br/><sub>Heartwritten</sub></td><td align="center"><img src="docs/entries/04-Inner-Weather.gif" width="150" alt="Inner Weather in motion"/><br/><sub>Inner Weather</sub></td><td align="center"><img src="docs/entries/05-Threshold.gif" width="150" alt="Threshold in motion"/><br/><sub>Threshold</sub></td></tr>
+<tr><td align="center"><img src="docs/entries/06-Glance-Deck.gif" width="150" alt="Glance Deck in motion"/><br/><sub>Glance Deck</sub></td><td align="center"><img src="docs/entries/07-Haze.gif" width="150" alt="Haze in motion"/><br/><sub>Haze</sub></td><td align="center"><img src="docs/entries/08-Rest-Moon.gif" width="150" alt="Rest Moon in motion"/><br/><sub>Rest Moon</sub></td><td align="center"><img src="docs/entries/09-Day-Weave.gif" width="150" alt="Day Weave in motion"/><br/><sub>Day Weave</sub></td><td align="center"><img src="docs/entries/10-Constellation.gif" width="150" alt="Constellation in motion"/><br/><sub>Constellation</sub></td></tr>
+</table>
+
+
 Every design in this repo is ready to submit: [`submission/`](submission/) holds one folder and one zip per entry (preview, frames at 3x, editable SVGs, description), and [`submission/ENTRIES.md`](submission/ENTRIES.md) has the text to paste for all ten.
 
 ## Why
