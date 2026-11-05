@@ -1,0 +1,14 @@
+SUBMISSION 08 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Rest Moon
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Rest Moon uses the moon's phase to show how rested you are: a full moon means you have slept enough, and the moon wanes into a thin crescent as sleep debt builds over the week. It is a calm, glanceable picture instead of a sleep score, and the card turns it into one suggestion such as an earlier bedtime. Always-on redraws the moon as a thin grey outline under the time.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/oilX3PE8PBoRqrHEk4TH1o
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Rest Moon preview 1x1.png"  (square 1:1, under 5 MB)

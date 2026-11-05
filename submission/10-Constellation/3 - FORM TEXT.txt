@@ -1,0 +1,14 @@
+SUBMISSION 10 of 10  ·  Titan Watch Face Design Challenge 2026  ·  Figma track  ·  Amritha S
+
+DESIGN NAME
+Constellation
+
+BRIEF DESIGN CONCEPT (theme mentioned)
+For the Open Innovation theme, Constellation turns your day's conversations into a star map: each person you talked to becomes a star, brighter for longer calls, and the stars join in the order you spoke, so the shape of your social day appears behind the time. When someone close drifts away their star fades and the face suggests saying hi. Always-on keeps the constellation as grey points and lines on true black.
+
+FIGMA FILE (EDITABLE LINK)
+https://www.figma.com/design/SGhvCTYn7A2Kgv6PSX3xTN
+(Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
+
+FINAL PREVIEW EXPORT
+Upload "1 - UPLOAD THIS - Constellation preview 1x1.png"  (square 1:1, under 5 MB)

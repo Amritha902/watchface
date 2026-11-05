@@ -7,15 +7,15 @@ Every Figma file below already contains the design. For each: set Share to "Anyo
 | # | Design name | Zip | Figma file (design inside) |
 |---|---|---|---|
 | 01 | Encore | `01-Encore.zip` | https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz |
-| 02 | Match Day | `02-Match-Day.zip` | https://www.figma.com/design/lfHmf0AWEL4PNBgcuxgbG3 |
+| 02 | Contour | `02-Contour.zip` | https://www.figma.com/design/YjlQIGfEwgmFysNBXPFapH |
 | 03 | Heartwritten | `03-Heartwritten.zip` | https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw |
 | 04 | Inner Weather | `04-Inner-Weather.zip` | https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi |
 | 05 | Threshold | `05-Threshold.zip` | https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM |
 | 06 | Glance Deck | `06-Glance-Deck.zip` | https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv |
-| 07 | Next Stop | `07-Next-Stop.zip` | https://www.figma.com/design/mxOUdLI0xfxt0DaLOSoTlx |
-| 08 | Bloom | `08-Bloom.zip` | https://www.figma.com/design/dClIQaiEugnrDNzw5sGRFR |
+| 07 | Haze | `07-Haze.zip` | https://www.figma.com/design/U7y4mXiZqY1cFlBM0OKUJY |
+| 08 | Rest Moon | `08-Rest-Moon.zip` | https://www.figma.com/design/oilX3PE8PBoRqrHEk4TH1o |
 | 09 | Day Weave | `09-Day-Weave.zip` | https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML |
-| 10 | Deep Work | `10-Deep-Work.zip` | https://www.figma.com/design/UjcmdN2PbVrIDmIq1Yy3e8 |
+| 10 | Constellation | `10-Constellation.zip` | https://www.figma.com/design/SGhvCTYn7A2Kgv6PSX3xTN |
 
 ---
 
@@ -23,9 +23,9 @@ Every Figma file below already contains the design. For each: set Share to "Anyo
 
 For the Open Innovation theme, Encore is a watch face that knows what you love: when you start a new series, your watch gifts you a face designed around that show's world, and you can pick a favourite character or describe a face in one sentence to have it made for you. The time is always the hero, large and high-contrast for a one-second glance, while a single glass complication carries heart rate, steps or your episode progress. All text is at least 21 px and every icon at least 25 px, and the always-on state drops to true black with type only.
 
-## 02 · Match Day
+## 02 · Contour
 
-For the Open Innovation theme, Match Day puts a floodlit night match on your wrist: the stadium lights pulse, the crowd twinkles and a live score complication (runs, wickets, overs) reads in a single glance. Condensed Bebas digits stay large and cream-white against the deep navy sky, and in a tense final over the edge of the screen glows red with your heartbeat. The always-on state keeps only the time on true black, and a medallion variant frames the ground in a ringed circle.
+For the Open Innovation theme, Contour draws your day as a topographic map: every active hour raises the land, so a morning run becomes a tall peak and a quiet afternoon stays flat, with the highest point marked by a glowing pin. The time floats in light type over the contour lines, and a swipe turns the map into an elevation profile of the whole day. Always-on keeps a few faint grey contour lines under the time.
 
 ## 03 · Heartwritten
 
@@ -43,20 +43,20 @@ For the Open Innovation theme, Threshold is inspired by the kolam drawn at India
 
 For the Open Innovation theme, Glance Deck turns the watch face into a tiny notification centre: your next three things sit in a fanned stack of glass cards under a large clock, with the most urgent card (a delivery arriving in 6 minutes) at the front. Tap to spread the deck into a readable list and swipe to clear; weather, steps and music live as three glass tiles below. Always-on shows only the time and a '3 waiting' badge.
 
-## 07 · Next Stop
+## 07 · Haze
 
-For the Open Innovation theme, Next Stop makes your metro journey the watch face: the line runs across the screen, your train moves stop by stop, and a big '4 min to Central' tells you exactly when to look up. One stop before arrival the face becomes a full-screen alert showing the station and which side the doors open. Always-on keeps the time and minutes to go on true black.
+For the Open Innovation theme, Haze makes air quality something you can see: a city skyline sits behind the time, and as the air-quality index rises the scene fills with dusty haze until the buildings fade, while a coloured badge gives the exact number and a simple tip. When the air clears after rain the sky turns crisp blue and the face suggests opening a window. Always-on keeps the skyline outline and the AQI number on true black.
 
-## 08 · Bloom
+## 08 · Rest Moon
 
-For the Open Innovation theme, Bloom turns your step count into a living flower: it grows through the day and its petals open as you move, so progress is something you feel at a glance rather than a number to decode. At 10,000 steps it bursts into full bloom with drifting petals. Always-on redraws the flower as a single grey line beside the time.
+For the Open Innovation theme, Rest Moon uses the moon's phase to show how rested you are: a full moon means you have slept enough, and the moon wanes into a thin crescent as sleep debt builds over the week. It is a calm, glanceable picture instead of a sleep score, and the card turns it into one suggestion such as an earlier bedtime. Always-on redraws the moon as a thin grey outline under the time.
 
 ## 09 · Day Weave
 
 For the Open Innovation theme, Day Weave turns your day into cloth: twenty-four threads, one per hour, are woven in colour as you live it, indigo for sleep, green for movement and gold for work, with the current hour glowing on the loom. A swipe shows your whole week as a woven swatch, so habits become a pattern you can see rather than a chart. Always-on keeps the woven strip in grey under the time.
 
-## 10 · Deep Work
+## 10 · Constellation
 
-For the Open Innovation theme, Deep Work wraps the time in a focus ring that counts down your session while notifications wait quietly ('4 alerts on hold'). When the session ends the ring turns green, the break timer starts and the face suggests you stand up and stretch. Always-on keeps a thin grey ring and the remaining focus time.
+For the Open Innovation theme, Constellation turns your day's conversations into a star map: each person you talked to becomes a star, brighter for longer calls, and the stars join in the order you spoke, so the shape of your social day appears behind the time. When someone close drifts away their star fades and the face suggests saying hi. Always-on keeps the constellation as grey points and lines on true black.
 
 All names are fictional; no logos or brand marks.

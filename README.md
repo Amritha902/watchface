@@ -26,11 +26,11 @@
 Ten designs, each a separate submission with its own Figma frames (Active, Always-On, Interactive), all at the Titan kit size of **368 × 448**, with text at 21 px or larger and icons at 25 px or larger.
 
 <table>
-<tr><td width="50%" align="center"><img src="docs/entries/01-Encore.jpg" width="100%" alt="Encore"/><br/><b>01 · Encore</b> <sub>· Personalised entertainment</sub><br/><sub>Your watch gifts you a face for the show you just started.</sub></td><td width="50%" align="center"><img src="docs/entries/02-Match-Day.jpg" width="100%" alt="Match Day"/><br/><b>02 · Match Day</b> <sub>· Live sport</sub><br/><sub>A floodlit night match with a live score.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/01-Encore.jpg" width="100%" alt="Encore"/><br/><b>01 · Encore</b> <sub>· Personalised entertainment</sub><br/><sub>Your watch gifts you a face for the show you just started.</sub></td><td width="50%" align="center"><img src="docs/entries/02-Contour.jpg" width="100%" alt="Contour"/><br/><b>02 · Contour</b> <sub>· Activity</sub><br/><sub>Your day as a terrain map; your busiest hour is the peak.</sub></td></tr>
 <tr><td width="50%" align="center"><img src="docs/entries/03-Heartwritten.jpg" width="100%" alt="Heartwritten"/><br/><b>03 · Heartwritten</b> <sub>· Heart rate</sub><br/><sub>One heartbeat line rises into the digits of the time.</sub></td><td width="50%" align="center"><img src="docs/entries/04-Inner-Weather.jpg" width="100%" alt="Inner Weather"/><br/><b>04 · Inner Weather</b> <sub>· Stress</sub><br/><sub>Your stress level, shown as your own sky.</sub></td></tr>
 <tr><td width="50%" align="center"><img src="docs/entries/05-Threshold.jpg" width="100%" alt="Threshold"/><br/><b>05 · Threshold</b> <sub>· Heritage</sub><br/><sub>A kolam frames the time; one loop fills per minute.</sub></td><td width="50%" align="center"><img src="docs/entries/06-Glance-Deck.jpg" width="100%" alt="Glance Deck"/><br/><b>06 · Glance Deck</b> <sub>· Notification centre</sub><br/><sub>Your next three things, stacked like cards.</sub></td></tr>
-<tr><td width="50%" align="center"><img src="docs/entries/07-Next-Stop.jpg" width="100%" alt="Next Stop"/><br/><b>07 · Next Stop</b> <sub>· Commute</sub><br/><sub>Your metro ride, live, stop by stop.</sub></td><td width="50%" align="center"><img src="docs/entries/08-Bloom.jpg" width="100%" alt="Bloom"/><br/><b>08 · Bloom</b> <sub>· Wellness</sub><br/><sub>Your steps grow a flower.</sub></td></tr>
-<tr><td width="50%" align="center"><img src="docs/entries/09-Day-Weave.jpg" width="100%" alt="Day Weave"/><br/><b>09 · Day Weave</b> <sub>· Habits</sub><br/><sub>Your day woven as cloth, one thread per hour.</sub></td><td width="50%" align="center"><img src="docs/entries/10-Deep-Work.jpg" width="100%" alt="Deep Work"/><br/><b>10 · Deep Work</b> <sub>· Focus</sub><br/><sub>A focus ring that holds your alerts.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/07-Haze.jpg" width="100%" alt="Haze"/><br/><b>07 · Haze</b> <sub>· Air quality</sub><br/><sub>The skyline blurs as the air gets worse.</sub></td><td width="50%" align="center"><img src="docs/entries/08-Rest-Moon.jpg" width="100%" alt="Rest Moon"/><br/><b>08 · Rest Moon</b> <sub>· Sleep</sub><br/><sub>The moon phase shows how rested you are.</sub></td></tr>
+<tr><td width="50%" align="center"><img src="docs/entries/09-Day-Weave.jpg" width="100%" alt="Day Weave"/><br/><b>09 · Day Weave</b> <sub>· Habits</sub><br/><sub>Your day woven as cloth, one thread per hour.</sub></td><td width="50%" align="center"><img src="docs/entries/10-Constellation.jpg" width="100%" alt="Constellation"/><br/><b>10 · Constellation</b> <sub>· Connection</sub><br/><sub>People you talked to today, as stars.</sub></td></tr>
 </table>
 
 Every design in this repo is ready to submit: [`submission/`](submission/) holds one folder and one zip per entry (preview, frames at 3x, editable SVGs, description), and [`submission/ENTRIES.md`](submission/ENTRIES.md) has the text to paste for all ten.
@@ -185,7 +185,8 @@ The designs are backed by a working prototype, so the interactions in the video 
 | Piece | What it does |
 |---|---|
 | `src/faces.js` | Face art and the sentence-to-face generator, style-card faces, edit engine |
-| `src/concepts.js` | Glance Deck, Next Stop, Bloom, Deep Work (every state) |
+| `src/concepts.js` | Glance Deck (every state) |
+| `src/concepts3.js` | Contour, Haze, Rest Moon, Constellation (every state) |
 | `src/concepts2.js` | Heartwritten, Inner Weather, Threshold, Day Weave (every state) |
 | `src/watch.js` | Watch screens: home, gallery, gift, quiz, create, designing, breathe |
 | `src/app.js` | Interactions: swipe, streaming simulation, favourite character, edits with undo, heart sync |
