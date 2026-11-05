@@ -14,3 +14,9 @@ if (fs.existsSync('figma')) {
   fs.mkdirSync('dist/figma', { recursive: true });
   for (const f of fs.readdirSync('figma')) if (f.endsWith('.svg')) fs.copyFileSync(`figma/${f}`, `dist/figma/${f}`);
 }
+
+// ten-face motion previews for the collection section
+if (fs.existsSync('docs/entries')) {
+  fs.mkdirSync('dist/docs/entries', { recursive: true });
+  for (const f of fs.readdirSync('docs/entries')) if (f.endsWith('.gif')) fs.copyFileSync(`docs/entries/${f}`, `dist/docs/entries/${f}`);
+}
