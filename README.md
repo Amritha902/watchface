@@ -102,7 +102,7 @@ Heart rate pulses live on every face. When your heart races, the screen edge glo
 
 ## Design in Figma
 
-**→ [Open the Encore file](https://www.figma.com/design/B5hYSaEPQLPnF5OnTFh9uD)** · **→ [Match Day file](https://www.figma.com/design/IDcHaADMOicH5pN6GQjgzT)** · other entries import in a minute from their `frames-svg/` folders.
+**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/bF4ASsrCe6CD7pQd2NUsVz) · [Contour](https://www.figma.com/design/YjlQIGfEwgmFysNBXPFapH) · [Heartwritten](https://www.figma.com/design/MUukA0dFNrshTbITAxlQcw) · [Inner Weather](https://www.figma.com/design/0tHyo4NAZ83qGAlAs4rCVi) · [Threshold](https://www.figma.com/design/6vYaxby18VGa4hitgTSpfM) · [Glance Deck](https://www.figma.com/design/HLuKt5YyPHur67PiVCvKvv) · [Haze](https://www.figma.com/design/U7y4mXiZqY1cFlBM0OKUJY) · [Rest Moon](https://www.figma.com/design/oilX3PE8PBoRqrHEk4TH1o) · [Day Weave](https://www.figma.com/design/cvw9aktNCeIBlwXgknEFML) · [Constellation](https://www.figma.com/design/SGhvCTYn7A2Kgv6PSX3xTN)
 
 Frames are named by state, as the brief asks: `Active Display`, `Always-On`, `Interactive · …`. Everything is vector with live text.
 
