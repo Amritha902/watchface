@@ -171,12 +171,13 @@ const WEEK = ['ssssssswmxixxwxmmxxwssss', 'sssssssmxxxxxxwxxmmxssss', 'sssssssxm
 const COL = { s: '#5b5bd6', m: '#3ddc84', w: '#ff6b4a', x: '#f2b84b', i: '#f2f2f2', '': null };
 function weave(x0, y0, w, h, hours, aod, id, cur = 10) {
   let s = ''; const n = hours.length, cw = w / n, rows = Math.floor(h / 14);
+  if (!aod) for (let r = 0; r < rows; r++) s += `<rect x="${x0 - 4}" y="${y0 + r * 14 + 4}" width="${w + 8}" height="6" rx="3" fill="#f3eee4" opacity=".22"/>`;
   hours.forEach((k, i) => {
     const x = x0 + i * cw;
     if (!COL[k]) { s += `<line x1="${(x + cw / 2).toFixed(1)}" y1="${y0}" x2="${(x + cw / 2).toFixed(1)}" y2="${y0 + h}" stroke="${aod ? '#333' : '#fff'}" stroke-opacity="${aod ? 1 : .18}" stroke-width="1.5"/>`; return; }
     const c = aod ? GREY : COL[k];
-    s += `<rect x="${(x + 1).toFixed(1)}" y="${y0}" width="${(cw - 2).toFixed(1)}" height="${h}" rx="${(cw / 2 - 1).toFixed(1)}" fill="${c}" opacity="${aod ? .5 : 1}"/>`;
-    if (!aod) for (let r = 0; r < rows; r++) if ((r + i) % 2 === 0) s += `<rect x="${(x + 1).toFixed(1)}" y="${y0 + r * 14 + 3}" width="${(cw - 2).toFixed(1)}" height="7" fill="#000" opacity=".28"/>`;
+    s += `<rect x="${(x + 1).toFixed(1)}" y="${y0}" width="${(cw - 2).toFixed(1)}" height="${h}" rx="${(cw / 2 - 1).toFixed(1)}" fill="${c}" opacity="${aod ? .62 : 1}"/>`;
+    if (!aod) for (let r = 0; r < rows; r++) if ((r + i) % 2 === 0) s += `<rect x="${(x - .5).toFixed(1)}" y="${y0 + r * 14 + 4}" width="${(cw + 1).toFixed(1)}" height="6" rx="3" fill="#f3eee4" opacity=".88"/>`;
     if (i === cur && !aod) s += `<rect x="${(x - 2).toFixed(1)}" y="${y0 - 8}" width="${(cw + 4).toFixed(1)}" height="${h + 16}" rx="${(cw / 2 + 2).toFixed(1)}" fill="none" stroke="#fff" stroke-width="2.5"/>`;
   });
   return s;
@@ -185,7 +186,7 @@ export function dayWeave(state = 'active', id = 'dw') {
   let s = HEAD(id);
   if (state === 'aod') {
     s += `<rect width="396" height="484" fill="#000"/>` + STATUS(GREY, 64, true);
-    s += T(34, 184, 112, 300, GREY, '10:09', 'start', 'Inter Tight', 'letter-spacing="-4"');
+    s += T(34, 184, 112, 500, GREY, '10:09', 'start', 'Inter Tight', 'letter-spacing="-4"');
     s += weave(34, 236, 328, 150, DAY, true, id);
     return s + END;
   }
@@ -199,11 +200,13 @@ export function dayWeave(state = 'active', id = 'dw') {
     s += T(34, 450, 23, 700, '#fff', 'Sleep steadier than last week', 'start');
     return s + END;
   }
-  s += T(34, 172, 112, 300, '#fff', '10:09', 'start', 'Inter Tight', 'letter-spacing="-4"');
-  s += weave(34, 210, 328, 150, DAY, false, id);
+  s += T(34, 156, 100, 300, '#fff', '10:09', 'start', 'Inter Tight', 'letter-spacing="-4"');
+  s += T(34, 198, 21, 600, '#fff', 'ONE THREAD PER HOUR', 'start', 'Inter', 'letter-spacing="1" opacity=".75"');
+  s += weave(34, 220, 328, 140, DAY, false, id);
+  const cw = 328 / 24;
+  s += T(34, 390, 21, 600, '#fff', '12 AM', 'start', 'Inter', 'opacity=".55"') + T((34 + 10.5 * cw).toFixed(1), 390, 21, 800, '#fff', 'NOW', 'middle') + T(362, 390, 21, 600, '#fff', '12 AM', 'end', 'Inter', 'opacity=".55"');
   const legend = [['#5b5bd6', '7h sleep'], ['#3ddc84', '1h move'], ['#f2b84b', '1h work']];
-  legend.forEach(([c, l], i) => { const cx = [46, 166, 284][i]; s += `<circle cx="${cx}" cy="404" r="11" fill="${c}"/>` + T(cx + 18, 412, 21, 600, '#fff', l); });
-  s += T(34, 452, 21, 400, '#fff', 'Each thread is one hour of today', 'start', 'Inter', 'opacity=".6"');
+  legend.forEach(([c, l], i) => { const cx = [46, 166, 284][i]; s += `<circle cx="${cx}" cy="430" r="11" fill="${c}"/>` + T(cx + 18, 438, 21, 600, '#fff', l); });
   return s + END;
 }
 export const CONCEPTS2 = [

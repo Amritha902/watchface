@@ -7,7 +7,7 @@ BRIEF DESIGN CONCEPT (theme mentioned)
 For the Open Innovation theme, Encore is a watch face that knows what you love: when you start a new series, your watch gifts you a face designed around that show's world, and you can pick a favourite character or describe a face in one sentence to have it made for you. The time is always the hero, large and high-contrast for a one-second glance, while a single glass complication carries heart rate, steps or your episode progress. All text is at least 21 px and every icon at least 25 px, and the always-on state drops to true black with type only.
 
 FIGMA FILE (EDITABLE LINK)
-https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH
+https://www.figma.com/design/99TVeFftWExH4ybToCnfOL
 (Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
 
 FINAL PREVIEW EXPORT

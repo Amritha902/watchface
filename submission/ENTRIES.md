@@ -2,20 +2,20 @@
 
 Participant: **Amritha S** · Challenge: **Open Innovation** · Tool: **Figma**
 
-Every Figma file below already contains the final design. For each: set Share to "Anyone with the link · can edit", paste the name and concept, paste the link, upload `1 - UPLOAD THIS ... preview 1x1.png` from the zip.
+Everything to upload is in `submission/UPLOAD/NN-Name/`. For each entry: set its Figma file to "Anyone with the link · can edit", paste the name and concept, paste the link, upload the final image.
 
-| # | Design name | Zip | Figma file (design inside) |
-|---|---|---|---|
-| 01 | Encore | `01-Encore.zip` | https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH |
-| 02 | Contour | `02-Contour.zip` | https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb |
-| 03 | Heartwritten | `03-Heartwritten.zip` | https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC |
-| 04 | Inner Weather | `04-Inner-Weather.zip` | https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3 |
-| 05 | Threshold | `05-Threshold.zip` | https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw |
-| 06 | Glance Deck | `06-Glance-Deck.zip` | https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu |
-| 07 | Haze | `07-Haze.zip` | https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA |
-| 08 | Rest Moon | `08-Rest-Moon.zip` | https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY |
-| 09 | Day Weave | `09-Day-Weave.zip` | https://www.figma.com/design/jbIxWdZqytLM0frBtKkQXd |
-| 10 | Constellation | `10-Constellation.zip` | https://www.figma.com/design/NsQR9sfBAesDwUNc2MCfVG |
+| # | Design | Figma link | Design-files zip | Images zip | Final image |
+|---|---|---|---|---|---|
+| 01 | Encore | https://www.figma.com/design/99TVeFftWExH4ybToCnfOL | `UPLOAD/01-Encore/01-Encore - 1 Design files.zip` | `UPLOAD/01-Encore/01-Encore - 2 Images.zip` | `UPLOAD/01-Encore/01-Encore - FINAL IMAGE 1x1.png` |
+| 02 | Contour | https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb | `UPLOAD/02-Contour/02-Contour - 1 Design files.zip` | `UPLOAD/02-Contour/02-Contour - 2 Images.zip` | `UPLOAD/02-Contour/02-Contour - FINAL IMAGE 1x1.png` |
+| 03 | Heartwritten | https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC | `UPLOAD/03-Heartwritten/03-Heartwritten - 1 Design files.zip` | `UPLOAD/03-Heartwritten/03-Heartwritten - 2 Images.zip` | `UPLOAD/03-Heartwritten/03-Heartwritten - FINAL IMAGE 1x1.png` |
+| 04 | Inner Weather | https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3 | `UPLOAD/04-Inner-Weather/04-Inner-Weather - 1 Design files.zip` | `UPLOAD/04-Inner-Weather/04-Inner-Weather - 2 Images.zip` | `UPLOAD/04-Inner-Weather/04-Inner-Weather - FINAL IMAGE 1x1.png` |
+| 05 | Threshold | https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw | `UPLOAD/05-Threshold/05-Threshold - 1 Design files.zip` | `UPLOAD/05-Threshold/05-Threshold - 2 Images.zip` | `UPLOAD/05-Threshold/05-Threshold - FINAL IMAGE 1x1.png` |
+| 06 | Glance Deck | https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu | `UPLOAD/06-Glance-Deck/06-Glance-Deck - 1 Design files.zip` | `UPLOAD/06-Glance-Deck/06-Glance-Deck - 2 Images.zip` | `UPLOAD/06-Glance-Deck/06-Glance-Deck - FINAL IMAGE 1x1.png` |
+| 07 | Haze | https://www.figma.com/design/FA0eZymUCSvHkyBqKCe01N | `UPLOAD/07-Haze/07-Haze - 1 Design files.zip` | `UPLOAD/07-Haze/07-Haze - 2 Images.zip` | `UPLOAD/07-Haze/07-Haze - FINAL IMAGE 1x1.png` |
+| 08 | Rest Moon | https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY | `UPLOAD/08-Rest-Moon/08-Rest-Moon - 1 Design files.zip` | `UPLOAD/08-Rest-Moon/08-Rest-Moon - 2 Images.zip` | `UPLOAD/08-Rest-Moon/08-Rest-Moon - FINAL IMAGE 1x1.png` |
+| 09 | Day Weave | https://www.figma.com/design/oE547XsN8zCwZM5wFUo3yb | `UPLOAD/09-Day-Weave/09-Day-Weave - 1 Design files.zip` | `UPLOAD/09-Day-Weave/09-Day-Weave - 2 Images.zip` | `UPLOAD/09-Day-Weave/09-Day-Weave - FINAL IMAGE 1x1.png` |
+| 10 | Constellation | https://www.figma.com/design/RQFAD4ffrEsdX6V9XZvwP4 | `UPLOAD/10-Constellation/10-Constellation - 1 Design files.zip` | `UPLOAD/10-Constellation/10-Constellation - 2 Images.zip` | `UPLOAD/10-Constellation/10-Constellation - FINAL IMAGE 1x1.png` |
 
 ---
 

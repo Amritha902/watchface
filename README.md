@@ -112,7 +112,7 @@ Heart rate pulses live on every face. When your heart races, the screen edge glo
 
 ## Design in Figma
 
-**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH) · [Contour](https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb) · [Heartwritten](https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC) · [Inner Weather](https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3) · [Threshold](https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw) · [Glance Deck](https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu) · [Haze](https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA) · [Rest Moon](https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY) · [Day Weave](https://www.figma.com/design/jbIxWdZqytLM0frBtKkQXd) · [Constellation](https://www.figma.com/design/NsQR9sfBAesDwUNc2MCfVG)
+**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/99TVeFftWExH4ybToCnfOL) · [Contour](https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb) · [Heartwritten](https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC) · [Inner Weather](https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3) · [Threshold](https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw) · [Glance Deck](https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu) · [Haze](https://www.figma.com/design/FA0eZymUCSvHkyBqKCe01N) · [Rest Moon](https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY) · [Day Weave](https://www.figma.com/design/oE547XsN8zCwZM5wFUo3yb) · [Constellation](https://www.figma.com/design/RQFAD4ffrEsdX6V9XZvwP4)
 
 Frames are named by state, as the brief asks: `Active Display`, `Always-On`, `Interactive · …`. Everything is vector with live text.
 

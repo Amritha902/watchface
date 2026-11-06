@@ -100,8 +100,8 @@ function towers(list, base, fill, lit, seed, outline) {
 export function haze(state = 'active', id = 'hz') {
   let s = HEAD(id);
   if (state === 'aod') {
-    s += `<rect width="396" height="484" fill="#000"/>` + towers(NEAR.map(([x, w, hh, c]) => [x, w, hh * 1.55, c]), 500, '#4a4a4a', null, 0, true) + STATUS(GREY, 66, true);
-    s += T(198, 178, 100, 300, GREY, '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
+    s += `<rect width="396" height="484" fill="#000"/>` + towers(NEAR.map(([x, w, hh, c]) => [x, w, hh * 1.55, c]), 500, '#6a6a6a', null, 0, true) + STATUS(GREY, 66, true);
+    s += T(198, 178, 100, 500, GREY, '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
     s += T(198, 232, 27, 600, GREY, 'AQI 162', 'middle');
     return s + END;
   }
@@ -191,9 +191,9 @@ export function constellation(state = 'active', id = 'cs') {
   const aod = state === 'aod', alt = state === 'alt';
   if (aod) {
     s += `<rect width="396" height="484" fill="#000"/>` + STATUS(GREY, 66, true);
-    s += `<path d="${PEOPLE.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ')}" fill="none" stroke="#444" stroke-width="1.5"/>`;
-    PEOPLE.forEach(([x, y]) => { s += `<circle cx="${x}" cy="${y}" r="4" fill="${GREY}"/>`; });
-    s += T(198, 392, 104, 300, GREY, '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
+    s += `<path d="${PEOPLE.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ')}" fill="none" stroke="#777" stroke-width="1.8"/>`;
+    PEOPLE.forEach(([x, y]) => { s += `<circle cx="${x}" cy="${y}" r="5" fill="${GREY}"/>`; });
+    s += T(198, 392, 104, 500, GREY, '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
     return s + END;
   }
   s += `<defs><radialGradient id="${id}bg" cx=".5" cy=".35" r=".9"><stop offset="0" stop-color="#1b1640"/><stop offset="1" stop-color="#05040d"/></radialGradient></defs>`;
@@ -207,7 +207,7 @@ export function constellation(state = 'active', id = 'cs') {
     s += `<circle cx="${x}" cy="${y}" r="${f1(r * 2.4)}" fill="#e6deff" opacity=".35" filter="url(#${id}s)"/><circle cx="${x}" cy="${y}" r="${f1(r)}" fill="#fff"/>`;
     if (m >= 9) { const L = r * 3.4; s += `<path d="M${x - L} ${y} L${x + L} ${y} M${x} ${y - L} L${x} ${y + L}" stroke="#fff" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>`; }
   });
-  [[0, 'Amma'], [3, 'Team']].forEach(([i, n]) => { const [x, y] = pts[i]; s += T(x, y - 22, 21, 700, '#fff', n, 'middle'); });
+  pts.forEach(([x, y, n, m]) => { s += T(x, y - 22, 21, m >= 9 ? 700 : 600, '#fff', n, 'middle', 'Inter', m >= 9 ? '' : 'opacity=".8"'); });
   if (alt) {
     s += `<circle cx="70" cy="282" r="7" fill="#fff" opacity=".35"/><circle cx="70" cy="282" r="20" fill="none" stroke="#ffd166" stroke-width="2.5" stroke-dasharray="4 5"/>` + T(98, 289, 21, 700, '#ffd166', 'Neha');
     s += T(198, 120, 0, 0, '#fff', '');

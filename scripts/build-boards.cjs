@@ -6,13 +6,13 @@
 const { chromium } = require('playwright');
 const fs = require('node:fs'), path = require('node:path');
 const { execFileSync } = require('node:child_process');
-const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@200;300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@200;300;400;500;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
 const LINKS = {
-  '01': 'https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH', '02': 'https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb',
+  '01': 'https://www.figma.com/design/99TVeFftWExH4ybToCnfOL', '02': 'https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb',
   '03': 'https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC', '04': 'https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3',
   '05': 'https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw', '06': 'https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu',
-  '07': 'https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA', '08': 'https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY',
-  '09': 'https://www.figma.com/design/jbIxWdZqytLM0frBtKkQXd', '10': 'https://www.figma.com/design/NsQR9sfBAesDwUNc2MCfVG' };
+  '07': 'https://www.figma.com/design/FA0eZymUCSvHkyBqKCe01N', '08': 'https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY',
+  '09': 'https://www.figma.com/design/oE547XsN8zCwZM5wFUo3yb', '10': 'https://www.figma.com/design/RQFAD4ffrEsdX6V9XZvwP4' };
 const root = 'submission';
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const wrap = (s, n) => { const out = []; let l = ''; for (const w of s.split(' ')) { if ((l + ' ' + w).trim().length > n) { out.push(l.trim()); l = w; } else l += ' ' + w; } if (l.trim()) out.push(l.trim()); return out; };

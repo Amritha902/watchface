@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');
 const fs = require('node:fs');
-const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;700;800&family=Gabarito:wght@800&display=swap';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@200;300;400;500;700;800&family=Gabarito:wght@800&display=swap';
 (async () => {
   const { CONCEPTS2 } = await import('../src/concepts2.js');
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 368, height: 448 }, deviceScaleFactor: 2 });
