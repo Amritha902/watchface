@@ -15,7 +15,7 @@ const arc = (cx, cy, r, f) => {
   const a = -Math.PI / 2 + 2 * Math.PI * Math.min(f, 0.9999);
   return `M${cx} ${cy - r} A ${r} ${r} 0 ${f > 0.5 ? 1 : 0} 1 ${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`;
 };
-const GREY = '#a8a8a8';
+const GREY = '#c2c2c2';
 
 // ---------------------------------------------------------------- 6 · Glance Deck
 export function glanceDeck(state = 'active', id = 'gd') {

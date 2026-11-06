@@ -7,7 +7,7 @@ BRIEF DESIGN CONCEPT (theme mentioned)
 For the Open Innovation theme, Glance Deck turns the watch face into a tiny notification centre: your next three things sit in a fanned stack of glass cards under a large clock, with the most urgent card (a delivery arriving in 6 minutes) at the front. Tap to spread the deck into a readable list and swipe to clear; weather, steps and music live as three glass tiles below. Always-on shows only the time and a '3 waiting' badge.
 
 FIGMA FILE (EDITABLE LINK)
-https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl
+https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu
 (Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
 
 FINAL PREVIEW EXPORT

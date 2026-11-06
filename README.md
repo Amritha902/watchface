@@ -112,7 +112,7 @@ Heart rate pulses live on every face. When your heart races, the screen edge glo
 
 ## Design in Figma
 
-**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH) · [Contour](https://www.figma.com/design/H9eBqVrZG46G7HdsZ2YOBX) · [Heartwritten](https://www.figma.com/design/oNKXWRVPwyGrBbS3YtH35n) · [Inner Weather](https://www.figma.com/design/nIzWwVHivFNWqkogqFyzHV) · [Threshold](https://www.figma.com/design/KxHjBbahl7kHlULt5ApY3P) · [Glance Deck](https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl) · [Haze](https://www.figma.com/design/NhsO4KI1G8Jlm1KGJX0akd) · [Rest Moon](https://www.figma.com/design/asj3IBK6aQxYuHPuYMvL4E) · [Day Weave](https://www.figma.com/design/t75cnJ79LbweNdxeHuZTM6) · [Constellation](https://www.figma.com/design/mqGMJYIUvlFKCIhoXPmdGR)
+**Figma files (one per entry, design inside):** [Encore](https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH) · [Contour](https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb) · [Heartwritten](https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC) · [Inner Weather](https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3) · [Threshold](https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw) · [Glance Deck](https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu) · [Haze](https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA) · [Rest Moon](https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY) · [Day Weave](https://www.figma.com/design/jbIxWdZqytLM0frBtKkQXd) · [Constellation](https://www.figma.com/design/NsQR9sfBAesDwUNc2MCfVG)
 
 Frames are named by state, as the brief asks: `Active Display`, `Always-On`, `Interactive · …`. Everything is vector with live text.
 
@@ -187,6 +187,29 @@ TheySaid's first design scan also caught a missing "start here" button *before* 
 
 <p align="center"><img src="docs/on-wrist.png" width="100%" alt="Encore on a wrist and in side profile"/></p>
 <p align="center"><img src="docs/specs.png" width="100%" alt="Encore spec sheet"/></p>
+
+
+### Round 3: the whole collection
+
+All ten faces were tested together on a [collection page](https://encore-watch-faces.onrender.com/collection.html) by five TheySaid AI testers (smartwatch owners, 18–40, who change faces often). [Full report](https://ai.theysaid.io/projects/ba2763c8-350a-4ce2-beda-e8076fdb14c0).
+
+| Measure | Result |
+|---|---|
+| Premium feel | **5 / 7** |
+| Originality | **5 / 7** |
+| Most wanted to install | **Heartwritten** (3 of 5), then Inner Weather and Haze |
+| Ranked first | Encore, Contour, Glance Deck, Haze (one tester each) |
+| Clearest at a glance | Contour and Haze |
+
+What they asked for, and what changed:
+
+| Finding | Fix |
+|---|---|
+| Inner Weather read as a normal weather forecast | Card now says **Stress: calm / Stress: rising**; the sky became softer and more natural |
+| Constellation's time was small and off to the side | Time is now centred and larger (88 px) |
+| Rest Moon's purpose wasn't obvious | Card now leads with **Sleep** |
+| Always-on time was hard to read | Always-on grey raised from #A8A8A8 to #C2C2C2 on every concept face |
+| Storm caption ran into the Breathe button | Shortened |
 
 ## Under the hood
 

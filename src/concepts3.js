@@ -9,7 +9,7 @@ const T = (x, y, size, weight, fill, text, anchor = 'start', font = 'Inter', ext
   `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${font}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${text}</text>`;
 const HEART = (x, y, k, c = '#ff4d5e') => `<path transform="translate(${x} ${y}) scale(${k})" fill="${c}" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
 const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(String(hr).length > 2 ? 292 : 306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
-const GREY = '#a8a8a8';
+const GREY = '#c2c2c2';
 const CARD = (stroke = '#fff', so = '.14', fill = '#0b0b10', fo = '.7') => `<rect x="18" y="352" width="360" height="100" rx="30" fill="${fill}" fill-opacity="${fo}" stroke="${stroke}" stroke-opacity="${so}"/>`;
 const f1 = (n) => n.toFixed(1);
 
@@ -177,7 +177,7 @@ export function restMoon(state = 'active', id = 'rm') {
   s += T(198, 160, 92, 300, '#fff', '10:09', 'middle', 'Inter Tight', 'letter-spacing="-3"');
   s += moon(198, 262, 72, k, id, false);
   s += CARD('#cfd8ff', '.25', '#0a0d1c', '.82');
-  s += T(40, 390, 23, 700, '#fff', debt ? '22% rested · 3h owed' : '82% rested');
+  s += T(40, 390, 23, 700, '#fff', debt ? 'Sleep · 3h owed' : 'Sleep · 82% rested');
   if (!debt) s += T(358, 390, 21, 500, '#cfd8ff', '6h 50m', 'end', 'Inter', 'opacity=".85"');
   week.forEach((w, i) => { s += tinyMoon(50 + i * 25, 422, 9, w, false); });
   s += T(358, 429, 21, 400, '#fff', debt ? 'Bed by 10:30' : 'Last 7 nights', 'end', 'Inter', 'opacity=".7"');
@@ -209,7 +209,7 @@ export function constellation(state = 'active', id = 'cs') {
   });
   [[0, 'Amma'], [3, 'Team']].forEach(([i, n]) => { const [x, y] = pts[i]; s += T(x, y - 22, 21, 700, '#fff', n, 'middle'); });
   if (alt) {
-    s += `<circle cx="96" cy="300" r="7" fill="#fff" opacity=".35"/><circle cx="96" cy="300" r="20" fill="none" stroke="#ffd166" stroke-width="2.5" stroke-dasharray="4 5"/>` + T(124, 307, 21, 700, '#ffd166', 'Neha');
+    s += `<circle cx="70" cy="282" r="7" fill="#fff" opacity=".35"/><circle cx="70" cy="282" r="20" fill="none" stroke="#ffd166" stroke-width="2.5" stroke-dasharray="4 5"/>` + T(98, 289, 21, 700, '#ffd166', 'Neha');
     s += T(198, 120, 0, 0, '#fff', '');
     s += CARD('#ffd166', '.4', '#0d0a1f', '.85');
     s += T(40, 394, 23, 700, '#fff', 'Neha’s star fades') + T(40, 426, 21, 400, '#fff', 'Last talk: 3 weeks', 'start', 'Inter', 'opacity=".75"');
@@ -218,10 +218,10 @@ export function constellation(state = 'active', id = 'cs') {
   }
   s += T(198, 340, 0, 0, '#fff', '');
   s += T(34, 330, 0, 0, '#fff', '');
-  s += `<text x="362" y="340" text-anchor="end" font-family="Inter Tight" font-size="64" font-weight="300" fill="#fff" letter-spacing="-2">10:09</text>`;
+  s += `<text x="198" y="338" text-anchor="middle" font-family="Inter Tight" font-size="88" font-weight="300" fill="#fff" letter-spacing="-3">10:09</text>`;
   s += CARD('#c9bfff', '.3', '#0d0a1f', '.82');
   s += `<circle cx="62" cy="402" r="18" fill="none" stroke="#c9bfff" stroke-width="3"/><circle cx="62" cy="402" r="6" fill="#fff"/>`;
-  s += T(96, 394, 23, 700, '#fff', '6 people today') + T(96, 426, 21, 400, '#fff', 'Longest: Team · 40 min', 'start', 'Inter', 'opacity=".75"');
+  s += T(96, 394, 23, 700, '#fff', '6 people you talked to') + T(96, 426, 21, 400, '#fff', 'Longest: Team · 40 min', 'start', 'Inter', 'opacity=".75"');
   return s + END;
 }
 export const CONCEPTS3 = [

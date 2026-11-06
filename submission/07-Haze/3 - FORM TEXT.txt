@@ -7,7 +7,7 @@ BRIEF DESIGN CONCEPT (theme mentioned)
 For the Open Innovation theme, Haze makes air quality something you can see: a city skyline sits behind the time, and as the air-quality index rises the scene fills with dusty haze until the buildings fade, while a coloured badge gives the exact number and a simple tip. When the air clears after rain the sky turns crisp blue and the face suggests opening a window. Always-on keeps the skyline outline and the AQI number on true black.
 
 FIGMA FILE (EDITABLE LINK)
-https://www.figma.com/design/NhsO4KI1G8Jlm1KGJX0akd
+https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA
 (Open it, drag in file "2 - FIGMA ..." once, then Share > Anyone with the link > can edit.)
 
 FINAL PREVIEW EXPORT

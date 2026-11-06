@@ -9,7 +9,7 @@ const T = (x, y, size, weight, fill, text, anchor = 'start', font = 'Inter', ext
   `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${font}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${text}</text>`;
 const HEART = (x, y, k, c = '#ff4d5e') => `<path transform="translate(${x} ${y}) scale(${k})" fill="${c}" d="M0 6 C -9 -1 -11 -8 -6 -11 C -3 -13 0 -11 0 -8 C 0 -11 3 -13 6 -11 C 11 -8 9 -1 0 6Z"/>`;
 const STATUS = (ink = '#fff', hr = 68, aod = false) => T(38, 62, 23, 700, ink, 'WED 4', 'start', 'Inter', 'letter-spacing="1.5"') + HEART(String(hr).length > 2 ? 292 : 306, 54, 1.4, aod ? '#7a3a3a' : '#ff4d5e') + T(360, 62, 23, 700, ink, hr, 'end');
-const GREY = '#a8a8a8';
+const GREY = '#c2c2c2';
 
 // ---------------------------------------------------------------- Heartwritten
 // One continuous heartbeat line that rises into the digits 1 0 : 0 9 and falls back to the baseline.
@@ -74,21 +74,22 @@ export function innerWeather(state = 'active', id = 'iw') {
   if (state === 'aod') {
     s += `<rect width="396" height="484" fill="#000"/>` + STATUS(GREY, 66, true);
     s += T(198, 250, 118, 300, GREY, '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
-    s += `<circle cx="150" cy="330" r="14" fill="none" stroke="${GREY}" stroke-width="3"/>` + T(176, 340, 27, 500, GREY, 'Clear');
+    s += `<circle cx="150" cy="330" r="14" fill="none" stroke="${GREY}" stroke-width="3"/>` + T(176, 340, 27, 500, GREY, 'Calm');
     return s + END;
   }
   const storm = state === 'alt';
   if (!storm) {
-    s += `<defs><linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f3a78"/><stop offset=".55" stop-color="#6f86c9"/><stop offset="1" stop-color="#f6c49a"/></linearGradient>
-      <radialGradient id="${id}sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6d8"/><stop offset=".6" stop-color="#ffd27a"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>`;
+    s += `<defs><linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1d4a"/><stop offset=".45" stop-color="#3a58a6"/><stop offset=".78" stop-color="#d99a86"/><stop offset="1" stop-color="#f6c58e"/></linearGradient>
+      <filter id="${id}ts" x="-10%" y="-20%" width="120%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#0a1433" flood-opacity=".55"/></filter>
+      <filter id="${id}w" x="-40%" y="-200%" width="180%" height="500%"><feGaussianBlur stdDeviation="9"/></filter></defs>`;
     s += `<rect width="396" height="484" fill="url(#${id}sky)"/>`;
-    s += `<circle cx="300" cy="330" r="150" fill="#ffd27a" opacity=".45" filter="url(#${id}b)"/><circle cx="300" cy="330" r="62" fill="url(#${id}sun)"/>`;
-    s += softCloud(78, 128, .78, '#ffffff', '#c9d3f0', .85, id, 1) + softCloud(330, 104, .5, '#ffffff', '#cdd6f2', .7, id, 2) + softCloud(96, 318, .62, '#fff4ea', '#e9c2b4', .75, id, 3);
+    s += `<circle cx="300" cy="350" r="170" fill="#ffcf7a" opacity=".5" filter="url(#${id}b)"/><circle cx="300" cy="350" r="40" fill="#fff3d6" opacity=".9" filter="url(#${id}s)"/><circle cx="300" cy="350" r="26" fill="#fffaf0"/>`;
+    [[90, 130, 120, 14, .5], [300, 104, 90, 10, .4], [140, 300, 150, 12, .45], [330, 270, 110, 9, .35], [60, 210, 80, 8, .3]].forEach(([x, y, rx, ry, o]) => { s += `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity="${o}" filter="url(#${id}w)"/>`; });
     s += STATUS('#fff', 66);
-    s += T(198, 250, 118, 300, '#fff', '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
-    s += `<rect x="18" y="352" width="360" height="100" rx="30" fill="#0e1a3a" fill-opacity=".45" stroke="#fff" stroke-opacity=".25"/>`;
+    s += T(198, 250, 118, 300, '#fff', '10:09', 'middle', 'Inter Tight', `letter-spacing="-4" filter="url(#${id}ts)"`);
+    s += `<rect x="18" y="352" width="360" height="100" rx="30" fill="#0b1636" fill-opacity=".68" stroke="#fff" stroke-opacity=".22"/>`;
     s += `<circle cx="62" cy="402" r="16" fill="#ffd27a"/>` + [0, 1, 2, 3, 4, 5, 6, 7].map((i) => { const a = i * Math.PI / 4; return `<line x1="${(62 + 21 * Math.cos(a)).toFixed(1)}" y1="${(402 + 21 * Math.sin(a)).toFixed(1)}" x2="${(62 + 27 * Math.cos(a)).toFixed(1)}" y2="${(402 + 27 * Math.sin(a)).toFixed(1)}" stroke="#ffd27a" stroke-width="3" stroke-linecap="round"/>`; }).join('');
-    s += T(104, 394, 23, 700, '#fff', 'Inner weather: Clear') + T(104, 426, 21, 400, '#fff', 'Stress low · HRV 62 ms', 'start', 'Inter', 'opacity=".8"');
+    s += T(104, 394, 23, 700, '#fff', 'Stress: calm') + T(104, 426, 21, 400, '#fff', 'Your inner sky is clear', 'start', 'Inter', 'opacity=".85"');
     return s + END;
   }
   s += `<defs><linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1118"/><stop offset=".6" stop-color="#2b3445"/><stop offset="1" stop-color="#46506a"/></linearGradient></defs>`;
@@ -99,7 +100,7 @@ export function innerWeather(state = 'active', id = 'iw') {
   s += STATUS('#fff', 104);
   s += T(198, 262, 118, 300, '#fff', '10:09', 'middle', 'Inter Tight', 'letter-spacing="-4"');
   s += `<rect x="18" y="352" width="360" height="100" rx="30" fill="#0a0d14" fill-opacity=".7" stroke="#ffe27a" stroke-opacity=".3"/>`;
-  s += T(40, 394, 23, 700, '#fff', 'Storm building') + T(40, 426, 21, 400, '#fff', 'Stress rising · 3 calls', 'start', 'Inter', 'opacity=".75"');
+  s += T(40, 394, 23, 700, '#fff', 'Stress: rising') + T(40, 426, 21, 400, '#fff', '3 calls in a row', 'start', 'Inter', 'opacity=".75"');
   s += `<rect x="252" y="378" width="108" height="48" rx="24" fill="#ffe27a"/>` + T(306, 410, 23, 800, '#111', 'Breathe', 'middle');
   return s + END;
 }

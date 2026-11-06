@@ -8,11 +8,11 @@ const fs = require('node:fs'), path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const FONTS = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@200;300;700;800&family=Gabarito:wght@800&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=JetBrains+Mono:wght@700&display=swap';
 const LINKS = {
-  '01': 'https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH', '02': 'https://www.figma.com/design/H9eBqVrZG46G7HdsZ2YOBX',
-  '03': 'https://www.figma.com/design/oNKXWRVPwyGrBbS3YtH35n', '04': 'https://www.figma.com/design/nIzWwVHivFNWqkogqFyzHV',
-  '05': 'https://www.figma.com/design/KxHjBbahl7kHlULt5ApY3P', '06': 'https://www.figma.com/design/XJCnD8CFQTPoAR2V3Z4eSl',
-  '07': 'https://www.figma.com/design/NhsO4KI1G8Jlm1KGJX0akd', '08': 'https://www.figma.com/design/asj3IBK6aQxYuHPuYMvL4E',
-  '09': 'https://www.figma.com/design/t75cnJ79LbweNdxeHuZTM6', '10': 'https://www.figma.com/design/mqGMJYIUvlFKCIhoXPmdGR' };
+  '01': 'https://www.figma.com/design/yqk08oyvAlY69sZc3XgIiH', '02': 'https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb',
+  '03': 'https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC', '04': 'https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3',
+  '05': 'https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw', '06': 'https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu',
+  '07': 'https://www.figma.com/design/ECxkDaRhV0UzR4wJZgy8fA', '08': 'https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY',
+  '09': 'https://www.figma.com/design/jbIxWdZqytLM0frBtKkQXd', '10': 'https://www.figma.com/design/NsQR9sfBAesDwUNc2MCfVG' };
 const root = 'submission';
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const wrap = (s, n) => { const out = []; let l = ''; for (const w of s.split(' ')) { if ((l + ' ' + w).trim().length > n) { out.push(l.trim()); l = w; } else l += ' ' + w; } if (l.trim()) out.push(l.trim()); return out; };
