@@ -211,6 +211,18 @@ What they asked for, and what changed:
 | Always-on time was hard to read | Always-on grey raised from #A8A8A8 to #C2C2C2 on every concept face |
 | Storm caption ran into the Breathe button | Shortened |
 
+**Re-run after the fixes** (five new testers, same questions):
+
+| Measure | Before fixes | After fixes |
+|---|---|---|
+| Premium feel | 5 / 7 | 5 / 7 (all five testers gave 5) |
+| Originality | 5 / 7 | 5 / 7 (all five testers gave 5) |
+| Would install Encore | 1 of 5 | **4 of 5** |
+| Would install Glance Deck | 1 of 5 | **4 of 5** |
+| Ranked first | Encore, Contour, Glance Deck, Haze | Encore (2), Glance Deck (2), Heartwritten (1) |
+
+Still flagged: Constellation and Day Weave need their idea to be clearer at a glance, and their always-on screens should be brighter.
+
 ## Under the hood
 
 The designs are backed by a working prototype, so the interactions in the video are real.
