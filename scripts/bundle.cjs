@@ -20,3 +20,10 @@ if (fs.existsSync('docs/entries')) {
   fs.mkdirSync('dist/docs/entries', { recursive: true });
   for (const f of fs.readdirSync('docs/entries')) if (f.endsWith('.gif')) fs.copyFileSync(`docs/entries/${f}`, `dist/docs/entries/${f}`);
 }
+
+// collection page for usability testing
+if (fs.existsSync('collection.html')) {
+  fs.copyFileSync('collection.html', 'dist/collection.html');
+  fs.mkdirSync('dist/docs/collection', { recursive: true });
+  for (const f of fs.readdirSync('docs/collection')) fs.copyFileSync(`docs/collection/${f}`, `dist/docs/collection/${f}`);
+}
