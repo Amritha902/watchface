@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Threshold
+
+Brief Design Concept:
+Open Innovation. Threshold is based on the kolam drawn at doorsteps across South India every morning. Under the time sits a real sikku kolam: one line weaving diagonally between a 5 × 5 grid of dots and looping around the edges. Each loop fills with marigold, pink or green every three minutes, going clockwise from the top, so you can see how much of the hour has passed. At the top of the hour the whole kolam glows gold, and then a fresh one begins. The background is warm terracotta, like a floor at dawn. Always-on keeps the dots, the line and the time in grey.
+
+Figma File (Editable Link):
+https://www.figma.com/design/2qcW9J6XDZ8Ztf4ksuoIlw
+
+Final Preview Export:
+05-Threshold - FINAL IMAGE 1x1.png

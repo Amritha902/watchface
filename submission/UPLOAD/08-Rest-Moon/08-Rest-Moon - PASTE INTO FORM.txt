@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Rest Moon
+
+Brief Design Concept:
+Open Innovation. Rest Moon uses the moon's phase to show how well rested you are, not the real lunar phase. A full moon means you've slept enough. As sleep debt builds over the week, the moon wanes into a thin crescent. The card says "Sleep · 82% rested" with last night's hours, and a row of seven small moons shows the last seven nights at a glance. When the moon gets thin, the card suggests one thing, like "bed by 10:30". Always-on redraws the moon as a thin grey outline under the time.
+
+Figma File (Editable Link):
+https://www.figma.com/design/ThyMRlS9akSwOnLPkuAigY
+
+Final Preview Export:
+08-Rest-Moon - FINAL IMAGE 1x1.png

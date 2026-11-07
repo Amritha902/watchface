@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Haze
+
+Brief Design Concept:
+Open Innovation. Haze makes air quality visible. A city skyline sits behind the time, and as the air-quality index rises the scene fills with dusty haze until the towers fade, while a coloured badge gives the exact number ("162 · Unhealthy air") and a simple tip like "Mask on for your walk". When the air clears after rain, the sky turns crisp blue, birds come back, the badge turns green ("38") and the face suggests opening a window. You know whether to step out before you check any app. Always-on keeps a thin outline of the skyline and the AQI number on true black.
+
+Figma File (Editable Link):
+https://www.figma.com/design/FA0eZymUCSvHkyBqKCe01N
+
+Final Preview Export:
+07-Haze - FINAL IMAGE 1x1.png

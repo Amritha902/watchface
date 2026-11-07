@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Heartwritten
+
+Brief Design Concept:
+Open Innovation. In Heartwritten, your heartbeat draws the time. A single ECG line runs across the screen and rises into the digits, so the "1" is an actual heartbeat spike and the zeros and nine sit on the line as rounded loops. At rest the line is rose-red and calm, with "68 bpm · resting" on the card. Start a workout and the line turns amber, beats harder, and the card shows your heart-rate zone with a five-bar meter. Nothing extra is needed to read it: the time is the heart rate, and the heart rate is the time. Always-on keeps the same line as a thin grey trace on true black.
+
+Figma File (Editable Link):
+https://www.figma.com/design/kmR5cRbPWAA5qpEgwFg7bC
+
+Final Preview Export:
+03-Heartwritten - FINAL IMAGE 1x1.png

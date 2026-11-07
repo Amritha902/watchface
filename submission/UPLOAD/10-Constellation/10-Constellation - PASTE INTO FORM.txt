@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Constellation
+
+Brief Design Concept:
+Open Innovation. Constellation turns today's conversations into a star map. Every person you called or messaged becomes a named star (Amma, Jun, Ravi, Team, Wren, Ellie), brighter for longer conversations. The stars join in the order you spoke, so the shape of your social day forms behind the time. The card reads "6 people you talked to · Longest: Team, 40 min". When someone close drifts away, their star fades and the face shows "Neha's star fades · Last talk: 3 weeks" with a "Say hi" button. Always-on keeps the stars as grey points and lines under the time.
+
+Figma File (Editable Link):
+https://www.figma.com/design/RQFAD4ffrEsdX6V9XZvwP4
+
+Final Preview Export:
+10-Constellation - FINAL IMAGE 1x1.png

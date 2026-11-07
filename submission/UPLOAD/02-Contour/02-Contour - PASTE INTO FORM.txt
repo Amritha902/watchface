@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Contour
+
+Brief Design Concept:
+Open Innovation. Contour draws your day as a topographic map. Every active hour raises the land, so a morning run becomes a tall peak and a quiet desk afternoon stays flat. Your busiest moment is marked with a glowing pin ("7 am run"), and the card shows the peak time and distance. Swipe once and the map turns into an elevation profile of the whole day, from midnight to now, so you can see when you moved and when you didn't. The time sits in light type at the top, over a dark wash that keeps it readable against the lines. Always-on keeps a few faint grey contour lines under the time.
+
+Figma File (Editable Link):
+https://www.figma.com/design/gCw7gcBexzneZ1a0rl2jCb
+
+Final Preview Export:
+02-Contour - FINAL IMAGE 1x1.png

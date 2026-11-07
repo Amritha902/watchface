@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Inner Weather
+
+Brief Design Concept:
+Open Innovation. Inner Weather shows your stress level as the sky behind the time. It reads your heart-rate variability: when you're calm it's a clear dawn sky with soft light, and the card says "Stress: calm". As stress builds, clouds roll in and rain starts, and at its worst a storm breaks with lightning. The card then says "Stress: rising", with a one-tap "Breathe" button that starts a short breathing exercise. It's a feeling you can read at a glance, not another number. Always-on keeps the time and one word, "Calm" or "Rising", on true black.
+
+Figma File (Editable Link):
+https://www.figma.com/design/EWIlYBhjxiKhmbJXq1fIn3
+
+Final Preview Export:
+04-Inner-Weather - FINAL IMAGE 1x1.png

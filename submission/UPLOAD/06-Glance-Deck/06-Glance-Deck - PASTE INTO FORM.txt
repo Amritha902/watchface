@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Glance Deck
+
+Brief Design Concept:
+Open Innovation. Glance Deck puts a small notification centre on the watch face. Your next three things sit in a stack of glass cards under a large clock, with the most urgent one in front, such as a food order arriving in 6 minutes, with a progress bar. A red "+2" badge shows how many more are waiting behind it. Tap the stack and it spreads into a list (the order, a missed call, a meeting in 51 minutes), and you swipe a card away to clear it. Weather, steps and music sit in three tiles below. Always-on shows only the time and a "3 waiting" badge.
+
+Figma File (Editable Link):
+https://www.figma.com/design/D5YhMe1MkPSHTJl8YAKaQu
+
+Final Preview Export:
+06-Glance-Deck - FINAL IMAGE 1x1.png

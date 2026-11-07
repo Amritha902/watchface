@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Encore
+
+Brief Design Concept:
+Open Innovation. Encore is a watch face that changes with what you watch. When you start a new series on your phone, the watch offers you a face built around that show's world, with a "Made for you" card you wear in one tap. To pick a favourite character, open Encore, choose the show, and tap a name from the cast grid (Wren, Jun, Ellie, Sam, Noor or Ravi in the sample show). The face is then redrawn in that character's colours and motifs. You can also type or say one line, like "a rainy café in Mumbai, warm and cosy", and get a matching face, then tweak it in plain words such as "bigger time" or "less pink". The time stays large and high-contrast, and one card shows heart rate, steps or how much of the episode is left. If your heart rate jumps during a tense scene, the edges glow red. Always-on drops to true black with grey type. All show and character names are made up, and there are no logos.
+
+Figma File (Editable Link):
+https://www.figma.com/design/99TVeFftWExH4ybToCnfOL
+
+Final Preview Export:
+01-Encore - FINAL IMAGE 1x1.png

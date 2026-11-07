@@ -1,0 +1,13 @@
+Challenge: Open Innovation
+
+Design Name:
+Day Weave
+
+Brief Design Concept:
+Open Innovation. Day Weave turns your day into woven cloth: one thread per hour, twenty-four threads in a row. Each thread is coloured by what you did that hour: indigo for sleep, green for movement, gold for work. Cream weft threads cross over and under them, so it really looks like fabric. The hour you're in is outlined and labelled "NOW", with the empty hours still waiting on the loom. Swipe to see your whole week as seven woven rows, so habits show up as a pattern instead of a chart. Always-on keeps the time and the woven strip in grey.
+
+Figma File (Editable Link):
+https://www.figma.com/design/oE547XsN8zCwZM5wFUo3yb
+
+Final Preview Export:
+09-Day-Weave - FINAL IMAGE 1x1.png
